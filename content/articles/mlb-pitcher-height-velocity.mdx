@@ -1,0 +1,52 @@
+---
+title: "Why Height Doesn't Predict Velocity in Major League Baseball"
+date: "2025-05-13"
+dek: "Physics says taller pitchers should throw harder. The 2024 data says they don't — and the story is selection bias."
+category: "MLB · STATCAST · REGRESSION"
+tags: ["MLB", "Statcast", "Regression", "Python"]
+---
+
+## A Land of Giants
+
+Walk into any major league clubhouse and you'll feel like you've entered a land of giants. Today's MLB pitchers tower over the average American man, standing a full 4–5 inches taller at an average of **6'3"**. But this wasn't always the case. In the 1980s, the typical pitcher was closer to 6'0" — still above average, but not quite the commanding physical presence we see today.
+
+This upward trend shows no signs of slowing. Each new crop of prospects seems to stretch a little higher, with 6'5" and 6'6" frames becoming increasingly common on major league rosters. Front offices have clearly bought into the idea that bigger is better, and on the surface that logic is sound. Just like a longer wrench provides more leverage, taller pitchers with longer arms should generate more torque and throw harder. Our eyes seem to confirm this when we watch someone like 6'10" Randy Johnson unleash 100-mph fastballs with ease.
+
+So I decided to confirm what seemed like baseball common sense by examining how pitcher height correlates with velocity.
+
+## The Puzzling Data
+
+I analyzed every MLB pitcher who threw at least 50 innings during the 2024 season and plotted them according to their height and average fastball velocity. When I saw the results I thought I had done something wrong, but I hadn't. The correlation coefficient really was **−0.001** — indicating absolutely no relationship between height and velocity in the data.
+
+<MlbHeightVelocityChart />
+
+## A Look at a Study
+
+Something clearly wasn't adding up. To understand what was happening, I turned to recent academic research that has examined this exact phenomenon.
+
+A comprehensive 2024 study published in the *Orthopaedic Journal of Sports Medicine* [[1]](#ref-1) provides a detailed analysis of how physical attributes translate to pitching velocity across competition levels. Using **46 reflective markers** and **8 cameras** capturing data at **480 Hz**, the researchers tracked every micro-movement of 337 professional pitchers and 59 high school players.
+
+The researchers' regression models could explain an astounding **92.5% of velocity variation in high school pitchers** using physical and bio-mechanical factors. At the professional level? That predictive power plummeted to just **53.6%**. The physical advantages that completely dominate at lower levels become increasingly diluted as talent concentrates.
+
+The study compared findings across youth through professional levels. In the youngest players, basic measures like age, height, and body mass index were strong velocity predictors. College studies found that weight remained predictive, suggesting mass continues mattering through stronger bodies generating more power. Yet by professional ranks, these fundamental physics relationships are no longer visible — washed out by the intense selection process it took to get there.
+
+## Selection Bias
+
+The answer lies in understanding just how brutally selective Major League Baseball really is. Only about **0.5% of high school baseball players** will ever play professionally at any level, and only a fraction of those make it to the majors. This creates a statistical phenomenon that economists and researchers call **selection bias** — where the filtering process itself changes what you observe in the final dataset.
+
+Shorter pitchers face an uphill battle from day one. To overcome their physical disadvantage, they must develop exceptional skills elsewhere — devastating command, overpowering velocity through mechanical perfection, or unhittable secondary pitches. The shorter pitchers who eventually reach MLB represent the cream of the crop, the ones who found ways to excel despite their limitations.
+
+The MLB isn't a random sample of all pitchers. It's the survivors of an elimination tournament so intense that it fundamentally changes the population you're studying. By the time you're looking at MLB data, you're seeing the end product of vastly different developmental paths — the original physical advantages have been absorbed into the noise of elite-level talent optimization.
+
+## What This Means
+
+This trend will continue. Pitchers will keep getting taller on average, but the velocity correlation will remain at zero. We're witnessing how ultra-elite competition obscures natural physical advantages in the statistical record.
+
+The broader lesson is crucial for sports analytics. Sometimes the absence of a correlation reveals more about the selection process than the underlying relationships. Physics works exactly as expected — but MLB's selection bias masks these fundamental relationships in the data we can observe.
+
+---
+
+*Pitcher height and average fastball velocity for every MLB pitcher with 50+ innings pitched in the 2024 regular season.*
+
+<a id="ref-1"></a>
+*[1] Manzi JE, Dowling B, Wang Z, Sudah SY, Moran J, Chen FR, Estrada JA, Nicholson A, Ciccotti MC, Ruzbarsky JJ, Dines JS. "Kinematic Modeling of Pitch Velocity in High School and Professional Baseball Pitchers: Comparisons With the Literature." Orthopaedic Journal of Sports Medicine 12(8), 2024. [doi:10.1177/23259671241262730](https://doi.org/10.1177/23259671241262730).*

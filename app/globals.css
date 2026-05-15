@@ -204,3 +204,314 @@ body {
     animation: none;
   }
 }
+
+/* ────────────────────────────────────────────────────────────────────────
+ * Article body typography
+ *
+ * Scoped under `.article-body` so it can only apply inside MDX-rendered
+ * article pages. The shape is editorial: tight reading column for prose,
+ * wider container for figures so they extend past the text rhythm, full
+ * thin rule above each H2 as a section break, generous breathing room.
+ *
+ * Layout model:
+ *   - Container (.article-body) is max-w-4xl (set in the route).
+ *   - Prose-bearing elements (p, h2, h3, blockquote, lists, tables, hr,
+ *     pre, callouts) clamp themselves to ~42rem so reading line length
+ *     stays in the 65-75 char sweet spot.
+ *   - Figures + Interactives carry no max-width — they fill the full
+ *     container, which makes them visibly wider than the text column.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.article-body {
+  font-size: 19px;
+  line-height: 1.72;
+  color: var(--color-fg);
+  text-wrap: pretty;
+  /* Auto-number `<figure>` elements so captions get "Fig. 1 ·", "Fig. 2 ·"
+   * prefixes without each MDX file having to track its own count. */
+  counter-reset: article-figure;
+}
+
+.article-body figure {
+  counter-increment: article-figure;
+}
+
+.article-body figure figcaption::before {
+  content: "Fig. " counter(article-figure) " · ";
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fg-dim);
+  margin-right: 0.4em;
+}
+
+/* Reading-column constraint applied to every prose-bearing child of the
+ * article body. Anything not listed here (figures, custom Interactive
+ * cards) is intentionally left full-width. */
+.article-body > p,
+.article-body > h2,
+.article-body > h3,
+.article-body > blockquote,
+.article-body > ul,
+.article-body > ol,
+.article-body > pre,
+.article-body > table,
+.article-body > hr,
+.article-body > aside {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.article-body > p {
+  margin-top: 1.5em;
+  letter-spacing: -0.005em;
+}
+
+.article-body > p:first-child {
+  margin-top: 0;
+}
+
+.article-body strong {
+  color: var(--color-fg-bright);
+  font-weight: 500;
+}
+
+.article-body em {
+  font-style: italic;
+  color: var(--color-fg);
+}
+
+/* H2 — major section break. Full thin rule above the heading. Spacing
+ * is intentionally restrained so the section break feels intentional
+ * without leaving a giant void above each heading.
+ *
+ * We deliberately style H2 only as a *direct* child of .article-body so
+ * the rule sits at the top level of the article, not inside callouts. */
+.article-body > h2 {
+  font-size: clamp(30px, 3.6vw, 38px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  color: var(--color-fg-bright);
+  margin-top: 1.8em;
+  margin-bottom: 0.8em;
+  padding-top: 1.1em;
+  border-top: 1px solid var(--color-border);
+}
+
+.article-body > h2:first-child {
+  margin-top: 0.5em;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* Lede — the very first paragraph after the opening H2 reads with a
+ * touch more authority. Slightly larger size, brighter color. */
+.article-body > h2:first-child + p {
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--color-fg-bright);
+  margin-top: 1.4em;
+}
+
+/* H3 — minor section. No separator, lighter spacing. */
+.article-body > h3 {
+  font-size: clamp(21px, 2.4vw, 24px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  color: var(--color-fg-bright);
+  margin-top: 2.6em;
+  margin-bottom: 0.8em;
+}
+
+.article-body > h3:first-child {
+  margin-top: 0.5em;
+}
+
+.article-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(34, 211, 238, 0.32);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+
+.article-body a:hover {
+  color: var(--color-accent-bright);
+  text-decoration-color: var(--color-accent-bright);
+}
+
+/* Inline code chip. */
+.article-body :not(pre) > code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.88em;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-fg-bright);
+  padding: 0.1em 0.42em;
+  border-radius: 4px;
+}
+
+/* Fenced code blocks. */
+.article-body > pre {
+  margin-top: 1.8em;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 14.5px;
+  line-height: 1.65;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+  overflow-x: auto;
+  color: var(--color-fg-bright);
+}
+
+.article-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Blockquote — pull-quote treatment. Bigger + brighter than body, italic,
+ * cyan rule on the left. Used for definitions / set-off lines. */
+.article-body > blockquote {
+  margin-top: 1.8em;
+  border-left: 2px solid var(--color-accent);
+  padding: 0.4em 0 0.4em 1.4em;
+  font-size: 1.12em;
+  line-height: 1.55;
+  font-style: italic;
+  color: var(--color-fg-bright);
+}
+
+.article-body > blockquote p {
+  margin: 0;
+}
+
+/* Lists */
+.article-body > ul,
+.article-body > ol {
+  margin-top: 1.5em;
+  padding-left: 1.5em;
+}
+
+.article-body > ul {
+  list-style: disc;
+}
+
+.article-body > ol {
+  list-style: decimal;
+}
+
+.article-body li + li {
+  margin-top: 0.4em;
+}
+
+.article-body li::marker {
+  color: var(--color-fg-dim);
+}
+
+/* HR — three-dot ornament. Classic editorial section divider. */
+.article-body > hr {
+  border: 0;
+  margin-top: 4em;
+  margin-bottom: 4em;
+  height: 1.4em;
+  position: relative;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.article-body > hr::before {
+  content: "·   ·   ·";
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 18px;
+  letter-spacing: 0.5em;
+  color: var(--color-fg-dim);
+}
+
+/* GFM tables. */
+.article-body > table {
+  margin-top: 1.8em;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.5;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.article-body thead {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.article-body th {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-fg-bright);
+  text-align: left;
+  padding: 0.85em 1em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-body td {
+  padding: 0.85em 1em;
+  vertical-align: top;
+  color: var(--color-fg);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.article-body tbody tr:first-child td {
+  border-top: 0;
+}
+
+/* Asides (Callout component) sit at text-column width. */
+.article-body > aside {
+  margin-top: 2.2em;
+  margin-bottom: 2.2em;
+}
+
+/* Callout body — slightly tighter version of the main article body so
+ * embedded tables and lists feel like an inset within the article. */
+.article-callout-body > * + * {
+  margin-top: 0.9em;
+}
+
+.article-callout-body p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-fg);
+}
+
+.article-callout-body table {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+.article-callout-body th,
+.article-callout-body td {
+  padding: 0.55em 0.9em;
+  border-color: rgba(34, 211, 238, 0.18);
+}
+
+.article-callout-body thead {
+  background: rgba(34, 211, 238, 0.07);
+}

@@ -1,0 +1,87 @@
+---
+# Filenames starting with "_" are skipped by the build (see lib/articles.ts).
+# Copy this file to `content/articles/<your-slug>.mdx` and start editing.
+
+# Required frontmatter
+title: "Working Title — Edit Me"
+date: "2026-05-15"           # ISO. Used for sort order + the meta row.
+dek: "One-line summary that runs under the title on the article page and the homepage card."
+category: "TAG · TAG · TAG"  # Eyebrow above the title. Uppercase preferred.
+
+# Optional frontmatter
+tags: ["tag-one", "tag-two", "tag-three"]               # Small chips on the homepage card.
+repo: "https://github.com/shanethakkar/your-repo"        # Renders the "Source" pill in the article header.
+---
+
+## The First Section
+
+The first paragraph after the opening H2 renders as a slightly larger
+*lede* — bigger type, brighter color. Use it as the hook.
+
+Subsequent paragraphs read at standard body size. **Bold** is for
+names, numbers, and key terms. *Italic* is for titles of works or
+quiet emphasis. Inline `code` for variable names or short snippets.
+External [links](https://example.com) are cyan with a subtle underline.
+
+<Figure
+  src="/articles/your-slug/figure-name.png"
+  alt="Short description of what the chart shows (used as alt text + the
+       fallback when src is missing)."
+  caption="Italic caption shown below the figure. CSS auto-numbers it as
+           Fig. 1, Fig. 2, … you don't manage the numbering yourself."
+  aspect="16 / 9"
+/>
+
+## The Second Section
+
+A blockquote sets off a definition or a single pull-quote line:
+
+> Bigger, italic, cyan rule on the left. Used for definitions, formulas,
+> or a single set-off line you want to spotlight.
+
+A fenced code block — `text` for prose / formulas:
+
+```text
+w = 0.85^(2025 − season)
+```
+
+A callout for asides that sit alongside the main flow:
+
+<Callout label="Optional small-caps label">
+
+A callout can contain anything — prose, lists, tables. The cyan left
+border + soft tint marks it as related but distinct.
+
+| Column | Column | Column |
+| --- | --- | --- |
+| Body text | Body text | Body text |
+| Body text | Body text | Body text |
+
+</Callout>
+
+## The Third Section
+
+An embedded interactive — pass the Streamlit URL and a pixel height.
+Streamlit Cloud apps get `?embed=true` appended automatically:
+
+<Interactive
+  title="Tool Name"
+  embedUrl="https://your-app.streamlit.app/"
+  embedHeight={720}
+  openUrl="https://your-app.streamlit.app/"
+/>
+
+A placeholder when the tool isn't built yet — drop `embedUrl` and
+provide a description plus the repo link:
+
+<Interactive
+  title="Future Tool"
+  description="One line on what it does."
+  href="https://github.com/shanethakkar/your-repo"
+/>
+
+---
+
+*Closing line, methodology pointer, or citation. The `---` above
+renders as a centered three-dot ornament. Data source links use the
+same cyan styling as any inline link.*

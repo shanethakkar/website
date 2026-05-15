@@ -37,7 +37,8 @@ export function FourthDownVisual() {
 
   const W = 320;
   const H = 88;
-  const pad = { top: 10, right: 4, bottom: 14, left: 4 };
+  // Extra left padding makes room for a rotated Y-axis label.
+  const pad = { top: 10, right: 8, bottom: 18, left: 22 };
 
   const xy = (px: number, py: number) => ({
     x: pad.left + px * (W - pad.left - pad.right),
@@ -61,12 +62,16 @@ export function FourthDownVisual() {
       .join(" ") +
     ` L ${points[points.length - 1].x},${H - pad.bottom} Z`;
 
+  const endpoint = points[points.length - 1];
+  const startpoint = points[0];
+
   return (
     <svg
       ref={ref}
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="none"
       className="h-full w-full"
+      aria-label="NFL go-for-it rate climbing from 11% in 1999 to 22% in 2025."
     >
       <defs>
         <linearGradient id="fd-area" x1="0" y1="0" x2="0" y2="1">
@@ -116,8 +121,8 @@ export function FourthDownVisual() {
 
       {/* Endpoint dot */}
       <motion.circle
-        cx={points[points.length - 1].x}
-        cy={points[points.length - 1].y}
+        cx={endpoint.x}
+        cy={endpoint.y}
         r={2.5}
         fill="#67e8f9"
         initial={{ opacity: 0, scale: 0 }}
@@ -125,10 +130,55 @@ export function FourthDownVisual() {
         transition={{ duration: 0.3, delay: 1.1 }}
       />
 
+      {/* Endpoint value annotation — anchors the right edge of the trend */}
+      <motion.text
+        x={endpoint.x - 6}
+        y={endpoint.y - 4}
+        textAnchor="end"
+        fill="rgba(103, 232, 249, 0.9)"
+        fontSize="9"
+        fontFamily="var(--font-mono), monospace"
+        letterSpacing="0.04em"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.4, delay: 1.2 }}
+      >
+        22%
+      </motion.text>
+
+      {/* Starting value annotation — anchors the left edge so the climb reads */}
+      <motion.text
+        x={startpoint.x + 4}
+        y={startpoint.y - 10}
+        fill="rgba(139,138,131,0.7)"
+        fontSize="9"
+        fontFamily="var(--font-mono), monospace"
+        letterSpacing="0.04em"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.4, delay: 1.0 }}
+      >
+        11%
+      </motion.text>
+
+      {/* Y-axis title — rotated mono label so a glance reads "what is this" */}
+      <text
+        x={10}
+        y={pad.top + (H - pad.top - pad.bottom) / 2}
+        textAnchor="middle"
+        transform={`rotate(-90, 10, ${pad.top + (H - pad.top - pad.bottom) / 2})`}
+        fill="rgba(139,138,131,0.65)"
+        fontSize="8"
+        fontFamily="var(--font-mono), monospace"
+        letterSpacing="0.18em"
+      >
+        GO-FOR-IT %
+      </text>
+
       {/* Year axis labels */}
       <text
         x={pad.left}
-        y={H - 2}
+        y={H - 4}
         fill="rgba(139,138,131,0.6)"
         fontSize="8"
         fontFamily="var(--font-mono), monospace"
@@ -138,7 +188,7 @@ export function FourthDownVisual() {
       </text>
       <text
         x={W - pad.right}
-        y={H - 2}
+        y={H - 4}
         textAnchor="end"
         fill="rgba(139,138,131,0.6)"
         fontSize="8"
@@ -254,7 +304,10 @@ export function F1Visual() {
 /* ------------------------------------------------------------------ */
 
 const MLB_POINTS: [number, number][] = [
-  // (height-norm 0-1, velocity-norm 0-1) — designed to show NO correlation
+  // (velocity-norm 0-1, height-norm 0-1) — stylized "no correlation" cloud.
+  // Velocity sweeps the full X range; heights jitter through a narrow band,
+  // so the trend line through them is nearly horizontal — that flatness IS
+  // the visual story (height doesn't move with velocity).
   [0.05, 0.42],
   [0.1, 0.78],
   [0.14, 0.5],
@@ -283,15 +336,19 @@ export function MLBVisual() {
 
   const W = 320;
   const H = 88;
-  const pad = { top: 8, right: 6, bottom: 16, left: 6 };
+  // More room on the left for the rotated "HEIGHT" axis label and at the
+  // bottom for the "VELOCITY" axis label.
+  const pad = { top: 8, right: 8, bottom: 18, left: 22 };
 
-  const xy = (nx: number, ny: number) => ({
-    x: pad.left + nx * (W - pad.left - pad.right),
-    y: H - pad.bottom - ny * (H - pad.top - pad.bottom),
+  const xy = (velNorm: number, heightNorm: number) => ({
+    x: pad.left + velNorm * (W - pad.left - pad.right),
+    y: H - pad.bottom - heightNorm * (H - pad.top - pad.bottom),
   });
 
+  // Trend line — nearly horizontal across the velocity axis. This is the
+  // shape of the article's no-correlation story.
   const trendStart = xy(0, 0.55);
-  const trendEnd = xy(1, 0.57); // nearly flat
+  const trendEnd = xy(1, 0.57);
 
   return (
     <svg
@@ -299,6 +356,7 @@ export function MLBVisual() {
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="none"
       className="h-full w-full"
+      aria-label="Scatter of MLB pitcher height vs. fastball velocity. Each height stripe has the same horizontal velocity spread — no correlation."
     >
       {/* Dashed trend line */}
       <motion.line
@@ -316,8 +374,8 @@ export function MLBVisual() {
       />
 
       {/* Scatter dots */}
-      {MLB_POINTS.map(([nx, ny], i) => {
-        const p = xy(nx, ny);
+      {MLB_POINTS.map(([vel, height], i) => {
+        const p = xy(vel, height);
         return (
           <motion.circle
             key={i}
@@ -336,25 +394,29 @@ export function MLBVisual() {
         );
       })}
 
-      {/* Axis labels */}
+      {/* Y-axis title — HEIGHT, rotated so it reads bottom-up */}
       <text
-        x={pad.left}
-        y={H - 2}
-        fill="rgba(139,138,131,0.6)"
+        x={10}
+        y={pad.top + (H - pad.top - pad.bottom) / 2}
+        textAnchor="middle"
+        transform={`rotate(-90, 10, ${pad.top + (H - pad.top - pad.bottom) / 2})`}
+        fill="rgba(139,138,131,0.65)"
         fontSize="8"
         fontFamily="var(--font-mono), monospace"
-        letterSpacing="0.1em"
+        letterSpacing="0.18em"
       >
         HEIGHT
       </text>
+
+      {/* X-axis title — VELOCITY, centered under the plot */}
       <text
-        x={W - pad.right}
-        y={H - 2}
-        textAnchor="end"
-        fill="rgba(139,138,131,0.6)"
+        x={pad.left + (W - pad.left - pad.right) / 2}
+        y={H - 4}
+        textAnchor="middle"
+        fill="rgba(139,138,131,0.65)"
         fontSize="8"
         fontFamily="var(--font-mono), monospace"
-        letterSpacing="0.1em"
+        letterSpacing="0.18em"
       >
         VELOCITY
       </text>

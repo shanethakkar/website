@@ -128,10 +128,10 @@
 - **Border radius:** 6–12px; cards use 8–12px
 - **Browser chrome mockup:** macOS-style traffic lights (red/yellow/green dots), dark bar, URL pill — used as a decorative outer frame
 
-### Color Motif: Grade Gradient
-- The QB Leaderboard on nfl-grades.shanethakkar.com colors grades along a green → yellow → orange → red gradient (high = green, low = red). This is a brand motif Shane uses throughout that site.
-- We're carrying this into the portfolio: any grade values displayed (flagship card grade numbers + bars) use this same gradient via `lib/gradeColor.ts`.
-- Formula: `hsl((grade - 50) / 50 * 130, 78%, 56%)` — grade 100 → bright green (hue 130), grade 50 → red (hue 0), continuous interpolation in between.
+### Color Motif: Grade Tiers
+- The QB Leaderboard on nfl-grades.shanethakkar.com colors grades with discrete tiers (high = emerald, low = red), not a continuous gradient. This is a brand motif Shane uses throughout that site.
+- We're carrying this into the portfolio: any grade values displayed (flagship card grade numbers + bars) use the same tier map via `lib/gradeColor.ts`.
+- Tiers (Tailwind 400 palette): ≥90 emerald `#34d399`, ≥80 green `#4ade80`, ≥70 lime `#a3e635`, ≥55 yellow `#facc15`, ≥40 orange `#fb923c`, <40 red `#f87171`. `gradeColorSoft` returns the same hex at 18% alpha for tinted backgrounds.
 - Cyan (`#22d3ee`) remains the primary brand accent for everything else.
 
 ### Layout / Sections (CONFIRMED ORDER)
@@ -226,16 +226,23 @@
 /
 ├── CONTEXT.md                            ← this file (agent memory)
 ├── app/
-│   ├── globals.css                       ← design tokens + .liquid-glass card classes + flagship-glow keyframe
+│   ├── globals.css                       ← design tokens + .liquid-glass card classes + .article-body typography
 │   ├── layout.tsx                        ← Geist fonts, metadata, Vercel Analytics
-│   └── page.tsx                          ← homepage: hero + 5 sections + footer
+│   ├── page.tsx                          ← homepage: hero + 5 sections + footer
+│   └── articles/
+│       └── [slug]/page.tsx               ← dynamic article route — generateStaticParams over MDX files
 ├── components/
 │   ├── DotGrid.tsx                       ← reactive canvas dot grid background
 │   ├── MorphingNav.tsx                   ← top header (numbered links + resume CTA) + scroll pill
 │   ├── SectionHeader.tsx                 ← reusable / 0X — Title — META row
 │   ├── FlagshipCard.tsx                  ← NFL Grades depth card (pulsing cyan halo)
 │   ├── ArticleCard.tsx                   ← stacked editorial article cards (writing section)
-│   ├── projectVisuals.tsx                ← SVG mini-charts for the 3 article previews
+│   ├── projectVisuals.tsx                ← SVG mini-charts for the 3 article previews.
+│   │                                       Fourth-down: trend line with rotated "GO-FOR-IT %"
+│   │                                       y-axis title and 11% / 22% endpoint annotations.
+│   │                                       MLB: scatter with height on Y, velocity on X, both
+│   │                                       axes titled in mono caps, "r ≈ 0" callout.
+│   │                                       F1: forest plot — driver names are the labels.
 │   ├── TechPhysics.tsx                   ← physics playground: 15 brand-colored icons with
 │   │                                       gravity, collisions, drag-and-throw. Pucks drop
 │   │                                       on scroll-into-view via IntersectionObserver.
@@ -244,16 +251,83 @@
 │   │                                       TechPhysics, kept on disk in case we want it back
 │   ├── AboutSection.tsx                  ← bio paragraphs + Quick Facts factsheet
 │   ├── icons.tsx                         ← shared inline-SVG brand glyphs (GitHub, LinkedIn)
-│   └── ContactSection.tsx                ← editorial CTA + 3 brand cards (GitHub, LinkedIn, email)
+│   ├── ContactSection.tsx                ← editorial CTA + 3 brand cards (GitHub, LinkedIn, email)
+│   └── article/                          ← MDX article system
+│       ├── ArticleChrome.tsx             ← slim sticky top bar (back · name · resume)
+│       ├── ArticleHeader.tsx             ← eyebrow + title + dek + meta row + actions
+│       ├── ArticleActions.tsx            ← (client) Source pill + Share button (Web Share + clipboard)
+│       ├── ArticleFooter.tsx             ← back-to-writing link + "more posts" cards
+│       ├── Figure.tsx                    ← inline figure: real <Image> when src set, else placeholder
+│       ├── Interactive.tsx               ← inline tool: iframe when embedUrl set, else placeholder
+│       ├── Callout.tsx                   ← cyan-bordered aside for definitions / tables
+│       ├── MlbHeightVelocityChart.tsx    ← (client) native SVG scatter for MLB article — replaces Plotly iframe
+│       ├── F1DriverRankings.tsx          ← (client) native forest plot, 46 drivers × 94%/50% HDIs
+│       ├── F1ConstructorHeatmap.tsx      ← (client) native diverging heatmap, 23 teams × 12 seasons
+│       └── mdxComponents.tsx             ← MDXRemote component map (Figure, Interactive, Callout, custom charts)
+├── content/
+│   └── articles/                         ← MDX article source — one .mdx per slug
+│       ├── _TEMPLATE.mdx                 ← starter — copy to <slug>.mdx and edit
+│       ├── fourth-down.mdx               ← article 1 — NFL 4th down (3 Streamlit interactives, 5 figures)
+│       ├── f1-bayesian-driver-rankings.mdx  ← article 2 — F1 Bayesian rankings (2 native SVG charts, 1 PNG, GitHub repo)
+│       └── mlb-pitcher-height-velocity.mdx  ← article 3 — MLB height vs velocity (1 native SVG chart)
+├── data/
+│   ├── mlb-height-velocity.ts            ← AUTO-GENERATED scatter data (346 pitchers + trend line)
+│   ├── f1-driver-rankings.ts             ← AUTO-GENERATED forest-plot data (46 drivers + HDIs)
+│   └── f1-constructor-heatmap.ts         ← AUTO-GENERATED heatmap data (23 teams × 12 seasons, 123 cells)
+├── docs/
+│   └── articles.md                       ← authoring guide (what to send, conventions, components)
 ├── lib/
+│   ├── articles.ts                       ← MDX article loader (frontmatter + reading-time, skips _-prefixed files)
 │   └── gradeColor.ts                     ← grade → HSL gradient utility
 ├── public/
-│   └── Shane-Thakkar-Resume-May-2026.pdf ← linked from nav + contact resume buttons
+│   ├── Shane-Thakkar-Resume-May-2026.pdf ← linked from nav + contact resume buttons
+│   ├── excel-icon.png                    ← Fluent Excel logo used in TechPhysics
+│   └── articles/                         ← per-article image folders
+│       ├── fourth-down/                  ← 5 chart images for the NFL 4th-down piece
+│       └── f1-bayesian-driver-rankings/  ← 1 PNG (posterior predictive); rankings + heatmap are native components
+├── scripts/
+│   ├── extract-mlb-data.mjs              ← one-shot extractor: MLB scatter from a Plotly HTML export
+│   └── extract-f1-data.mjs               ← one-shot extractor: F1 rankings + heatmap from Plotly HTML exports
 └── context/
     ├── shane_portfolio_centered_v9.html  ← HTML mockup (design inspiration only)
     ├── NFL GRADES SUMMARY.txt            ← detailed NFL Grades project description
+    ├── 4th-down.txt                      ← raw paste of article 1 (pre-conversion)
+    ├── Who Is Actually the Best F1 Driver.txt  ← raw paste of article 2
+    ├── driver_rankings_interactive(1).html    ← Plotly source for F1 forest plot
+    ├── team_season_heatmap_interactive.html   ← Plotly source for F1 heatmap
+    ├── 2interactive_height_vs_velocity.html    ← Plotly source for MLB scatter
     └── Shane-Thakkar-Resume-May-2026.pdf ← canonical resume (copy lives in public/)
 ```
+
+---
+
+## 7b. Article authoring
+
+When porting a new article, read **`docs/articles.md`** first — it
+documents every frontmatter field, every custom component, image
+handling, Streamlit embed conventions, and the handoff workflow. The
+template at `content/articles/_TEMPLATE.mdx` is the starting point;
+copy it to `<slug>.mdx` and fill in.
+
+Files starting with `_` in `content/articles/` are skipped by the build
+(handled in `lib/articles.ts`). Use that prefix for templates and
+drafts.
+
+**Interactive charts — three rendering options, in increasing effort:**
+
+1. **`<Figure src=...>`** — static PNG export. Simplest and lightest.
+2. **`<Interactive embedUrl=...>`** — iframe pointing at a hosted tool
+   (Streamlit Cloud, or any self-contained HTML in `public/`). Used by
+   the 4th-down article for its Streamlit apps. Heavy: Plotly HTML
+   exports are 4–5 MB, and the iframe's white default clashes with the
+   dark theme.
+3. **Native React/SVG chart** — extract the data with a one-shot
+   `scripts/extract-*.mjs` Node script, store it in `data/*.ts`, build
+   a `components/article/*Chart.tsx` Client Component that fits the
+   site's dark + cyan palette, and register it in `mdxComponents.tsx`.
+   Used by the MLB article (`MlbHeightVelocityChart` — 346 points +
+   trend line). Best looking, no iframe load, fully responsive. Use
+   this for any chart that's the marquee visual of an article.
 
 ---
 

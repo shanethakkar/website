@@ -20,7 +20,7 @@ interface ArticleCardProps {
 /**
  * Full-width stacked editorial article card. Used in the Writing section.
  * Visualization on the left, title + meta + description + tags + CTA on the right.
- * Click anywhere → /blog/[slug].
+ * Click anywhere → /articles/[slug].
  */
 export function ArticleCard({
   slug,
@@ -48,7 +48,7 @@ export function ArticleCard({
       }}
     >
       <Link
-        href={`/blog/${slug}`}
+        href={`/articles/${slug}`}
         className="liquid-glass group relative block overflow-hidden rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-0.5 sm:p-7"
       >
         <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-[5fr_6fr] lg:gap-9">
