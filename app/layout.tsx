@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -35,6 +35,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     creator: "@shanethakkar",
   },
+};
+
+/** Sets the address-bar / status-bar color on mobile browsers so the OS chrome
+ * blends into the site's dark background instead of flashing white on load. */
+export const viewport: Viewport = {
+  themeColor: "#0c0c0e",
 };
 
 export default function RootLayout({
