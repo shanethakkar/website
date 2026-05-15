@@ -18,7 +18,7 @@ interface ArticleCardProps {
 }
 
 /**
- * Full-width stacked editorial article card. Used in the Writing section.
+ * Full-width stacked editorial article card. Used in the Projects section.
  * Visualization on the left, title + meta + description + tags + CTA on the right.
  * Click anywhere → /articles/[slug].
  */
@@ -87,7 +87,7 @@ export function ArticleCard({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-md border border-border-subtle bg-white/[0.03] px-2 py-0.5 font-mono text-[10.5px] text-fg-muted"
+                  className="rounded-md border border-border-subtle bg-white/[0.04] px-2.5 py-1 font-mono text-[11.5px] text-fg"
                 >
                   {tag}
                 </span>

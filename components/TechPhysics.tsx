@@ -6,11 +6,13 @@ import { IoLogoTableau } from "react-icons/io5";
 import {
   SiAlteryx,
   SiDatabricks,
-  SiGithub,
   SiJupyter,
+  SiKeras,
+  SiNextdotjs,
   SiPandas,
   SiPython,
   SiR,
+  SiReact,
   SiScikitlearn,
   SiSnowflake,
   SiTensorflow,
@@ -159,6 +161,12 @@ const PUCKS: readonly PuckSpec[] = [
     render: (s) => <SiTensorflow size={s} />,
   },
   {
+    id: "keras",
+    label: "keras",
+    color: "#D00000",
+    render: (s) => <SiKeras size={s} />,
+  },
+  {
     id: "snowflake",
     label: "snowflake",
     color: "#29B5E8",
@@ -195,16 +203,22 @@ const PUCKS: readonly PuckSpec[] = [
     render: (s) => <ExcelLogo size={s} />,
   },
   {
+    id: "react",
+    label: "react",
+    color: "#61DAFB",
+    render: (s) => <SiReact size={s} />,
+  },
+  {
+    id: "nextjs",
+    label: "next.js",
+    color: "#EBE9E3",
+    render: (s) => <SiNextdotjs size={s} />,
+  },
+  {
     id: "claude",
     label: "claude code",
     color: "#D97757",
     render: (s) => <ClaudeLogo size={s} />,
-  },
-  {
-    id: "github",
-    label: "github",
-    color: "#EBE9E3",
-    render: (s) => <SiGithub size={s} />,
   },
 ];
 
@@ -212,7 +226,7 @@ const PUCKS: readonly PuckSpec[] = [
 const PUCK_RADIUS = 52;            // base collision radius at scale=1
 // Reference dimensions: the desktop arena (~1000×500). Smaller arenas
 // scale down both the icon size and the collision radius proportionally
-// so 15 pucks always have enough headroom to fit comfortably.
+// so every puck always has enough headroom to fit comfortably.
 const REFERENCE_W = 1000;
 const REFERENCE_H = 500;
 const MIN_SCALE = 0.7;             // floor on icon scaling for tiny phones

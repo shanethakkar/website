@@ -1,15 +1,52 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 
-const FACTS: ReadonlyArray<{ label: string; value: string }> = [
+/** Teams shown in the Quick Facts "Teams" row, in user-chosen order:
+ * Bears → Cubs → Bulls → McLaren. Each entry points to a logo file in
+ * `/public/teams/` which is rendered raw against the card background. */
+const FAVORITE_TEAMS: ReadonlyArray<{
+  id: string;
+  label: string;
+  src: string;
+}> = [
+  { id: "bears", label: "Chicago Bears", src: "/teams/bears.png" },
+  { id: "cubs", label: "Chicago Cubs", src: "/teams/cubs.png" },
+  { id: "bulls", label: "Chicago Bulls", src: "/teams/bulls.png" },
+  { id: "mclaren", label: "McLaren F1", src: "/teams/mclaren.png" },
+];
+
+function TeamLogos() {
+  return (
+    <div className="flex items-center gap-2.5">
+      {FAVORITE_TEAMS.map((team) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={team.id}
+          src={team.src}
+          alt={team.label}
+          title={team.label}
+          loading="lazy"
+          draggable={false}
+          className="h-8 w-8 shrink-0 object-contain"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const FACTS: ReadonlyArray<{ label: string; value: ReactNode }> = [
   { label: "Education", value: "B.S. Business Analytics & AI" },
   { label: "School", value: "UT Dallas · May 2026" },
-  { label: "Based", value: "Dallas, Texas" },
+  { label: "Based", value: "Frisco, Texas" },
   { label: "Status", value: "Open to full-time roles" },
   { label: "Focus", value: "Analytics · Data Science · ML · BI" },
   { label: "Stack", value: "Python · SQL · R" },
+  { label: "Teams", value: <TeamLogos /> },
 ];
 
 /**
@@ -77,7 +114,7 @@ export function AboutSection() {
           {FACTS.map((fact) => (
             <div
               key={fact.label}
-              className="grid grid-cols-[100px_1fr] items-baseline gap-4 py-3 first:pt-0 last:pb-0"
+              className="grid grid-cols-[100px_1fr] items-center gap-4 py-3 first:pt-0 last:pb-0"
             >
               <dt className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-fg-dim">
                 {fact.label}

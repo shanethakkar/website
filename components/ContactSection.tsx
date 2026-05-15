@@ -86,7 +86,7 @@ export function ContactSection() {
             href="/Shane-Thakkar-Resume-May-2026.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.02] px-4 py-2.5 font-mono text-[12px] tracking-[0.14em] text-fg-muted transition-all hover:border-fg-muted hover:text-fg-bright"
+            className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.05] px-4 py-2.5 font-mono text-[12px] tracking-[0.14em] text-fg-bright transition-all hover:border-fg-muted hover:text-accent-bright"
           >
             <ArrowDownToLine
               size={13}

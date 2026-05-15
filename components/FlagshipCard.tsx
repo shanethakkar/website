@@ -99,7 +99,7 @@ export function FlagshipCard() {
             {CHIPS.map((chip) => (
               <span
                 key={chip}
-                className="rounded-md border border-border-subtle bg-surface px-2 py-1 font-mono text-[10.5px] text-fg-muted"
+                className="rounded-md border border-border-subtle bg-surface px-2.5 py-1 font-mono text-[11.5px] text-fg"
               >
                 {chip}
               </span>

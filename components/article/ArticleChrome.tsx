@@ -15,7 +15,7 @@ export function ArticleChrome() {
         style={{ background: "rgba(12, 12, 14, 0.72)" }}
       >
         <Link
-          href="/#writing"
+          href="/#projects"
           className="group inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-accent-bright"
         >
           <ArrowLeft
@@ -23,7 +23,7 @@ export function ArticleChrome() {
             strokeWidth={1.75}
             className="transition-transform group-hover:-translate-x-0.5"
           />
-          All writing
+          All projects
         </Link>
 
         <Link

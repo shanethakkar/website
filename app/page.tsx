@@ -49,7 +49,7 @@ export default function Home() {
               rel="noopener noreferrer"
               aria-label="GitHub"
               title="GitHub"
-              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.05] text-fg-bright transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
             >
               <GitHubLogo size={15} />
             </a>
@@ -59,7 +59,7 @@ export default function Home() {
               rel="noopener noreferrer"
               aria-label="LinkedIn"
               title="LinkedIn"
-              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.05] text-fg-bright transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
             >
               <LinkedInLogo size={15} />
             </a>
@@ -67,7 +67,7 @@ export default function Home() {
               href="mailto:shane.thakkar@gmail.com"
               aria-label="Email"
               title="shane.thakkar@gmail.com"
-              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.05] text-fg-bright transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
             >
               <Mail size={15} strokeWidth={1.75} />
             </a>
@@ -77,7 +77,7 @@ export default function Home() {
               rel="noopener noreferrer"
               aria-label="Download resume (PDF)"
               title="Download resume (PDF)"
-              className="group inline-flex h-10 items-center gap-2 rounded-full border border-border-subtle bg-white/[0.02] px-4 font-mono text-[11.5px] tracking-[0.16em] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+              className="group inline-flex h-10 items-center gap-2 rounded-full border border-border-subtle bg-white/[0.05] px-4 font-mono text-[11.5px] tracking-[0.16em] text-fg-bright transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
             >
               <ArrowDownToLine size={13} strokeWidth={2} />
               RESUME
@@ -98,12 +98,12 @@ export default function Home() {
           <FlagshipCard />
         </section>
 
-        {/* / 02 — Writing (stacked editorial article cards) */}
+        {/* / 02 — Projects (stacked editorial article cards) */}
         <section
-          id="writing"
+          id="projects"
           className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
         >
-          <SectionHeader number="02" title="Writing" meta="03 ARTICLES" />
+          <SectionHeader number="02" title="Projects" meta="03 PROJECTS" />
 
           <div className="flex flex-col gap-4">
             <ArticleCard

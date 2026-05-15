@@ -12,7 +12,7 @@ interface ArticleFooterProps {
 
 /**
  * Sits at the bottom of every article. Two pieces:
- *   1. A "back to writing" link to the homepage section.
+ *   1. A "back to projects" link to the homepage section.
  *   2. Up to two "more posts" cards — the next-most-recent articles
  *      that aren't the current one.
  */
@@ -25,7 +25,7 @@ export function ArticleFooter({ currentSlug }: ArticleFooterProps) {
     <footer className="mx-auto w-full max-w-3xl px-6 pb-24 pt-16 sm:px-8">
       <div className="border-t border-border-subtle pt-10">
         <Link
-          href="/#writing"
+          href="/#projects"
           className="group inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.22em] text-accent transition-colors hover:text-accent-bright"
         >
           <ArrowLeft
@@ -33,7 +33,7 @@ export function ArticleFooter({ currentSlug }: ArticleFooterProps) {
             strokeWidth={1.75}
             className="transition-transform group-hover:-translate-x-0.5"
           />
-          Back to all writing
+          Back to all projects
         </Link>
 
         {others.length > 0 ? (
