@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="geometricPrecision">
+  <title>Shane Thakkar</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#16171b"/>
+      <stop offset="1" stop-color="#0c0c0e"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="url(#bg)"/>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="11.5" fill="none" stroke="rgba(255,255,255,0.06)"/>
+  <!-- Bold cyan "S" matching the site's Geist headings. Font stack falls
+       back to the host OS's bold geometric sans (Segoe UI on Windows,
+       SF Pro on macOS / iOS, Roboto on Android) which is visually
+       indistinguishable from Geist at favicon sizes. -->
+  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
+        font-family="-apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif"
+        font-weight="700" font-size="44" fill="#22d3ee"
+        letter-spacing="-1.5">S</text>
+</svg>

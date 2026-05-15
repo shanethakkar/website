@@ -228,6 +228,8 @@
 ├── app/
 │   ├── globals.css                       ← design tokens + .liquid-glass card classes + .article-body typography
 │   ├── layout.tsx                        ← Geist fonts, metadata, Vercel Analytics
+│   ├── icon.svg                          ← site favicon (bold cyan "S" on dark gradient,
+│   │                                       Next.js App Router auto-serves this as the icon)
 │   ├── page.tsx                          ← homepage: hero + 5 sections + footer
 │   └── articles/
 │       └── [slug]/page.tsx               ← dynamic article route — generateStaticParams over MDX files
