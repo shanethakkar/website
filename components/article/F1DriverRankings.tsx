@@ -224,11 +224,12 @@ export function F1DriverRankings() {
 
           {/* Hover tooltip — positioned near the row, flipped horizontally
               if the row's median is on the right half so the tooltip never
-              clips outside the chart. */}
+              clips outside the chart. The description line uses
+              <foreignObject> so it can word-wrap (SVG <text> can't). */}
           {hovered && hover !== null
             ? (() => {
                 const TW = 280;
-                const TH = 96;
+                const TH = 120;
                 const px = xPlot(hovered.median);
                 const py = rowY(hover);
                 const flipX = px + TW + 16 > W - PAD.right ? -1 : 1;
@@ -284,16 +285,27 @@ export function F1DriverRankings() {
                       94% HDI: [{formatNumber(hovered.hdi94[0], 2)},{" "}
                       {formatNumber(hovered.hdi94[1], 2)}]
                     </text>
-                    <text
+                    <foreignObject
                       x={tx + 14}
-                      y={ty + 78}
-                      fontFamily="var(--font-sans), ui-sans-serif, system-ui"
-                      fontSize={11.5}
-                      fontStyle="italic"
-                      fill="rgba(34,211,238,0.9)"
+                      y={ty + 70}
+                      width={TW - 28}
+                      height={TH - 78}
                     >
-                      {hovered.description}
-                    </text>
+                      <div
+                        style={{
+                          fontFamily:
+                            "var(--font-sans), ui-sans-serif, system-ui",
+                          fontSize: "11.5px",
+                          lineHeight: 1.35,
+                          fontStyle: "italic",
+                          color: "rgba(34,211,238,0.9)",
+                          wordBreak: "normal",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {hovered.description}
+                      </div>
+                    </foreignObject>
                   </g>
                 );
               })()

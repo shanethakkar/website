@@ -14,7 +14,7 @@ const TOP_QBS = [
   { rank: 4, name: "Matthew Stafford", team: "LA", grade: 81.8 },
 ] as const;
 
-const CHIPS = ["next.js", "typescript", "postgres", "vercel", "nflfastR"];
+const CHIPS = ["Python", "next.js", "PostgreSQL", "vercel", "nflverse"];
 
 /**
  * Flagship project card for the homepage. Showcases NFL Position Grades —
@@ -82,16 +82,18 @@ export function FlagshipCard() {
         {/* Info side */}
         <div className="flex flex-col gap-4">
           <div className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-fg-dim">
-            NFL · Interactive Web App
+            NFL · Statistical Grading Platform
           </div>
           <h3 className="text-[26px] font-medium leading-[1.1] tracking-[-0.012em] text-fg-bright sm:text-[30px]">
             NFL Position Grades
           </h3>
           <p className="text-[14.5px] leading-[1.6] text-fg-muted">
             A live analytics platform that grades every NFL player on a 0–100
-            scale using position-specific advanced stats. Per-season grades,
-            recency-weighted career grades with uncertainty, and full depth
-            charts for all 32 teams.
+            scale across 12 positions, using statistical models tuned per
+            position. 10 seasons of play-by-play and tracking data flow through
+            a Python pipeline into Postgres; the web app surfaces per-season
+            grades, career trends with uncertainty, and full depth charts for
+            all 32 teams.
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {CHIPS.map((chip) => (
