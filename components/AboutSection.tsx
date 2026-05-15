@@ -34,33 +34,32 @@ export function AboutSection() {
       {/* Bio side */}
       <div className="flex flex-col gap-5">
         <p className="text-[19px] leading-[1.55] text-fg-bright">
-          I just finished a B.S. in Business Analytics &amp; Artificial
-          Intelligence at UT Dallas — data science track, graduated May 2026
-          — and I&rsquo;m based in Dallas, Texas.
+          I&rsquo;m Shane. I work with data, and the bar I try to hold on
+          every project is the same: do work I&rsquo;d be proud to put my
+          name on.
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
           Most recently I spent six months as a Business Intelligence Intern
-          at Legends Global, working out of Frisco. I analyzed 1M+ POS records
-          across professional sports venues in Python, ran market-basket and
-          Pareto analyses on FC Dallas concessions, modeled F&amp;B
-          performance for ~15 LA28 venues to inform investment tiers, and
-          automated weekly SQL Server reconciliation that took roughly ten
-          hours of manual validation off the team&rsquo;s plate every week.
+          at Legends Global in Frisco, where the work meant pulling
+          million-row exports out of point-of-sale systems across
+          professional sports venues, cleaning them, finding the story
+          inside them, and getting that story in front of stakeholders in a
+          form they could actually act on. I had earlier analytics stints at
+          Supreme Lending and TruGen.
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
-          Before that I worked at Supreme Lending and TruGen — Excel + Power
-          Automate dashboards coordinating 100+ test cases through a loan
-          origination upgrade, and SQL pipelines feeding ML models that hit
-          90% accuracy on wireless signal-quality classification. Around all
-          of that I&rsquo;ve been building the projects that show up on this
-          site: NFL Position Grades, the 4th-down decision analysis, Bayesian
-          F1 driver rankings, and the MLB pitcher height study.
+          I graduated from UT Dallas in May 2026 with a B.S. in Business
+          Analytics and Artificial Intelligence, data science track. I work
+          in Python, SQL, and R, and I care about the parts of the job that
+          don&rsquo;t show up in screenshots: the schema you didn&rsquo;t
+          have to redo, the assumption you wrote down before the model ran,
+          the report that still made sense a quarter later.
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
-          I work in Python, SQL, and R. I care about the boring parts —
-          clean schemas, honest uncertainty, decisions that hold up when the
-          data changes next week. Looking for a full-time role in analytics,
-          data science, ML, or BI.
+          Outside the work I&rsquo;m a Chicago sports fan, which has trained
+          me well for projects where the data tells you exactly
+          what&rsquo;s about to go wrong and you decide to keep believing
+          anyway.
         </p>
       </div>
 

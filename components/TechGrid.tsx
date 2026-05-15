@@ -92,7 +92,7 @@ function CategoryCard({
               {cat.label}
             </h3>
           </div>
-          <span className="font-mono text-[11px] tracking-[0.12em] text-accent">
+          <span className="font-mono text-[12px] tracking-[0.12em] text-accent">
             {String(total).padStart(2, "0")}
           </span>
         </div>

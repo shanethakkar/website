@@ -3,6 +3,7 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { ContactSection } from "@/components/ContactSection";
 import { DotGrid } from "@/components/DotGrid";
 import { FlagshipCard } from "@/components/FlagshipCard";
+import { GitHubLogo, LinkedInLogo } from "@/components/icons";
 import { MorphingNav } from "@/components/MorphingNav";
 import {
   F1Visual,
@@ -11,6 +12,7 @@ import {
 } from "@/components/projectVisuals";
 import { SectionHeader } from "@/components/SectionHeader";
 import { TechGrid } from "@/components/TechGrid";
+import { ArrowDownToLine, Mail } from "lucide-react";
 
 export default function Home() {
   return (
@@ -21,7 +23,7 @@ export default function Home() {
         <MorphingNav />
 
         {/* Hero */}
-        <section className="mx-auto w-full max-w-6xl px-6 pb-8 pt-14 sm:px-8 sm:pb-10 sm:pt-20">
+        <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:px-8 sm:pb-24 sm:pt-32">
           <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent-border bg-accent-soft px-3.5 py-1.5 font-mono text-[10.5px] tracking-[0.14em] text-accent-bright">
             <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
             AVAILABLE — ACTIVELY INTERVIEWING
@@ -36,11 +38,51 @@ export default function Home() {
           </div>
 
           <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">
-            I turn messy data into decisions. Whether that's grading every NFL
-            player, ranking F1 drivers with Bayesian models, or finding the
-            edge prediction markets miss — I build the full thing, from raw
-            data to the interface.
+            I build projects that follow my curiosity.
           </p>
+
+          {/* Hero quick-links: GitHub / LinkedIn / Email / Resume */}
+          <div className="mt-6 flex items-center gap-2.5">
+            <a
+              href="https://github.com/shanethakkar"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              title="GitHub"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+            >
+              <GitHubLogo size={15} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/shanethakkar"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              title="LinkedIn"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+            >
+              <LinkedInLogo size={15} />
+            </a>
+            <a
+              href="mailto:shane.thakkar@gmail.com"
+              aria-label="Email"
+              title="shane.thakkar@gmail.com"
+              className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-white/[0.02] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+            >
+              <Mail size={15} strokeWidth={1.75} />
+            </a>
+            <a
+              href="/Shane-Thakkar-Resume-May-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download resume (PDF)"
+              title="Download resume (PDF)"
+              className="group inline-flex h-10 items-center gap-2 rounded-full border border-border-subtle bg-white/[0.02] px-4 font-mono text-[11.5px] tracking-[0.16em] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
+            >
+              <ArrowDownToLine size={13} strokeWidth={2} />
+              RESUME
+            </a>
+          </div>
         </section>
 
         {/* / 01 — Selected work (shipped products only) */}

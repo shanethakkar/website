@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { ArrowDownToLine } from "lucide-react";
 
 const sections = [
   { id: "work", number: "01", label: "work" },
@@ -35,54 +34,60 @@ export function MorphingNav() {
 
   useEffect(() => {
     const contact = sections[sections.length - 1];
+    let rafId = 0;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // If we're already pinned at the bottom of the page, leave contact
-        // active and ignore IO callbacks (the activation band can briefly
-        // re-pick up earlier sections on scroll bounce).
-        const atBottom =
-          window.scrollY + window.innerHeight >=
-          document.documentElement.scrollHeight - 80;
-        if (atBottom) return;
+    /**
+     * Scroll-spy with two rules, evaluated on every scroll (rAF-throttled):
+     *   1. If we're at (or within ~4px of) the bottom of the page, contact
+     *      wins. The final section is often shorter than the activation band,
+     *      so its top never crosses the threshold even when fully visible.
+     *   2. Otherwise: the active section is the LAST one whose top edge has
+     *      scrolled above the threshold (30% of viewport height from the
+     *      top). This gives a clean "as soon as the next section's title is
+     *      ~1/3 of the way up, switch to it" feel.
+     */
+    const compute = () => {
+      rafId = 0;
 
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top) -
-              Math.abs(b.boundingClientRect.top),
-          );
-        if (visible[0]) {
-          const matched = sections.find((s) => s.id === visible[0].target.id);
-          if (matched) setActiveSection(matched);
-        }
-      },
-      { rootMargin: "-30% 0px -55% 0px", threshold: 0 },
-    );
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+      );
 
-    sections.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.observe(el);
-    });
-
-    // Bottom-of-page edge case: contact is the final section and may sit
-    // entirely below the IO activation band. Force it active when the user
-    // has scrolled within 80px of the bottom.
-    const onScroll = () => {
-      const atBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - 80;
-      if (atBottom) {
-        setActiveSection((prev) => (prev.id === contact.id ? prev : contact));
+      if (scrollBottom >= docHeight - 4) {
+        setActiveSection((prev) =>
+          prev.id === contact.id ? prev : contact,
+        );
+        return;
       }
+
+      const threshold = window.innerHeight * 0.3;
+      let active: (typeof sections)[number] = sections[0];
+      for (const s of sections) {
+        const el = document.getElementById(s.id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= threshold) {
+          active = s;
+        }
+      }
+      setActiveSection((prev) => (prev.id === active.id ? prev : active));
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(compute);
+    };
+
+    compute();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
 
     return () => {
-      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
     };
   }, []);
 
@@ -168,21 +173,6 @@ export function MorphingNav() {
             );
           })}
         </nav>
-
-        {/* Resume CTA */}
-        <a
-          href="/Shane-Thakkar-Resume-May-2026.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.02] px-3.5 py-1.5 font-mono text-[11.5px] tracking-[0.16em] text-fg-muted transition-all hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright"
-        >
-          <ArrowDownToLine
-            size={12}
-            strokeWidth={2}
-            className="transition-transform group-hover:translate-y-0.5"
-          />
-          RESUME
-        </a>
       </div>
 
       {/* Scroll progress indicator — pinned to bottom edge of header */}
