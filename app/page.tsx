@@ -1,65 +1,137 @@
-import Image from "next/image";
+import { AboutSection } from "@/components/AboutSection";
+import { ArticleCard } from "@/components/ArticleCard";
+import { ContactSection } from "@/components/ContactSection";
+import { DotGrid } from "@/components/DotGrid";
+import { FlagshipCard } from "@/components/FlagshipCard";
+import { MorphingNav } from "@/components/MorphingNav";
+import {
+  F1Visual,
+  FourthDownVisual,
+  MLBVisual,
+} from "@/components/projectVisuals";
+import { SectionHeader } from "@/components/SectionHeader";
+import { TechGrid } from "@/components/TechGrid";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <DotGrid />
+
+      <main id="top" className="relative z-10">
+        <MorphingNav />
+
+        {/* Hero */}
+        <section className="mx-auto w-full max-w-6xl px-6 pb-8 pt-14 sm:px-8 sm:pb-10 sm:pt-20">
+          <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent-border bg-accent-soft px-3.5 py-1.5 font-mono text-[10.5px] tracking-[0.14em] text-accent-bright">
+            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+            AVAILABLE — ACTIVELY INTERVIEWING
+          </div>
+
+          <h1 className="text-[clamp(56px,9vw,112px)] font-medium leading-[0.95] tracking-[-0.035em] text-fg-bright">
+            Shane Thakkar
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <div className="mt-4 font-mono text-[12px] tracking-[0.22em] text-accent">
+            DATA SCIENTIST · UT DALLAS '26
+          </div>
+
+          <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">
+            I turn messy data into decisions. Whether that's grading every NFL
+            player, ranking F1 drivers with Bayesian models, or finding the
+            edge prediction markets miss — I build the full thing, from raw
+            data to the interface.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+        </section>
+
+        {/* / 01 — Selected work (shipped products only) */}
+        <section
+          id="work"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+        >
+          <SectionHeader
+            number="01"
+            title="Selected work"
+            meta="LIVE PRODUCT"
+          />
+          <FlagshipCard />
+        </section>
+
+        {/* / 02 — Writing (stacked editorial article cards) */}
+        <section
+          id="writing"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+        >
+          <SectionHeader number="02" title="Writing" meta="03 ARTICLES" />
+
+          <div className="flex flex-col gap-4">
+            <ArticleCard
+              index={0}
+              slug="fourth-down"
+              title="Fourth Down Is Still Football's Biggest Coaching Problem"
+              dateLabel="APR 22 '26"
+              category="NFL · WPA · XGBoost"
+              description="107k decisions from 1999–2025, scored against historically optimal calls. Coaches still leave ~one free win on the table every year — and the conservative ones make most of their mistakes in the red zone."
+              tags={["python", "nflfastR", "xgboost"]}
+              visual={<FourthDownVisual />}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <ArticleCard
+              index={1}
+              slug="f1-bayesian-driver-rankings"
+              title="Who Is Actually the Best F1 Driver?"
+              subtitle="A Bayesian approach to separating skill from the car"
+              dateLabel="APR 18 '26"
+              category="F1 · Bayesian"
+              description="A hierarchical model on 2014–2025 race data decomposes finishing position into driver effect, car effect, and DNF risk. The result reveals the Verstappen Paradox — and Hamilton at the top with 85% confidence."
+              tags={["pymc", "fastf1", "python"]}
+              visual={<F1Visual />}
+            />
+            <ArticleCard
+              index={2}
+              slug="mlb-pitcher-height-velocity"
+              title="Why Height Doesn't Predict Velocity in Major League Baseball"
+              dateLabel="MAY 13 '25"
+              category="MLB · Regression"
+              description="Physics says taller pitchers should throw harder. The data says they don't. The story is selection bias: by the time you reach MLB, the relationship that dominates youth ball has been compressed away by survival."
+              tags={["python", "sklearn", "statcast"]}
+              visual={<MLBVisual />}
+            />
+          </div>
+        </section>
+
+        {/* / 03 — Tech & skills */}
+        <section
+          id="tech"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+        >
+          <SectionHeader number="03" title="Tech I work with" meta="STACK" />
+          <TechGrid />
+        </section>
+
+        {/* / 04 — About */}
+        <section
+          id="about"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+        >
+          <SectionHeader number="04" title="About" meta="WHO" />
+          <AboutSection />
+        </section>
+
+        {/* / 05 — Contact */}
+        <section
+          id="contact"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+        >
+          <SectionHeader number="05" title="Get in touch" meta="LET'S TALK" />
+          <ContactSection />
+        </section>
+
+        <footer className="border-t border-border-subtle">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 font-mono text-[10.5px] tracking-[0.14em] text-fg-dim sm:px-8">
+            <span>© SHANE THAKKAR — MMXXVI</span>
+            <span>BUILD · v0.10.1</span>
+          </div>
+        </footer>
       </main>
-    </div>
+    </>
   );
 }

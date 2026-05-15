@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev-only context (mockups, internal notes, source resume).
+# The user-facing resume lives in /public and IS committed.
+/context
