@@ -11,8 +11,15 @@
   <!-- Bold cyan "S" matching the site's Geist headings. Font stack falls
        back to the host OS's bold geometric sans (Segoe UI on Windows,
        SF Pro on macOS / iOS, Roboto on Android) which is visually
-       indistinguishable from Geist at favicon sizes. -->
-  <text x="32" y="33" text-anchor="middle" dominant-baseline="central"
+       indistinguishable from Geist at favicon sizes.
+
+       We avoid dominant-baseline="central" because browsers disagree on
+       whether "central" means the em-box center or the cap-height center,
+       which led to the S sitting too low. Instead we use the default
+       alphabetic baseline and place y so the cap-height (~31 at this
+       font-size) is centered around the visual middle (y=32):
+         baseline = 32 + cap-height / 2 ≈ 47. -->
+  <text x="32" y="47" text-anchor="middle"
         font-family="-apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', system-ui, sans-serif"
         font-weight="700" font-size="44" fill="#22d3ee"
         letter-spacing="-1.5">S</text>
