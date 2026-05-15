@@ -27,7 +27,7 @@ const CHIPS = ["next.js", "typescript", "postgres", "vercel", "nflfastR"];
  *   4. Each grade number ticks up to its target value.
  */
 export function FlagshipCard() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
 
   return (
