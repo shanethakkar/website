@@ -236,9 +236,15 @@
 │   ├── FlagshipCard.tsx                  ← NFL Grades depth card (pulsing cyan halo)
 │   ├── ArticleCard.tsx                   ← stacked editorial article cards (writing section)
 │   ├── projectVisuals.tsx                ← SVG mini-charts for the 3 article previews
-│   ├── TechGrid.tsx                      ← 3 depth-card columns + Data & BI footer row
+│   ├── TechPhysics.tsx                   ← physics playground: 15 brand-colored icons with
+│   │                                       gravity, collisions, drag-and-throw. Pucks drop
+│   │                                       on scroll-into-view via IntersectionObserver.
+│   │                                       Icon size + collision radius scale with arena.
+│   ├── TechGrid.tsx                      ← (legacy) 3 depth-card columns — superseded by
+│   │                                       TechPhysics, kept on disk in case we want it back
 │   ├── AboutSection.tsx                  ← bio paragraphs + Quick Facts factsheet
-│   └── ContactSection.tsx                ← editorial CTA + 4 brand cards (inlined GH/Li/X SVGs)
+│   ├── icons.tsx                         ← shared inline-SVG brand glyphs (GitHub, LinkedIn)
+│   └── ContactSection.tsx                ← editorial CTA + 3 brand cards (GitHub, LinkedIn, email)
 ├── lib/
 │   └── gradeColor.ts                     ← grade → HSL gradient utility
 ├── public/

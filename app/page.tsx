@@ -11,7 +11,7 @@ import {
   MLBVisual,
 } from "@/components/projectVisuals";
 import { SectionHeader } from "@/components/SectionHeader";
-import { TechGrid } from "@/components/TechGrid";
+import { TechPhysics } from "@/components/TechPhysics";
 import { ArrowDownToLine, Mail } from "lucide-react";
 
 export default function Home() {
@@ -140,13 +140,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* / 03 — Tech & skills */}
+        {/* / 03 — Tech & skills (physics playground) */}
         <section
           id="tech"
           className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
         >
           <SectionHeader number="03" title="Tech I work with" meta="STACK" />
-          <TechGrid />
+          <TechPhysics />
         </section>
 
         {/* / 04 — About */}
