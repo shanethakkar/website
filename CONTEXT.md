@@ -2,6 +2,10 @@
 
 > This file is the canonical memory for all future agent sessions working on this repo.
 > Update it whenever new decisions are made or new content is added.
+>
+> **Before doing anything content-shaped (especially adding/editing articles),
+> jump to § 8 Repeatable Workflows.** Those checklists are the source of truth
+> for the multi-file dances; the rest of this doc is reference.
 
 ---
 
@@ -371,3 +375,99 @@ drafts.
 - [x] Headshot: skipped — About is text-only. Revisit later only if a stylized/abstract treatment fits the brand.
 - [ ] GitHub repo URLs: fill in per-project when building cards
 - [ ] Hero tagline: final copy TBD with Shane
+
+---
+
+## 8. Repeatable Workflows
+
+> Multi-file dances that are easy to forget a step in. **Always open this
+> section before starting one of these tasks** — even if it feels like you
+> remember the steps from last time.
+
+### 8.1 Adding a new article — checklist
+
+**Source of truth:** an article = an MDX file in `content/articles/`. Everything
+else flows from there (route, OG card, Twitter card, reading progress, share
+button, source link, footer "more posts" suggestions, sitemap entry if/when we
+add one). Most of the chrome is automatic. The bits that are NOT automatic are
+the things this checklist exists to remind you of.
+
+#### Required (every article)
+
+- [ ] **1. Create the MDX file.** Copy `content/articles/_TEMPLATE.mdx` to
+  `content/articles/<slug>.mdx`. The slug becomes the URL: `/articles/<slug>`.
+  Fill in frontmatter — required keys: `title`, `date` (ISO), `dek`,
+  `category` (uppercase, e.g. `"NFL · WPA · XGBOOST"`). Optional but
+  recommended: `tags` (lowercase chips), `repo` (GitHub URL — surfaces a
+  "Source" pill in the article header).
+
+- [ ] **2. Write the body.** Use the components mapped in `mdxComponents.tsx`:
+  `<Figure>`, `<Callout>`, `<Interactive>`. First paragraph after the opening
+  `## H2` automatically renders as the lede (bigger, brighter). Auto-numbered
+  figure captions via CSS counters — don't hand-number them.
+
+- [ ] **3. Add the article's homepage card.** In `app/page.tsx` Projects
+  section, add a new `<ArticleCard ... />` entry with `slug`, `title`,
+  optional `subtitle`, `dateLabel` (matches `formatArticleDate` output
+  e.g. `APR 22 '26`), `category`, `description` (1–2 sentences), `tags`,
+  and a `visual` prop pointing at a project-specific mini-chart.
+
+- [ ] **4. Build the mini-chart visual.** Add a new SVG component to
+  `components/projectVisuals.tsx` and export it. Keep it small, labeled,
+  on-brand cyan. Past examples — `FourthDownVisual` (sparkline w/ axis
+  title), `MLBVisual` (scatter cloud), `F1Visual` (forest plot bars).
+
+- [ ] **5. Bump the section header count.** In `app/page.tsx`, update the
+  `SectionHeader` meta on the Projects section: `meta="03 PROJECTS"` →
+  `meta="04 PROJECTS"`. Yes, it's hardcoded. Don't forget.
+
+- [ ] **6. Update this file.** Add a row to § 4 "Published Articles" so the
+  doc stays in sync with what's actually on the site.
+
+#### Situational
+
+- [ ] **If the article has images:** put them under `public/articles/<slug>/`
+  and reference via `<Figure src="/articles/<slug>/foo.png" ... />`.
+
+- [ ] **If the article needs a custom native chart** (like the F1 forest plot
+  or MLB scatter inside the article body): build it as a Client Component
+  under `components/article/`, import in the MDX, and render inline.
+
+- [ ] **If you have a Streamlit / hosted interactive:** drop in via
+  `<Interactive title="..." embedUrl="..." embedHeight={720} openUrl="..." />`.
+  Streamlit Cloud URLs get `?embed=true` appended automatically by the
+  component, so paste the bare URL.
+
+- [ ] **If the article has a public repo:** add `repo:` to frontmatter so the
+  "Source" pill shows up in the header.
+
+#### What you do NOT need to do (already automatic)
+
+- ❌ **OG / Twitter card image** — generated per slug at
+  `/articles/<slug>/opengraph-image.png` by `app/articles/[slug]/opengraph-image.tsx`.
+  Just make sure your title / dek / category in the MDX frontmatter read well
+  in a preview, because that's what the card renders.
+- ❌ **Static route** — `generateStaticParams` in `app/articles/[slug]/page.tsx`
+  reads `getArticleSlugs()` at build time and prerenders one route per MDX file.
+- ❌ **Article chrome / header / footer / reading progress bar** — wired into
+  the slug page, applies to every article automatically.
+- ❌ **Share button + native share / clipboard fallback** — built into
+  `ArticleActions`.
+- ❌ **"More posts" suggestions in the footer** — pulled from `getAllArticles()`,
+  excludes the current slug.
+
+#### Verify after
+
+- [ ] `npx next build` — passes cleanly. Watch the output for the new
+  `/articles/<slug>`, `/articles/<slug>/opengraph-image`, and
+  `/articles/<slug>/twitter-image` routes.
+- [ ] Eyeball the OG card at `http://localhost:3001/articles/<slug>/opengraph-image`
+  (dev server) — especially if the title is long, confirm it wraps cleanly and
+  the dynamic font sizing in `titleFontSize()` picks a tier that fits.
+- [ ] Eyeball the article itself at `/articles/<slug>` — figures render,
+  callouts look right, interactives load, reading-progress bar fills as you
+  scroll.
+- [ ] Eyeball the homepage at `/` — new card shows under Projects, mini-chart
+  visual renders, section header says the correct count.
+
+---
