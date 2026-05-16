@@ -169,7 +169,7 @@ export default function Home() {
 
         <footer className="border-t border-border-subtle">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 font-mono text-[10.5px] tracking-[0.14em] text-fg-dim sm:px-8">
-            <span>© SHANE THAKKAR — MMXXVI</span>
+            <span>© SHANE THAKKAR — {new Date().getFullYear()}</span>
             <span>BUILD · v0.10.1</span>
           </div>
         </footer>

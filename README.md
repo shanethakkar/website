@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# shanethakkar.com
 
-## Getting Started
+Portfolio site for Shane Thakkar (UT Dallas '26, Business Analytics &
+AI). Single-page homepage + MDX-driven article system, deployed on
+Vercel.
 
-First, run the development server:
+**Live:** [shanethakkar.com](https://shanethakkar.com)
+
+---
+
+## For new agents / collaborators
+
+Start with these three files, in order:
+
+1. **[`AGENTS.md`](./AGENTS.md)** — Next.js 16 has breaking changes vs.
+   anything in training data; this is the heads-up.
+2. **[`docs/HANDOFF.md`](./docs/HANDOFF.md)** — one-page orientation:
+   what's done, what's not, where to start, first-prompt template.
+3. **[`CONTEXT.md`](./CONTEXT.md)** — canonical memory. Design system,
+   color tokens, section order, file map, decision log, repeatable
+   workflows (especially § 8.1 *Adding a new article*).
+
+If you're going to touch articles, also read
+**[`docs/articles.md`](./docs/articles.md)** for the authoring guide.
+
+---
+
+## Local development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000 (or 3001 if taken)
+npm run build        # full production build — must pass cleanly
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Deploys happen automatically on push to `main` via Vercel.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Stack
 
-## Learn More
+- **Framework:** Next.js 16.2.6 (App Router) + TypeScript
+- **Styling:** Tailwind CSS v4 + custom design tokens in `app/globals.css`
+- **Content:** MDX (`next-mdx-remote`, `gray-matter`, `remark-gfm`)
+- **Animation:** Framer Motion
+- **OG images:** `next/og` (Satori) — fonts bundled locally under `assets/fonts/`
+- **Analytics:** Vercel Analytics
+- **Deploy:** Vercel
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Repo layout (quick view — full map in `CONTEXT.md § 7`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                  Next.js App Router — homepage, layout, OG images, article route
+components/           UI primitives + section components
+  article/            MDX article system (chrome, header, footer, custom charts)
+content/articles/     MDX article source — one file per slug
+data/                 Pre-computed chart data (extracted via scripts/)
+docs/                 HANDOFF + article authoring guide
+lib/                  articles loader, OG font helper, color util
+public/               Static assets — resume PDF, article images, team logos
+scripts/              One-shot data extractors (mlb, f1, f1-ppc) + font downloader
+assets/fonts/         TTFs bundled for Satori (do not switch back to runtime fetch)
+context/              Raw source material — article drafts, mockups, resume
+```

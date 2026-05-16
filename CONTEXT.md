@@ -3,6 +3,10 @@
 > This file is the canonical memory for all future agent sessions working on this repo.
 > Update it whenever new decisions are made or new content is added.
 >
+> **New to this repo?** Read `docs/HANDOFF.md` first — it's the one-page
+> orientation (current state, open work, first-prompt template, conventions).
+> Then come back here for the deep reference.
+>
 > **Before doing anything content-shaped (especially adding/editing articles),
 > jump to § 8 Repeatable Workflows.** Those checklists are the source of truth
 > for the multi-file dances; the rest of this doc is reference.
@@ -221,6 +225,8 @@
 | 2026-05-14 | Spacing tightened across the whole page | Hero `pt-20 pb-12 sm:pt-28 sm:pb-16` → `pt-14 pb-8 sm:pt-20 sm:pb-10`. Sections `py-10 sm:py-14` → `py-8 sm:py-10`. SectionHeader `mb-8 pb-4` → `mb-6 pb-3`. Page now reads with much less dead space between content blocks. |
 | 2026-05-14 | Sticky nav slimmed | Container padding `py-5 sm:py-6` → `py-3.5 sm:py-4`. Resume button `py-2` → `py-1.5` so it doesn't dictate bar height. Nav is now ~58–64px tall. DotGrid safe zone shrunk to match: `SAFE_TOP_FULL` 92 → 64, `SAFE_TOP_FADE` 36 → 28. Section `scroll-mt-24` → `scroll-mt-20`. |
 | 2026-05-14 | Contact never activated — fixed with bottom-of-page detector | The IntersectionObserver activation band (`-30% 0px -55% 0px`) sat above the contact section because contact is the final block. Added a scroll listener that force-sets `activeSection = contact` when `scrollY + innerHeight >= scrollHeight - 80`. The IO callback also early-returns when at-bottom so it can't bounce activation back to "about" during scroll inertia. |
+| 2026-05-16 | Handoff prep — added `docs/HANDOFF.md` + real README | Project being passed from Cursor agent to Claude Code. `docs/HANDOFF.md` is the new one-page orientation (what's done, what's left, first-prompt template). README rewritten to point new contributors at AGENTS.md → HANDOFF.md → CONTEXT.md → docs/articles.md. |
+| 2026-05-16 | Footer year is now dynamic | `app/page.tsx` footer changed from hardcoded `MMXXVI` to `{new Date().getFullYear()}`. Renders at build time, so reflects the year of the most recent Vercel deploy. |
 
 ---
 
@@ -375,8 +381,11 @@ drafts.
 - [x] Nav: sticky top
 - [x] Hero tagline: capability-focused placeholder — polish copy later
 - [x] Headshot: skipped — About is text-only. Revisit later only if a stylized/abstract treatment fits the brand.
-- [ ] GitHub repo URLs: fill in per-project when building cards
+- [ ] GitHub repo URLs: fill in per-project when building cards (only F1 article currently has `repo:` frontmatter; fourth-down + MLB pending)
 - [ ] Hero tagline: final copy TBD with Shane
+- [ ] Project 5 (Kalshi Market Intelligence) — add to homepage as a project card once Shane finishes it
+- [ ] Designed-but-not-built: first-load typewriter on hero name (§ 5 "First Load Treatment") and ⌘K command palette via `cmdk` (§ 5 Navigation). Both deferred — confirm with Shane before building
+- [ ] SEO polish: `app/sitemap.ts`, `app/robots.ts`, `app/not-found.tsx`, BlogPosting JSON-LD on article pages (none exist yet)
 
 ---
 
