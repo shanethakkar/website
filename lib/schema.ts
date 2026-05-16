@@ -37,7 +37,7 @@ export function buildHomeSchema() {
         image: `${SITE_URL}/opengraph-image`,
         jobTitle: "Data Analyst",
         description:
-          "Data analyst building projects on NFL coaching decisions, F1 driver skill, and what the data says when conventional wisdom is wrong.",
+          "Data analyst building analytics and machine learning projects.",
         alumniOf: {
           "@type": "CollegeOrUniversity",
           name: "The University of Texas at Dallas",
@@ -67,7 +67,7 @@ export function buildHomeSchema() {
         url: SITE_URL,
         name: "Shane Thakkar",
         description:
-          "Portfolio of Shane Thakkar — data analyst, UT Dallas '26.",
+          "Shane Thakkar's portfolio of analytics and machine learning projects.",
         author: { "@id": PERSON_ID },
         inLanguage: "en-US",
       },

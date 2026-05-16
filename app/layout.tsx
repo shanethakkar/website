@@ -22,11 +22,11 @@ export const metadata: Metadata = {
     template: "%s — Shane Thakkar",
   },
   description:
-    "I build full-stack data products and write about NFL coaching decisions, F1 driver skill, and what the data says when conventional wisdom is wrong.",
+    "Shane Thakkar's portfolio of analytics and machine learning projects.",
   openGraph: {
     title: "Shane Thakkar — Data Analyst",
     description:
-      "Full-stack data products + writing on sports analytics, modeling, and selection bias.",
+      "Shane Thakkar's portfolio of analytics and machine learning projects.",
     url: "https://shanethakkar.com",
     siteName: "Shane Thakkar",
     type: "website",
