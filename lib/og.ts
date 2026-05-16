@@ -1,27 +1,45 @@
 /**
  * Shared helpers for the ImageResponse-based OG card routes.
  *
- * Satori (which next/og uses under the hood) can only parse TTF/OTF font
- * data, not woff2. Modern browsers get woff2 from the Google Fonts CSS API,
- * but the legacy `/css` (v1) endpoint with an old User-Agent still serves
- * TTF URLs — that's the trick we use here so we can pipe Geist straight
- * into the OG card without bundling font binaries in the repo.
+ * The TTFs that next/og (Satori) needs are checked into the repo at
+ * `assets/fonts/`, so building the OG cards has zero runtime network
+ * dependencies. This used to fetch live from fonts.googleapis.com, but
+ * Vercel build workers occasionally time out reaching Google and crashed
+ * the entire prerender step. Re-run `scripts/download-og-fonts.mjs` if
+ * the weights below ever change.
  */
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
+const FONTS_DIR = path.join(process.cwd(), "assets", "fonts");
+
+const FONT_FILES: Record<string, Record<number, string>> = {
+  Geist: {
+    500: "Geist-Medium.ttf",
+    700: "Geist-Bold.ttf",
+  },
+  "Geist Mono": {
+    500: "GeistMono-Medium.ttf",
+  },
+};
+
 export async function loadGoogleFont(
   family: string,
   weight: number,
 ): Promise<ArrayBuffer> {
-  const familyParam = family.replace(/\s+/g, "+");
-  const url = `https://fonts.googleapis.com/css?family=${familyParam}:${weight}`;
-  const css = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) Gecko/20061204 Firefox/2.0.0.1",
-    },
-  }).then((r) => r.text());
-  const fontUrl = css.match(/src:\s*url\(([^)]+)\)/)?.[1];
-  if (!fontUrl) {
-    throw new Error(`Failed to locate TTF URL for ${family} ${weight}`);
+  const filename = FONT_FILES[family]?.[weight];
+  if (!filename) {
+    throw new Error(
+      `No bundled TTF for ${family} ${weight}. Add it to ` +
+        `scripts/download-og-fonts.mjs and re-run that script.`,
+    );
   }
-  return fetch(fontUrl).then((r) => r.arrayBuffer());
+  const buf = await readFile(path.join(FONTS_DIR, filename));
+  // `Uint8Array#buffer` includes the whole underlying ArrayBuffer, so we
+  // slice to the exact byte range Node read (avoids accidentally handing
+  // Satori extra padding).
+  return buf.buffer.slice(
+    buf.byteOffset,
+    buf.byteOffset + buf.byteLength,
+  ) as ArrayBuffer;
 }
