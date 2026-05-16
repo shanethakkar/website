@@ -10,6 +10,11 @@ import { mdxComponents } from "@/components/article/mdxComponents";
 import { ReadingProgress } from "@/components/article/ReadingProgress";
 import { DotGrid } from "@/components/DotGrid";
 import { getArticle, getArticleSlugs } from "@/lib/articles";
+import {
+  buildArticleSchema,
+  schemaToJsonString,
+  SITE_URL,
+} from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -25,14 +30,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = getArticle(slug);
   if (!article) return {};
+  const url = `${SITE_URL}/articles/${slug}`;
   return {
     title: article.title,
     description: article.dek,
+    alternates: { canonical: url },
+    authors: [{ name: "Shane Thakkar", url: SITE_URL }],
     openGraph: {
       title: article.title,
       description: article.dek,
+      url,
+      siteName: "Shane Thakkar",
       type: "article",
       publishedTime: article.date,
+      modifiedTime: article.date,
       authors: ["Shane Thakkar"],
       tags: article.tags,
     },
@@ -51,6 +62,16 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <>
+      {/* BlogPosting JSON-LD — references the homepage Person via @id so
+       * Google links every article back to a single consolidated identity.
+       * Makes articles eligible for rich-result treatment in search. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: schemaToJsonString(buildArticleSchema(article)),
+        }}
+      />
+
       <ReadingProgress />
       <DotGrid />
 

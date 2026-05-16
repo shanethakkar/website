@@ -12,11 +12,22 @@ import {
 } from "@/components/projectVisuals";
 import { SectionHeader } from "@/components/SectionHeader";
 import { TechPhysics } from "@/components/TechPhysics";
+import { buildHomeSchema, schemaToJsonString } from "@/lib/schema";
 import { ArrowDownToLine, Mail } from "lucide-react";
 
 export default function Home() {
   return (
     <>
+      {/* Person + WebSite JSON-LD. `sameAs` consolidates LinkedIn / GitHub /
+       * X / NFL Grades into a single Knowledge-Graph identity so brand
+       * searches ("Shane Thakkar") confidently surface this site. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: schemaToJsonString(buildHomeSchema()),
+        }}
+      />
+
       <DotGrid />
 
       <main id="top" className="relative z-10">
@@ -34,7 +45,7 @@ export default function Home() {
           </h1>
 
           <div className="mt-4 font-mono text-[12px] tracking-[0.22em] text-accent">
-            DATA ANALYST · UT DALLAS '26
+            DATA ANALYST · UT DALLAS &apos;26
           </div>
 
           <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">
