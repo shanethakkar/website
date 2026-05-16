@@ -4,9 +4,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 
 import { ArticleChrome } from "@/components/article/ArticleChrome";
-import { ArticleHeader } from "@/components/article/ArticleHeader";
 import { ArticleFooter } from "@/components/article/ArticleFooter";
+import { ArticleHeader } from "@/components/article/ArticleHeader";
 import { mdxComponents } from "@/components/article/mdxComponents";
+import { ReadingProgress } from "@/components/article/ReadingProgress";
 import { DotGrid } from "@/components/DotGrid";
 import { getArticle, getArticleSlugs } from "@/lib/articles";
 
@@ -50,6 +51,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <>
+      <ReadingProgress />
       <DotGrid />
 
       <div className="relative z-10">

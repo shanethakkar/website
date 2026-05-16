@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 
+import { loadGoogleFont } from "@/lib/og";
+
 /** Static Open Graph card for the homepage. Next.js auto-wires this into the
  * <meta property="og:image"> tags at /opengraph-image.png, so every LinkedIn /
  * iMessage / Slack share of shanethakkar.com gets the same image without us
@@ -11,32 +13,6 @@ import { ImageResponse } from "next/og";
 export const alt = "Shane Thakkar — Data Analyst";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-
-/** Pull a TTF (NOT woff2 — Satori can't read it) from the Google Fonts API.
- *
- * We can't use next/font/google here because that's wired into the page CSS
- * pipeline, not the ImageResponse font slots. The trick: Google Fonts hands
- * out woff2 to modern browsers and TTF to old ones, gated by User-Agent.
- * We send an old Firefox UA + use the legacy `css` v1 endpoint so we get
- * back a truetype URL we can fetch and pass straight to Satori. */
-async function loadGoogleFont(
-  family: string,
-  weight: number,
-): Promise<ArrayBuffer> {
-  const familyParam = family.replace(/\s+/g, "+");
-  const url = `https://fonts.googleapis.com/css?family=${familyParam}:${weight}`;
-  const css = await fetch(url, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) Gecko/20061204 Firefox/2.0.0.1",
-    },
-  }).then((r) => r.text());
-  const fontUrl = css.match(/src:\s*url\(([^)]+)\)/)?.[1];
-  if (!fontUrl) {
-    throw new Error(`Failed to locate TTF URL for ${family} ${weight}`);
-  }
-  return fetch(fontUrl).then((r) => r.arrayBuffer());
-}
 
 /** Pre-computed dot positions for the background grid (28px spacing).
  * Rendered as individual SVG <circle>s because Satori's <pattern> support is
