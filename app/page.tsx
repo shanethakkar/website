@@ -34,7 +34,7 @@ export default function Home() {
           </h1>
 
           <div className="mt-4 font-mono text-[12px] tracking-[0.22em] text-accent">
-            DATA SCIENTIST · UT DALLAS '26
+            DATA ANALYST · UT DALLAS '26
           </div>
 
           <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">

@@ -6,9 +6,9 @@ import { ImageResponse } from "next/og";
  * touching metadata by hand. Design = Variant 3 from the mockup page:
  *   - dot-grid background matching the rest of the site
  *   - three overlapping Bayesian posterior curves in cyan
- *   - centered "Shane Thakkar" in Geist Bold + "Data Scientist" subtitle */
+ *   - centered "Shane Thakkar" in Geist Bold + "Data Analyst" subtitle */
 
-export const alt = "Shane Thakkar — Data Scientist";
+export const alt = "Shane Thakkar — Data Analyst";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -260,7 +260,7 @@ export default async function OpenGraphImage() {
               color: "#22d3ee",
             }}
           >
-            Data Scientist
+            Data Analyst
           </div>
         </div>
       </div>
