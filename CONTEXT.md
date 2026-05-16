@@ -281,17 +281,19 @@
 │       ├── MlbHeightVelocityChart.tsx    ← (client) native SVG scatter for MLB article — replaces Plotly iframe
 │       ├── F1DriverRankings.tsx          ← (client) native forest plot, 46 drivers × 94%/50% HDIs
 │       ├── F1ConstructorHeatmap.tsx      ← (client) native diverging heatmap, 23 teams × 12 seasons
+│       ├── F1PosteriorPredictive.tsx     ← (client) native KDE overlay (observed vs posterior predictive), hover crosshair + layer toggle
 │       └── mdxComponents.tsx             ← MDXRemote component map (Figure, Interactive, Callout, custom charts)
 ├── content/
 │   └── articles/                         ← MDX article source — one .mdx per slug
 │       ├── _TEMPLATE.mdx                 ← starter — copy to <slug>.mdx and edit
 │       ├── fourth-down.mdx               ← article 1 — NFL 4th down (3 Streamlit interactives, 5 figures)
-│       ├── f1-bayesian-driver-rankings.mdx  ← article 2 — F1 Bayesian rankings (2 native SVG charts, 1 PNG, GitHub repo)
+│       ├── f1-bayesian-driver-rankings.mdx  ← article 2 — F1 Bayesian rankings (3 native SVG charts, GitHub repo)
 │       └── mlb-pitcher-height-velocity.mdx  ← article 3 — MLB height vs velocity (1 native SVG chart)
 ├── data/
 │   ├── mlb-height-velocity.ts            ← AUTO-GENERATED scatter data (346 pitchers + trend line)
 │   ├── f1-driver-rankings.ts             ← AUTO-GENERATED forest-plot data (46 drivers + HDIs)
-│   └── f1-constructor-heatmap.ts         ← AUTO-GENERATED heatmap data (23 teams × 12 seasons, 123 cells)
+│   ├── f1-constructor-heatmap.ts         ← AUTO-GENERATED heatmap data (23 teams × 12 seasons, 123 cells)
+│   └── f1-ppc.json                       ← AUTO-GENERATED KDE arrays for F1 posterior predictive check (observed + posterior)
 ├── docs/
 │   └── articles.md                       ← authoring guide (what to send, conventions, components)
 ├── lib/
@@ -301,11 +303,11 @@
 │   ├── Shane-Thakkar-Resume-May-2026.pdf ← linked from nav + contact resume buttons
 │   ├── excel-icon.png                    ← Fluent Excel logo used in TechPhysics
 │   └── articles/                         ← per-article image folders
-│       ├── fourth-down/                  ← 5 chart images for the NFL 4th-down piece
-│       └── f1-bayesian-driver-rankings/  ← 1 PNG (posterior predictive); rankings + heatmap are native components
+│       └── fourth-down/                  ← 5 chart images for the NFL 4th-down piece (F1 + MLB articles use 100% native SVG, no image assets)
 ├── scripts/
 │   ├── extract-mlb-data.mjs              ← one-shot extractor: MLB scatter from a Plotly HTML export
-│   └── extract-f1-data.mjs               ← one-shot extractor: F1 rankings + heatmap from Plotly HTML exports
+│   ├── extract-f1-data.mjs               ← one-shot extractor: F1 rankings + heatmap from Plotly HTML exports
+│   └── extract-f1-ppc.py                 ← one-shot extractor (Python): F1 PPC KDE arrays — needs sibling f1_driver_ranking repo + Anaconda Python (numpy/pandas/scipy/fastf1)
 └── context/
     ├── shane_portfolio_centered_v9.html  ← HTML mockup (design inspiration only)
     ├── NFL GRADES SUMMARY.txt            ← detailed NFL Grades project description

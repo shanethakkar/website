@@ -203,14 +203,9 @@ While these rankings will spark debate, their value depends entirely on whether 
 
 **Posterior Predictive Check.** This test asks: if the model truly understands how F1 race results are generated, can it simulate fake data that resembles real data?
 
-<Figure
-  src="/articles/f1-bayesian-driver-rankings/posterior-predictive.png"
-  alt="Density plot overlaying the actual distribution of finish residuals (blue) with the model's simulated residuals drawn from its learned parameters (orange). The two curves overlap closely across the full range, with tails beyond ±20 truncated for display."
-  caption="Posterior predictive check. Observed residuals in blue, model-simulated residuals in orange. Close overlap confirms the StudentT likelihood captures the shape of real F1 race outcomes."
-  aspect="1024 / 614"
-/>
+<F1PosteriorPredictive />
 
-The blue line shows the actual distribution of finish residuals across all 4,871 races in the dataset. The orange line shows the residuals of the fitted model simulated by drawing from its learned parameters. If the model is well-specified, the two lines should closely overlap. They do — confirming that the StudentT likelihood correctly captures the shape of real F1 race outcomes, including the extreme values at both ends.
+The cyan curve is the actual distribution of finish residuals across all 4,871 races in the dataset. The amber curve is the residuals of the fitted model, simulated by drawing from its learned parameters. If the model is well-specified, the two should closely overlap. They do — confirming the StudentT likelihood correctly captures the shape of real F1 race outcomes, including the extreme values at both ends. Hover anywhere on the chart to read the density at a given residual; toggle either layer with the legend below to compare them in isolation.
 
 **Holdout RMSE.** The model was trained on 2014–2024 data and evaluated on the fully held-out 2025 season — a year with new regulations, new rookies, and new team compositions the model had never seen.
 

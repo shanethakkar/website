@@ -5,6 +5,7 @@ import { Callout } from "./Callout";
 import { MlbHeightVelocityChart } from "./MlbHeightVelocityChart";
 import { F1DriverRankings } from "./F1DriverRankings";
 import { F1ConstructorHeatmap } from "./F1ConstructorHeatmap";
+import { F1PosteriorPredictive } from "./F1PosteriorPredictive";
 
 /**
  * Component map handed to `<MDXRemote>`.
@@ -28,4 +29,5 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   MlbHeightVelocityChart,
   F1DriverRankings,
   F1ConstructorHeatmap,
+  F1PosteriorPredictive,
 };
