@@ -1,8 +1,7 @@
 # shanethakkar.com
 
-Portfolio site for Shane Thakkar (UT Dallas '26, Business Analytics &
-AI). Single-page homepage + MDX-driven article system, deployed on
-Vercel.
+Portfolio site for Shane Thakkar — data, AI, and ML projects.
+Single-page homepage + MDX-driven article system, deployed on Vercel.
 
 **Live:** [shanethakkar.com](https://shanethakkar.com)
 

@@ -35,7 +35,7 @@ export function buildHomeSchema() {
         alternateName: "shanethakkar",
         url: SITE_URL,
         image: `${SITE_URL}/opengraph-image`,
-        jobTitle: "Data Analyst",
+        jobTitle: "Data Scientist",
         description:
           "Data analyst building analytics and machine learning projects.",
         alumniOf: {

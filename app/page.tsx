@@ -44,8 +44,8 @@ export default function Home() {
             Shane Thakkar
           </h1>
 
-          <div className="mt-4 font-mono text-[12px] tracking-[0.22em] text-accent">
-            DATA ANALYST · UT DALLAS &apos;26
+          <div className="mt-4 font-mono text-[13px] tracking-[0.16em] text-accent">
+            DATA · AI · ML
           </div>
 
           <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">

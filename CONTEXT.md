@@ -31,8 +31,12 @@
 
 > **Important:** GPA is intentionally **not displayed** anywhere on the site. Don't add it back.
 
-### Bio / tagline (from mockup)
-> "I build data science projects on the things I can't stop thinking about — usually NFL coaching decisions, F1 driver skill, or whether the wisdom of crowds beats expert scouts."
+### Bio / tagline
+> **Live site (hero):** "I build projects that follow my curiosity."
+>
+> **Original mockup line (kept for reference, no longer on the site):** "I build data science projects on the things I can't stop thinking about — usually NFL coaching decisions, F1 driver skill, or whether the wisdom of crowds beats expert scouts."
+>
+> Shane explicitly moved away from the domain-specific framing in 2026-05 — see the decision log entry "Site copy generalized" — so don't put NFL / F1 / sports references back into the hero or meta tags without checking first.
 
 ### Work Experience
 - **Intern, Business Intelligence** — Legends Global, Frisco, TX (Jul 2025 – Dec 2025)
@@ -227,6 +231,11 @@
 | 2026-05-14 | Contact never activated — fixed with bottom-of-page detector | The IntersectionObserver activation band (`-30% 0px -55% 0px`) sat above the contact section because contact is the final block. Added a scroll listener that force-sets `activeSection = contact` when `scrollY + innerHeight >= scrollHeight - 80`. The IO callback also early-returns when at-bottom so it can't bounce activation back to "about" during scroll inertia. |
 | 2026-05-16 | Handoff prep — added `docs/HANDOFF.md` + real README | Project being passed from Cursor agent to Claude Code. `docs/HANDOFF.md` is the new one-page orientation (what's done, what's left, first-prompt template). README rewritten to point new contributors at AGENTS.md → HANDOFF.md → CONTEXT.md → docs/articles.md. |
 | 2026-05-16 | Footer year is now dynamic | `app/page.tsx` footer changed from hardcoded `MMXXVI` to `{new Date().getFullYear()}`. Renders at build time, so reflects the year of the most recent Vercel deploy. |
+| 2026-05-16 | First-load hero typewriter rejected | Implemented (`HeroName.tsx` + pre-paint script + caret CSS) and reviewed live. Shane: "I don't like the typewriter, revert please." All code removed; hero is static. **Do not re-propose.** Moves typewriter from "designed but not built" to "explicitly NOT to do." |
+| 2026-05-16 | Site copy generalized — dropped sport-specific framing | Meta description, `openGraph.description`, JSON-LD Person and WebSite descriptions all swapped to `"Shane Thakkar's portfolio of analytics and machine learning projects."` Old copy mentioned NFL coaching decisions, F1 driver skill, etc. Shane: "I don't want to pidgeonhole myself into just sports or a single domain." Commit `b84ab0c`. |
+| 2026-05-16 | SEO foundations shipped | New: `app/sitemap.ts` (enumerates home + 3 articles + resume, slugs from MDX), `app/robots.ts` (allow all + sitemap), `app/not-found.tsx` (custom 404 with site chrome), `lib/schema.ts` (Person + WebSite + BlogPosting builders). Person `sameAs` consolidates LinkedIn + GitHub + NFL Grades for brand-search SEO. BlogPosting on each article links back to homepage Person via `@id`. Per-article metadata: canonical URL, `og:url`, `modifiedTime`. Commit `1d9f6f2`. |
+| 2026-05-16 | Twitter handle removed everywhere | Shane has no X account. Removed from `layout.tsx` `twitter.creator`, from JSON-LD Person `sameAs`, and from per-article `twitter.creator`. Twitter Card meta tags (`summary_large_image`) stay — they control unfurls on Slack / Discord / iMessage and don't claim a handle. **CONTEXT.md and HANDOFF.md text references to `@shanethakkar` Twitter are stale; don't re-add.** |
+| 2026-05-18 | Hero role label swapped: `DATA ANALYST · UT DALLAS '26` → `DATA · AI · ML` | Shane: "I want something more powerful than analyst" + drop the school framing now that he's graduated. Updated in 5 places: hero tagline (`app/page.tsx`), nav wordmark tail (`MorphingNav.tsx`), browser/SERP title + OG title (`app/layout.tsx`), OG card subtitle + alt (`app/opengraph-image.tsx`). JSON-LD Person `jobTitle` bumped to `"Data Scientist"` (schema.org requires a real title; literal `"Data · AI · ML"` is malformed there). School credential still lives in About Quick Facts + JSON-LD `alumniOf` for SEO. |
 
 ---
 
@@ -240,9 +249,13 @@
 │   ├── layout.tsx                        ← Geist fonts, metadata, viewport themeColor, Vercel Analytics
 │   ├── icon.svg                          ← site favicon (bold cyan "S" on dark gradient,
 │   │                                       Next.js App Router auto-serves this as the icon)
-│   ├── opengraph-image.tsx               ← homepage OG card at /opengraph-image.png:
-│   │                                       "Shane Thakkar — Data Analyst" + Bayesian curves.
+│   ├── opengraph-image.tsx               ← homepage OG card at /opengraph-image:
+│   │                                       "Shane Thakkar" + "Data · AI · ML" subtitle + Bayesian curves.
 │   │                                       Generated by Satori; font helper lives in lib/og.ts.
+│   ├── sitemap.ts                        ← /sitemap.xml — enumerates /, every /articles/<slug>,
+│   │                                       and the resume PDF. Pulled from MDX so it auto-updates.
+│   ├── robots.ts                         ← /robots.txt — allow all crawlers, points at sitemap.
+│   ├── not-found.tsx                     ← custom 404 with site chrome, links back to / and /#projects.
 │   ├── twitter-image.tsx                 ← re-exports opengraph-image so Twitter cards match.
 │   ├── page.tsx                          ← homepage: hero + 5 sections + footer
 │   └── articles/
@@ -304,7 +317,11 @@
 │   └── articles.md                       ← authoring guide (what to send, conventions, components)
 ├── lib/
 │   ├── articles.ts                       ← MDX article loader (frontmatter + reading-time, skips _-prefixed files)
-│   └── gradeColor.ts                     ← grade → HSL gradient utility
+│   ├── gradeColor.ts                     ← grade → HSL gradient utility
+│   └── schema.ts                         ← schema.org JSON-LD builders. Person + WebSite for the
+│                                            homepage (sameAs consolidates LinkedIn / GitHub / NFL Grades
+│                                            into one identity for brand-search SEO) and BlogPosting
+│                                            for each article (author links back to homepage Person @id).
 ├── public/
 │   ├── Shane-Thakkar-Resume-May-2026.pdf ← linked from nav + contact resume buttons
 │   ├── excel-icon.png                    ← Fluent Excel logo used in TechPhysics
@@ -373,19 +390,19 @@ drafts.
 - [x] Articles: build page templates with placeholder content first, fill real text later
 - [x] Resume: PDF in context/ folder is current — link it as downloadable
 - [x] Role targeting: Broadly Data / AI / Analytics / Business Intelligence
-- [x] Contact: icon links only — email, LinkedIn, GitHub, Twitter/X (no form)
+- [x] Contact: icon links only — email, LinkedIn, GitHub (Twitter/X dropped — Shane has no account, see 2026-05-16 decision)
 - [x] GitHub: all projects are public — link repos when building project cards
 - [x] Animations: rich / premium feel (framer-motion or similar)
 - [x] Analytics: Vercel Analytics
 - [x] Fonts: Geist Sans + Geist Mono (Next.js native via `next/font/google`)
 - [x] Nav: sticky top
-- [x] Hero tagline: capability-focused placeholder — polish copy later
+- [x] Hero tagline: shipped as `DATA · AI · ML` (mono caps under name) + bio line "I build projects that follow my curiosity." See 2026-05-18 decision.
 - [x] Headshot: skipped — About is text-only. Revisit later only if a stylized/abstract treatment fits the brand.
+- [x] SEO polish: shipped 2026-05-16 — `app/sitemap.ts`, `app/robots.ts`, `app/not-found.tsx`, Person + WebSite JSON-LD on home, BlogPosting JSON-LD on each article, per-article canonical/og:url/modifiedTime. See decision log.
+- [x] First-load hero typewriter: built, reviewed live, and **rejected** by Shane 2026-05-16. Don't propose or rebuild.
 - [ ] GitHub repo URLs: fill in per-project when building cards (only F1 article currently has `repo:` frontmatter; fourth-down + MLB pending)
-- [ ] Hero tagline: final copy TBD with Shane
 - [ ] Project 5 (Kalshi Market Intelligence) — add to homepage as a project card once Shane finishes it
-- [ ] Designed-but-not-built: first-load typewriter on hero name (§ 5 "First Load Treatment") and ⌘K command palette via `cmdk` (§ 5 Navigation). Both deferred — confirm with Shane before building
-- [ ] SEO polish: `app/sitemap.ts`, `app/robots.ts`, `app/not-found.tsx`, BlogPosting JSON-LD on article pages (none exist yet)
+- [ ] ⌘K command palette via `cmdk` (§ 5 Navigation) — designed but not built; `cmdk` not installed. Confirm with Shane before adding.
 
 ---
 

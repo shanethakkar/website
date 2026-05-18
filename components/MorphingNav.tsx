@@ -123,7 +123,7 @@ export function MorphingNav() {
           </span>
           <span>SHANE THAKKAR</span>
           <span className="hidden text-fg-dim sm:inline">/</span>
-          <span className="hidden text-fg-muted sm:inline">DATA ANALYST</span>
+          <span className="hidden text-fg-muted sm:inline">DATA · AI · ML</span>
         </a>
 
         {/* Section links — hidden on small screens */}

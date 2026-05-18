@@ -18,13 +18,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://shanethakkar.com"),
   title: {
-    default: "Shane Thakkar — Data Analyst",
+    default: "Shane Thakkar — Data · AI · ML",
     template: "%s — Shane Thakkar",
   },
   description:
     "Shane Thakkar's portfolio of analytics and machine learning projects.",
   openGraph: {
-    title: "Shane Thakkar — Data Analyst",
+    title: "Shane Thakkar — Data · AI · ML",
     description:
       "Shane Thakkar's portfolio of analytics and machine learning projects.",
     url: "https://shanethakkar.com",

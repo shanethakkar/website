@@ -60,13 +60,20 @@ cover.
   charts where appropriate. Per-slug OG + Twitter cards via `next/og`,
   reading progress bar, share button, "more posts" footer, "Source" pill
   if `repo` is in frontmatter.
-- **Open Graph cards** — homepage card (Bayesian curves + Data Analyst
+- **Open Graph cards** — homepage card (Bayesian curves + `Data · AI · ML`
   subtitle) and per-article cards. Fonts are **bundled locally** under
   `assets/fonts/` — do NOT switch back to fetching from Google Fonts at
   build time (Vercel's prerender will time out — that's how we got here).
 - **Favicon** — `app/icon.svg`, cyan "S" centered on dark gradient.
 - **Theme color meta** — exported from `app/layout.tsx` so mobile browser
   chrome matches the dark theme.
+- **SEO foundations** — `app/sitemap.ts` (auto-enumerates articles from
+  MDX), `app/robots.ts`, custom `app/not-found.tsx`, Person + WebSite
+  JSON-LD on the homepage with `sameAs` linking LinkedIn / GitHub /
+  NFL Grades for brand-search consolidation, and BlogPosting JSON-LD on
+  each article (`author@id` references the homepage Person). Per-article
+  metadata has `canonical`, `og:url`, `modifiedTime`. Submitted to
+  Google Search Console.
 
 ### Three articles currently published
 
@@ -94,12 +101,12 @@ shippable as-is — but they're the natural next steps.
 
 ### 4.1 Loose ends from earlier sessions
 
-- **Hero tagline copy** — current line is fine, but `CONTEXT.md § 8`
-  flags it as "final copy TBD with Shane." Worth a pass once Shane is
-  ready.
-- **First-load typewriter on the hero name** — designed in `CONTEXT.md
-  § 5 "First Load Treatment"` (sessionStorage-gated, ~600ms). Never
-  implemented. Skip unless Shane asks.
+- **Hero tagline copy** — RESOLVED 2026-05-18. Hero now reads
+  `DATA · AI · ML` (mono caps) + `"I build projects that follow my
+  curiosity."` Same role label propagated to the nav wordmark tail,
+  browser title, OG card subtitle, and OG alt text. JSON-LD `jobTitle`
+  is `"Data Scientist"`. School credential dropped from the hero and
+  now lives only in About Quick Facts + JSON-LD `alumniOf`.
 - **Command palette (⌘K)** — designed in `CONTEXT.md § 5 Navigation`
   using the `cmdk` library. `cmdk` is **not installed**. The sticky-nav
   decision in the decisions log (2026-05-14) implies this was deferred.
@@ -119,15 +126,25 @@ shippable as-is — but they're the natural next steps.
   The F1 article has a `repo:` frontmatter and shows a "Source" pill;
   fourth-down and MLB don't. Add when their repos go public.
 
-### 4.3 SEO / discoverability gaps
+### 4.3 SEO — shipped (was: gaps)
 
-- **No `app/sitemap.ts`** — Next gives this for free, takes ~15 lines.
-  Should enumerate `/`, every `/articles/<slug>`, and the resume PDF.
-- **No `app/robots.ts`** — pair with sitemap.
-- **No `app/not-found.tsx`** — currently falls back to Next's default
-  404. Easy on-brand polish.
-- **No JSON-LD** — `BlogPosting` schema on article pages would help
-  Google show rich results.
+All four items below were the open SEO gaps in earlier drafts of this
+doc. As of 2026-05-16 they're shipped and live. Kept here as a pointer
+so future agents know where the SEO plumbing actually lives.
+
+- `app/sitemap.ts` — `/sitemap.xml`, slugs auto-pulled from MDX.
+- `app/robots.ts` — allow all + sitemap reference.
+- `app/not-found.tsx` — custom on-brand 404.
+- JSON-LD via `lib/schema.ts` — Person + WebSite on home (sameAs links
+  LinkedIn / GitHub / NFL Grades), BlogPosting on each article.
+- Per-article metadata polish — `alternates.canonical`, `og:url`,
+  `og:modifiedTime`, `og:authors`.
+
+Verified in Google Search Console (sitemap submitted, domain TXT
+verified via KnownHost cPanel). Next time the hero or article copy
+changes meaningfully, the homepage / article URLs may need an
+explicit "Request Indexing" nudge in Search Console to refresh
+Google's cached snippet.
 
 ### 4.4 Things to keep an eye on
 
@@ -151,6 +168,23 @@ shippable as-is — but they're the natural next steps.
   legacy — cards are solid-dark depth cards, not translucent.
 - **`legacy` `TechGrid.tsx`** — superseded by `TechPhysics.tsx`. Don't
   reintroduce it without a reason.
+- **First-load hero typewriter.** Built once, reviewed live by Shane on
+  2026-05-16, rejected ("I don't like the typewriter, revert please").
+  Don't propose or rebuild — see the matching decision log entry.
+- **Twitter / X handle anywhere.** Shane has no account. Removed from
+  `layout.tsx` `twitter.creator`, from JSON-LD Person `sameAs`, and
+  from per-article metadata. The `summary_large_image` Twitter Card
+  meta tags stay (they control unfurls on Slack / Discord / iMessage
+  independently of whether Shane has a Twitter account). Don't put
+  `@shanethakkar` back into `sameAs` or any creator field even though
+  some doc text references still mention it.
+- **Sports-only / single-domain framing in meta + JSON-LD.** Site copy
+  was generalized 2026-05-16 to `"analytics and machine learning
+  projects"`. Don't put NFL coaching / F1 driver skill / selection bias
+  language back into meta tags or JSON-LD descriptions — Shane
+  explicitly said he doesn't want to be pigeonholed. Article bodies
+  themselves are still domain-specific; this rule is only about the
+  site-wide framing.
 
 ---
 
