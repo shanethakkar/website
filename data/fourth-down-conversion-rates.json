@@ -1,0 +1,26 @@
+[
+  {
+    "bucket": "1",
+    "attempts": 5915,
+    "conversions": 3916,
+    "rate": 0.662
+  },
+  {
+    "bucket": "2-3",
+    "attempts": 3223,
+    "conversions": 1678,
+    "rate": 0.5206
+  },
+  {
+    "bucket": "4-6",
+    "attempts": 2765,
+    "conversions": 1200,
+    "rate": 0.434
+  },
+  {
+    "bucket": "7+",
+    "attempts": 3694,
+    "conversions": 1026,
+    "rate": 0.2777
+  }
+]

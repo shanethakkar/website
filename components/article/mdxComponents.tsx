@@ -6,6 +6,11 @@ import { MlbHeightVelocityChart } from "./MlbHeightVelocityChart";
 import { F1DriverRankings } from "./F1DriverRankings";
 import { F1ConstructorHeatmap } from "./F1ConstructorHeatmap";
 import { F1PosteriorPredictive } from "./F1PosteriorPredictive";
+import { FourthDownConversionRates } from "./FourthDownConversionRates";
+import { FourthDownFieldDecisionMap } from "./FourthDownFieldDecisionMap";
+import { FourthDownGoForItTrend } from "./FourthDownGoForItTrend";
+import { FourthDownWpaLeftOnTable } from "./FourthDownWpaLeftOnTable";
+import { FourthDownWrongCallHeatmap } from "./FourthDownWrongCallHeatmap";
 
 /**
  * Component map handed to `<MDXRemote>`.
@@ -30,4 +35,9 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   F1DriverRankings,
   F1ConstructorHeatmap,
   F1PosteriorPredictive,
+  FourthDownConversionRates,
+  FourthDownFieldDecisionMap,
+  FourthDownGoForItTrend,
+  FourthDownWpaLeftOnTable,
+  FourthDownWrongCallHeatmap,
 };

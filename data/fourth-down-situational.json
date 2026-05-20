@@ -1,0 +1,217 @@
+{
+  "fieldOrder": [
+    "deep_own",
+    "own_territory",
+    "midfield",
+    "opp_territory",
+    "red_zone"
+  ],
+  "ydstogoOrder": [
+    "short_1",
+    "short_2_3",
+    "medium_4_6",
+    "long_7plus"
+  ],
+  "cells": [
+    {
+      "fieldPos": "red_zone",
+      "ydstogo": "short_1",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.3139,
+      "n": 2912,
+      "goPctActual": 0.6566,
+      "puntPctActual": 0.0,
+      "fgPctActual": 0.3434
+    },
+    {
+      "fieldPos": "red_zone",
+      "ydstogo": "short_2_3",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.5485,
+      "n": 3657,
+      "goPctActual": 0.2084,
+      "puntPctActual": 0.0,
+      "fgPctActual": 0.7916
+    },
+    {
+      "fieldPos": "red_zone",
+      "ydstogo": "medium_4_6",
+      "optimalDecision": "field_goal",
+      "wrongCallRate": 0.155,
+      "n": 4844,
+      "goPctActual": 0.1154,
+      "puntPctActual": 0.0,
+      "fgPctActual": 0.8846
+    },
+    {
+      "fieldPos": "red_zone",
+      "ydstogo": "long_7plus",
+      "optimalDecision": "field_goal",
+      "wrongCallRate": 0.0637,
+      "n": 5982,
+      "goPctActual": 0.0776,
+      "puntPctActual": 0.0,
+      "fgPctActual": 0.9224
+    },
+    {
+      "fieldPos": "opp_territory",
+      "ydstogo": "short_1",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.2654,
+      "n": 2253,
+      "goPctActual": 0.8069,
+      "puntPctActual": 0.0075,
+      "fgPctActual": 0.1855
+    },
+    {
+      "fieldPos": "opp_territory",
+      "ydstogo": "short_2_3",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.5248,
+      "n": 3068,
+      "goPctActual": 0.3866,
+      "puntPctActual": 0.0727,
+      "fgPctActual": 0.5407
+    },
+    {
+      "fieldPos": "opp_territory",
+      "ydstogo": "medium_4_6",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.5293,
+      "n": 4580,
+      "goPctActual": 0.2264,
+      "puntPctActual": 0.15,
+      "fgPctActual": 0.6236
+    },
+    {
+      "fieldPos": "opp_territory",
+      "ydstogo": "long_7plus",
+      "optimalDecision": "field_goal",
+      "wrongCallRate": 0.4185,
+      "n": 9728,
+      "goPctActual": 0.1196,
+      "puntPctActual": 0.2066,
+      "fgPctActual": 0.6738
+    },
+    {
+      "fieldPos": "midfield",
+      "ydstogo": "short_1",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.4813,
+      "n": 3040,
+      "goPctActual": 0.4951,
+      "puntPctActual": 0.5049,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "midfield",
+      "ydstogo": "short_2_3",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.509,
+      "n": 4014,
+      "goPctActual": 0.1839,
+      "puntPctActual": 0.8161,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "midfield",
+      "ydstogo": "medium_4_6",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.4844,
+      "n": 5944,
+      "goPctActual": 0.1026,
+      "puntPctActual": 0.8974,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "midfield",
+      "ydstogo": "long_7plus",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.5466,
+      "n": 13195,
+      "goPctActual": 0.0757,
+      "puntPctActual": 0.9222,
+      "fgPctActual": 0.0021
+    },
+    {
+      "fieldPos": "own_territory",
+      "ydstogo": "short_1",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.5227,
+      "n": 3061,
+      "goPctActual": 0.1611,
+      "puntPctActual": 0.8389,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "own_territory",
+      "ydstogo": "short_2_3",
+      "optimalDecision": "go_for_it",
+      "wrongCallRate": 0.4462,
+      "n": 4525,
+      "goPctActual": 0.0599,
+      "puntPctActual": 0.9401,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "own_territory",
+      "ydstogo": "medium_4_6",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.3325,
+      "n": 7083,
+      "goPctActual": 0.044,
+      "puntPctActual": 0.956,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "own_territory",
+      "ydstogo": "long_7plus",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.1408,
+      "n": 17461,
+      "goPctActual": 0.0356,
+      "puntPctActual": 0.9644,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "deep_own",
+      "ydstogo": "short_1",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.0,
+      "n": 337,
+      "goPctActual": 0.0,
+      "puntPctActual": 1.0,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "deep_own",
+      "ydstogo": "short_2_3",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.0172,
+      "n": 697,
+      "goPctActual": 0.0143,
+      "puntPctActual": 0.9857,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "deep_own",
+      "ydstogo": "medium_4_6",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.0068,
+      "n": 1471,
+      "goPctActual": 0.0143,
+      "puntPctActual": 0.9857,
+      "fgPctActual": 0.0
+    },
+    {
+      "fieldPos": "deep_own",
+      "ydstogo": "long_7plus",
+      "optimalDecision": "punt",
+      "wrongCallRate": 0.0096,
+      "n": 7692,
+      "goPctActual": 0.0226,
+      "puntPctActual": 0.9774,
+      "fgPctActual": 0.0
+    }
+  ]
+}

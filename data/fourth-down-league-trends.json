@@ -1,0 +1,164 @@
+[
+  {
+    "season": 1999,
+    "goRate": 0.1122,
+    "wpaGap": 37.07,
+    "era": "Traditional"
+  },
+  {
+    "season": 2000,
+    "goRate": 0.116,
+    "wpaGap": 37.87,
+    "era": "Traditional"
+  },
+  {
+    "season": 2001,
+    "goRate": 0.1158,
+    "wpaGap": 37.41,
+    "era": "Traditional"
+  },
+  {
+    "season": 2002,
+    "goRate": 0.124,
+    "wpaGap": 37.23,
+    "era": "Traditional"
+  },
+  {
+    "season": 2003,
+    "goRate": 0.1238,
+    "wpaGap": 37.58,
+    "era": "Traditional"
+  },
+  {
+    "season": 2004,
+    "goRate": 0.1177,
+    "wpaGap": 36.39,
+    "era": "Traditional"
+  },
+  {
+    "season": 2005,
+    "goRate": 0.1181,
+    "wpaGap": 35.17,
+    "era": "Traditional"
+  },
+  {
+    "season": 2006,
+    "goRate": 0.1204,
+    "wpaGap": 37.28,
+    "era": "Traditional"
+  },
+  {
+    "season": 2007,
+    "goRate": 0.1364,
+    "wpaGap": 35.04,
+    "era": "Traditional"
+  },
+  {
+    "season": 2008,
+    "goRate": 0.125,
+    "wpaGap": 32.85,
+    "era": "Traditional"
+  },
+  {
+    "season": 2009,
+    "goRate": 0.1388,
+    "wpaGap": 34.47,
+    "era": "Traditional"
+  },
+  {
+    "season": 2010,
+    "goRate": 0.1217,
+    "wpaGap": 35.46,
+    "era": "Traditional"
+  },
+  {
+    "season": 2011,
+    "goRate": 0.1084,
+    "wpaGap": 32.92,
+    "era": "Traditional"
+  },
+  {
+    "season": 2012,
+    "goRate": 0.1135,
+    "wpaGap": 34.91,
+    "era": "Traditional"
+  },
+  {
+    "season": 2013,
+    "goRate": 0.1158,
+    "wpaGap": 33.72,
+    "era": "Traditional"
+  },
+  {
+    "season": 2014,
+    "goRate": 0.1152,
+    "wpaGap": 33.11,
+    "era": "Traditional"
+  },
+  {
+    "season": 2015,
+    "goRate": 0.1231,
+    "wpaGap": 34.84,
+    "era": "Traditional"
+  },
+  {
+    "season": 2016,
+    "goRate": 0.1232,
+    "wpaGap": 32.29,
+    "era": "Traditional"
+  },
+  {
+    "season": 2017,
+    "goRate": 0.1227,
+    "wpaGap": 34.12,
+    "era": "Traditional"
+  },
+  {
+    "season": 2018,
+    "goRate": 0.1439,
+    "wpaGap": 29.66,
+    "era": "Traditional"
+  },
+  {
+    "season": 2019,
+    "goRate": 0.156,
+    "wpaGap": 28.19,
+    "era": "Analytics"
+  },
+  {
+    "season": 2020,
+    "goRate": 0.1815,
+    "wpaGap": 25.82,
+    "era": "Analytics"
+  },
+  {
+    "season": 2021,
+    "goRate": 0.1976,
+    "wpaGap": 29.18,
+    "era": "Analytics"
+  },
+  {
+    "season": 2022,
+    "goRate": 0.1792,
+    "wpaGap": 30.56,
+    "era": "Analytics"
+  },
+  {
+    "season": 2023,
+    "goRate": 0.1895,
+    "wpaGap": 29.2,
+    "era": "Analytics"
+  },
+  {
+    "season": 2024,
+    "goRate": 0.1934,
+    "wpaGap": 29.58,
+    "era": "Analytics"
+  },
+  {
+    "season": 2025,
+    "goRate": 0.2202,
+    "wpaGap": 25.75,
+    "era": "Analytics"
+  }
+]

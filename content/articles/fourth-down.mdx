@@ -48,22 +48,13 @@ For grading decisions specifically, I compute the **gap between the optimal deci
 
 Before getting to the field map, one number sets the table. When NFL teams actually go for it on 4th down, how often do they convert?
 
-<Figure
-  src="/articles/fourth-down/conversion-rates.png"
-  alt="Raw 4th down conversion rates by yards to go, 1999–2025"
-  caption="Raw 4th down conversion rates by yards to go, 1999–2025. On 4th & 1, teams convert two-thirds of the time. Even on 4th & 4–6, the success rate is nearly a coin flip."
-/>
+<FourthDownConversionRates />
 
 Two-thirds of the time on 4th & 1. More than half the time on 4th & 2–3. Even at medium distance — 4th & 4–6 — teams succeed on 43% of attempts, nearly coin-flip odds. These aren't low-percentage gambles. They're manageable probabilities that coaches have been systematically undervaluing. That's the key to understanding why the WPA math works the way it does.
 
 This analysis yields a field-position cheat sheet, with four versions based on yards-to-go categories:
 
-<Figure
-  src="/articles/fourth-down/field-decision-map.png"
-  alt="Optimal 4th down call at every field position for each yards-to-go category"
-  caption="The historically optimal 4th down call at every field position for each yards-to-go category, averaged across all game situations. The zones are more aggressive than most fans — and most coaches — expect."
-  aspect="1536 / 906"
-/>
+<FourthDownFieldDecisionMap />
 
 The green covers far more of the field than conventional wisdom would suggest. On 4th & 1–3, the data says go for it from your own 20-yard line all the way to the opponent's end zone. On 4th & 4–6, the go zone still stretches from midfield to the opponent's 20. Even on 4th & 7+, going for it is optimal at midfield — a call most coaches would never make. Most coaches aren't operating anywhere close to this. The next two sections show exactly how far they're missing.
 
@@ -73,12 +64,7 @@ Belichick's fourth-and-two decision in 2009 didn't just generate controversy. As
 
 But here is the part of the story that rarely gets told: the actual coaching behavior didn't budge for nearly a decade. From 2009 through 2016, the league-wide go-for-it rate bounced between 12% and 13% — almost exactly where it had been in 2008. The conversation changed immediately. The calls didn't. The real inflection came in 2017 and 2018, when the rate jumped from 13% to 18% over two seasons, driven by a new generation of coaches who had already adopted analytics. The play that supposedly changed the NFL took eight years to actually change how the NFL coached.
 
-<Figure
-  src="/articles/fourth-down/go-for-it-trend.png"
-  alt="NFL-wide go-for-it rate on fourth down, 1999–2025"
-  caption="NFL-wide go-for-it rate on fourth down, 1999–2025. The analytics revolution is real — but it arrived late and has plateaued."
-  aspect="1536 / 349"
-/>
+<FourthDownGoForItTrend />
 
 In 1999, NFL teams went for it on fourth down just **11.2%** of the time. By 2025, that number had nearly doubled to **22.0%**. That sounds like enormous progress — and in some ways it is. But consider what 22% actually means: coaches are still punting or kicking on more than three out of every four fourth downs. Given how often the data says they should be going for it, that conservative baseline tells a story about how deeply ingrained the old instincts remain.
 
@@ -92,12 +78,7 @@ Progress tells part of the story. The cost of imperfection tells the rest.
 
 Each incorrect decision carries a WPA cost — the expected win probability that evaporates when a coach punts instead of going for it, or kicks a field goal in a situation where the data says go. Add those costs up across every fourth down in a season, and the number is striking.
 
-<Figure
-  src="/articles/fourth-down/wpa-left-on-table.png"
-  alt="Total WPA left on the table each season from suboptimal 4th down decisions, 1999–2025"
-  caption="Total WPA left on the table each season from suboptimal 4th down decisions, 1999–2025. The gap is narrowing — but it hasn't closed."
-  aspect="1536 / 632"
-/>
+<FourthDownWpaLeftOnTable />
 
 In 1999, NFL teams collectively left **37.1 WPA on the table** in a single season from bad fourth-down calls alone. By 2025, that number had dropped to **25.7 WPA**. Spread across 32 teams, that's still roughly **0.8 WPA per team per season** — the equivalent of nearly one free win, unclaimed, every year. That is the difference, in many cases, between a playoff berth and a missed one.
 
@@ -109,12 +90,7 @@ The most mismanaged fourth-down situations are not the ones that feel risky. The
 
 The wrong-call heatmap below shows where errors cluster across the entire field:
 
-<Figure
-  src="/articles/fourth-down/wrong-call-heatmap.png"
-  alt="Wrong-call rate by field position and yards to go"
-  caption="Wrong-call rate by field position and yards to go. Darker red = coaches make the suboptimal call more often."
-  aspect="4 / 3"
-/>
+<FourthDownWrongCallHeatmap />
 
 Strip away the percentages and the heatmap has only two modes: the situations coaches handle correctly, and everything else. One row of the map — deep in a team's own territory, beyond the 80 — is almost entirely white, with a 0–2% wrong rate. That's the row where the right call is obvious: punt. One corner, long fourth downs in the red zone, is also light. Kicking a field goal when you're 7+ yards out at the goal line is fine.
 
