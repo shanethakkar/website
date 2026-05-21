@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${SITE}/Shane-Thakkar-Resume-May-2026.pdf`,
-      lastModified: new Date("2026-05-01"),
+      lastModified: new Date("2026-05-21"),
       changeFrequency: "monthly",
       priority: 0.6,
     },
