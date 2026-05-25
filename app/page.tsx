@@ -129,7 +129,7 @@ export default function Home() {
             />
             <ArticleCard
               index={1}
-              slug="f1-bayesian-driver-rankings"
+              slug="f1"
               title="Who Is Actually the Best F1 Driver?"
               subtitle="A Bayesian approach to separating skill from the car"
               dateLabel="APR 18 '26"

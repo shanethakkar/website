@@ -18,7 +18,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/f1",
-        destination: "/articles/f1-bayesian-driver-rankings",
+        destination: "/articles/f1",
+        permanent: true,
+      },
+      {
+        source: "/articles/f1-bayesian-driver-rankings",
+        destination: "/articles/f1",
         permanent: true,
       },
     ];

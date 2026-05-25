@@ -306,7 +306,7 @@
 │   └── articles/                         ← MDX article source — one .mdx per slug
 │       ├── _TEMPLATE.mdx                 ← starter — copy to <slug>.mdx and edit
 │       ├── fourth-down.mdx               ← article 1 — NFL 4th down (3 Streamlit interactives, 5 figures)
-│       ├── f1-bayesian-driver-rankings.mdx  ← article 2 — F1 Bayesian rankings (3 native SVG charts, GitHub repo)
+│       ├── f1.mdx                            ← article 2 — F1 Bayesian rankings (3 native SVG charts, GitHub repo). Renamed from f1-bayesian-driver-rankings.mdx 2026-05-25; old slug 308-redirects to new in next.config.ts.
 │       └── mlb-pitcher-height-velocity.mdx  ← article 3 — MLB height vs velocity (1 native SVG chart)
 ├── data/
 │   ├── mlb-height-velocity.ts            ← AUTO-GENERATED scatter data (346 pitchers + trend line)

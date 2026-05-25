@@ -80,7 +80,7 @@ cover.
 | Slug | Topic | Charts |
 |---|---|---|
 | `fourth-down` | NFL 4th-down decisions, 1999–2025 | 5 PNGs + 3 Streamlit `<Interactive>` embeds |
-| `f1-bayesian-driver-rankings` | Bayesian driver ranking | 3 native SVG components (forest plot, constructor heatmap, posterior predictive KDE) |
+| `f1` | Bayesian driver ranking (was `f1-bayesian-driver-rankings`; old slug 308-redirects to new) | 3 native SVG components (forest plot, constructor heatmap, posterior predictive KDE) |
 | `mlb-pitcher-height-velocity` | Height vs. velocity selection bias | 1 native SVG scatter |
 
 ### Known good build / deploy pipeline
@@ -260,11 +260,11 @@ loop works on your machine:
 - [ ] `npm install` — clean install.
 - [ ] `npm run dev` — server starts on 3000 (or 3001 if taken).
       Visit `/`, scroll through all sections, click a couple of nav links.
-- [ ] Visit `/articles/f1-bayesian-driver-rankings` — confirm the three
+- [ ] Visit `/articles/f1` — confirm the three
       native SVG charts render (forest plot, constructor heatmap,
       posterior predictive KDE with hover crosshair). The KDE has a layer
       toggle in the legend; both layers should be visible by default.
-- [ ] Visit `/opengraph-image` and `/articles/f1-bayesian-driver-rankings/opengraph-image`
+- [ ] Visit `/opengraph-image` and `/articles/f1/opengraph-image`
       — confirm both render (PNG response).
 - [ ] `npm run build` — passes. Output should list ~7 prerendered routes.
 - [ ] `npm run lint` — clean.
