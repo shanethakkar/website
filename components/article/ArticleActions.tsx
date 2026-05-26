@@ -49,7 +49,7 @@ export function ArticleActions({ title, text, repo }: ArticleActionsProps) {
   };
 
   const pillBase =
-    "group inline-flex items-center gap-2 rounded-full border border-border-subtle bg-white/[0.02] px-3.5 py-1.5 font-mono text-[11.5px] uppercase tracking-[0.18em] text-fg-muted transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright";
+    "group inline-flex items-center gap-2 rounded-full border border-border bg-bg-elevated px-3.5 py-1.5 font-mono text-[11.5px] uppercase tracking-[0.18em] text-fg transition-all hover:-translate-y-0.5 hover:border-accent-border hover:bg-accent-soft hover:text-accent-bright";
 
   return (
     <div className="flex items-center gap-2">
