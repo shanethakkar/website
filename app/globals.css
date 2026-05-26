@@ -265,6 +265,38 @@ body {
   margin-right: auto;
 }
 
+/* KaTeX display-math blocks — set-off cards that hug their content via
+ * `width: fit-content`. A short formula gets a short card; a long formula
+ * gets a long one. `max-width: 100%` caps the card at the parent's width
+ * (so the article container constrains it). Chrome matches the fenced
+ * code-block style. `overflow-x: auto` is a last-resort safety net for
+ * absurdly long equations on very narrow viewports. */
+.article-body > .katex-display {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.8em;
+  margin-bottom: 1.8em;
+  padding: 1.1rem 1.3rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow-x: auto;
+  color: var(--color-fg-bright);
+}
+
+/* Fluid math-content sizing inside display blocks. KaTeX defaults the
+ * .katex element to 1.21em; we cap at 1.05em on desktop (slightly smaller
+ * than default — math at near body-text size reads as set-off rather than
+ * looming) and scale down on narrower viewports so equations don't push the
+ * fit-content card past the article container's width and trigger the
+ * scroll fallback. Floor at 0.8em — still readable for Greek letters and
+ * subscripts on mobile. */
+.article-body > .katex-display .katex {
+  font-size: clamp(0.8em, 0.55em + 0.9vw, 1.05em);
+}
+
 .article-body > p {
   margin-top: 1.5em;
   letter-spacing: -0.005em;

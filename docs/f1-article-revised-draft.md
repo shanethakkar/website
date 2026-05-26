@@ -1,3 +1,36 @@
+<!--
+This is an EDITORIAL DRAFT of the F1 article — not for publication, not
+in the article system. Lives in docs/ so it won't be picked up by the
+MDX route. Compare against content/articles/f1.mdx to see structural
+changes.
+
+What changed at a structural level:
+  1. Chart moved from the ~48% mark to the ~15% mark (right after the
+     intro hook). Recruiters and skimmers see it immediately.
+  2. Verstappen Paradox moved from later in the article to right after
+     the chart — the most surprising chart result is now explained
+     while the reader is still looking at it.
+  3. F1 primer section deleted. The explanation of constructors/cars
+     is folded into a one-line parenthetical in the model section.
+  4. The "Step 1 / Step 2 / Step 3" methodology breakdown collapsed
+     into one "How the Model Works" section. Same content, less
+     ceremony.
+  5. The Bahrain/Australia example, which appeared twice in the
+     original, now appears only in the Verstappen Paradox section
+     (where it does the most narrative work).
+  6. Conclusion trimmed from 5 paragraphs to 3 (most paragraphs
+     were restatement).
+
+Word count: ~4,800 → ~2,800 (≈42% cut). Most of the cuts are
+restatement, primer setup, and the over-elaborated methodology
+buildup. None of the technical content, none of the limitations,
+none of the validation. The model's depth is preserved; the
+reader's path to it is shorter.
+
+Everything in this draft is reworked from Shane's existing prose
+unless explicitly marked NEW. This is an editor pass, not a rewrite.
+-->
+
 ---
 title: "Who Is Actually the Best F1 Driver?"
 date: "2026-04-18"
@@ -78,13 +111,10 @@ But a raw residual still mixes two signals: the driver's contribution and the ca
 
 ### The model
 
-$$
-\text{finish\_residual} \sim \text{StudentT}(\nu, \mu, \sigma)
-$$
-
-$$
-\mu = \alpha + \text{Driver Effect} + \text{TeamSeason Effect} + \beta_{\text{dnf}} \cdot \text{dnf\_driver\_fault}
-$$
+```text
+finish_residual ~ StudentT(ν, μ, σ)
+μ = α + Driver_Effect + TeamSeason_Effect + β_dnf × dnf_driver_fault
+```
 
 The model is **hierarchical** — driver effects and team-season effects are estimated jointly, each informing the other. A driver's effect is estimated in the context of every team they drove for and every season available, not in isolation.
 

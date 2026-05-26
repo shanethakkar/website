@@ -52,11 +52,29 @@ A blockquote sets off a definition or a single pull-quote line:
 > Bigger, italic, cyan rule on the left. Used for definitions, formulas,
 > or a single set-off line you want to spotlight.
 
-A fenced code block — `text` for prose / formulas:
+A fenced code block — `text` for prose / pseudo-code:
 
 ```text
-w = 0.85^(2025 − season)
+nflgrades validity --position QB --diagnose
 ```
+
+A KaTeX math block (between `$$ … $$`) for proper math typesetting —
+italic Greek letters, real subscripts, vertical alignment. Use this for
+formulas instead of code blocks:
+
+$$
+w = 0.85^{\,2025 - \text{season}}
+$$
+
+Multi-line equations use the `aligned` environment with `&` as the
+alignment anchor:
+
+$$
+\begin{aligned}
+y &\sim \text{Normal}(\mu, \sigma) \\
+\mu &= \alpha + \beta x
+\end{aligned}
+$$
 
 A callout for asides that sit alongside the main flow:
 

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 import { ArticleChrome } from "@/components/article/ArticleChrome";
 import { ArticleFooter } from "@/components/article/ArticleFooter";
@@ -96,7 +98,8 @@ export default async function ArticlePage({ params }: PageProps) {
             options={{
               parseFrontmatter: false,
               mdxOptions: {
-                remarkPlugins: [remarkGfm],
+                remarkPlugins: [remarkGfm, remarkMath],
+                rehypePlugins: [rehypeKatex],
               },
             }}
           />

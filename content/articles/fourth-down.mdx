@@ -31,7 +31,9 @@ At any moment in an NFL game, a win probability model calculates how likely a te
 
 WPA simply measures how much a single play moves that needle:
 
-> WPA = Win Probability (after play) − Win Probability (before play)
+$$
+\text{WPA} = \text{Win Probability}_{\text{after play}} - \text{Win Probability}_{\text{before play}}
+$$
 
 A great conversion on 4th & 1 might add +0.08 WPA. A turnover on 4th & goal might cost −0.15 WPA. The number is always relative to what you had before.
 
@@ -153,9 +155,9 @@ The core of this analysis is a WPA baseline framework built on nflfastR play-by-
 
 **Recency weighting.** Rather than treating all 26 seasons equally, each play is weighted by:
 
-```text
-w = 0.85^(2025 − season)
-```
+$$
+w = 0.85^{\,2025 - \text{season}}
+$$
 
 This means 2025 data carries full weight (w = 1.0), 2024 carries 0.85, 2020 carries ~0.44, and 1999 carries ~0.03. The decay factor of 0.85 was chosen to reflect the meaningful philosophical shift in coaching that began around 2010, while still preserving enough historical signal to make rare game states statistically stable.
 
