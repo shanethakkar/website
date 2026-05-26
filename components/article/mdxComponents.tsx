@@ -11,6 +11,10 @@ import { FourthDownFieldDecisionMap } from "./FourthDownFieldDecisionMap";
 import { FourthDownGoForItTrend } from "./FourthDownGoForItTrend";
 import { FourthDownWpaLeftOnTable } from "./FourthDownWpaLeftOnTable";
 import { FourthDownWrongCallHeatmap } from "./FourthDownWrongCallHeatmap";
+import { EdgarRiskPrecisionCurves } from "./EdgarRiskPrecisionCurves";
+import { EdgarRiskReceipts } from "./EdgarRiskReceipts";
+import { EdgarRiskScoreboard } from "./EdgarRiskScoreboard";
+import { EdgarRiskCohortComparator } from "./EdgarRiskCohortComparator";
 
 /**
  * Component map handed to `<MDXRemote>`.
@@ -40,4 +44,8 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   FourthDownGoForItTrend,
   FourthDownWpaLeftOnTable,
   FourthDownWrongCallHeatmap,
+  EdgarRiskPrecisionCurves,
+  EdgarRiskReceipts,
+  EdgarRiskScoreboard,
+  EdgarRiskCohortComparator,
 };

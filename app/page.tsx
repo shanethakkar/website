@@ -6,6 +6,7 @@ import { FlagshipCard } from "@/components/FlagshipCard";
 import { GitHubLogo, LinkedInLogo } from "@/components/icons";
 import { MorphingNav } from "@/components/MorphingNav";
 import {
+  EdgarRiskVisual,
   F1Visual,
   FourthDownVisual,
   MLBVisual,
@@ -114,11 +115,21 @@ export default function Home() {
           id="projects"
           className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
         >
-          <SectionHeader number="02" title="Projects" meta="03 PROJECTS" />
+          <SectionHeader number="02" title="Projects" meta="04 PROJECTS" />
 
           <div className="flex flex-col gap-4">
             <ArticleCard
               index={0}
+              slug="edgar-risk"
+              title="Failing Companies Tell on Themselves in Their Annual Reports"
+              dateLabel="MAY 25 '26"
+              category="SEC · NLP · Distress"
+              description="A model that reads what companies say about themselves in SEC filings catches 79% of bankruptcies across 24 cases. The 'false positives' include Nordstrom, Walgreens, Macy's, Kohl's, CVS, and Lucid Motors, all of whose decline didn't end in court."
+              tags={["python", "sklearn", "edgar"]}
+              visual={<EdgarRiskVisual />}
+            />
+            <ArticleCard
+              index={1}
               slug="fourth-down"
               title="Fourth Down Is Still Football's Biggest Coaching Problem"
               dateLabel="APR 22 '26"
@@ -128,7 +139,7 @@ export default function Home() {
               visual={<FourthDownVisual />}
             />
             <ArticleCard
-              index={1}
+              index={2}
               slug="f1"
               title="Who Is Actually the Best F1 Driver?"
               subtitle="A Bayesian approach to separating skill from the car"
@@ -139,7 +150,7 @@ export default function Home() {
               visual={<F1Visual />}
             />
             <ArticleCard
-              index={2}
+              index={3}
               slug="mlb-pitcher-height-velocity"
               title="Why Height Doesn't Predict Velocity in Major League Baseball"
               dateLabel="MAY 13 '25"

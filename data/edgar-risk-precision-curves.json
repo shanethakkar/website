@@ -1,0 +1,38 @@
+[
+  {
+    "label": "In-sample precision (Ch.11 only)",
+    "horizon": "In-sample (Ch.11 only)",
+    "precision": 0.46,
+    "tp": 19,
+    "fp": 22,
+    "addedTickers": []
+  },
+  {
+    "label": "Extended-horizon precision (Ch.11 + distress)",
+    "horizon": "Extended horizon (+ distress to May 2026)",
+    "precision": 0.61,
+    "tp": 25,
+    "fp": 16,
+    "addedTickers": [
+      "JWN",
+      "WBA",
+      "CVS",
+      "LCID",
+      "KSS",
+      "M"
+    ]
+  },
+  {
+    "label": "Including stress-recovered as TP-for-stress",
+    "horizon": "Including stress-recovered",
+    "precision": 0.69,
+    "tp": 29,
+    "fp": 13,
+    "addedTickers": [
+      "WAL",
+      "CLX",
+      "ALK",
+      "WSM"
+    ]
+  }
+]

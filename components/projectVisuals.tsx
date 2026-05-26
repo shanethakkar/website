@@ -202,15 +202,23 @@ export function FourthDownVisual() {
 }
 
 /* ------------------------------------------------------------------ */
-/* F1 — top driver effects with credible intervals                     */
+/* F1 — mini forest plot with credible intervals around a zero line    */
 /* ------------------------------------------------------------------ */
 
+// Five driver-effect posteriors from the article's actual data file
+// (data/f1-driver-rankings.ts). HAM at the headline, PER above VER showing
+// the Verstappen Paradox, ALB as the article's "most interesting
+// non-headliner" with a credible interval that crosses zero, TSU as the
+// honest right-side anchor (most-positive current driver). Each row has a
+// faint full-width track so the visual feels grounded even where the
+// interval doesn't reach.
 const F1_DRIVERS = [
-  { name: "Hamilton", effect: 0.85, ci: 0.12 },
-  { name: "Perez", effect: 0.7, ci: 0.18 },
-  { name: "Verstappen", effect: 0.66, ci: 0.14 },
-  { name: "Alonso", effect: 0.58, ci: 0.16 },
-];
+  { code: "HAM", median: -1.04, hdi50: [-1.27, -0.86], hdi94: [-1.64, -0.51] },
+  { code: "PER", median: -0.92, hdi50: [-1.13, -0.71], hdi94: [-1.49, -0.34] },
+  { code: "VER", median: -0.67, hdi50: [-0.84, -0.45], hdi94: [-1.18, -0.14] },
+  { code: "ALB", median: -0.52, hdi50: [-0.75, -0.32], hdi94: [-1.14, 0.09] },
+  { code: "TSU", median: 0.49,  hdi50: [0.25, 0.69],   hdi94: [-0.11, 1.12] },
+] as const;
 
 export function F1Visual() {
   const ref = useRef<SVGSVGElement>(null);
@@ -218,9 +226,19 @@ export function F1Visual() {
 
   const W = 320;
   const H = 88;
-  const ROW_H = 18;
-  const NAME_W = 70;
-  const BAR_PAD = 6;
+  const pad = { top: 6, right: 10, bottom: 8, left: 32 };
+  const ROW_H = (H - pad.top - pad.bottom) / F1_DRIVERS.length;
+  // X range chosen to fit the real data: HAM's hdi94 lo = -1.64,
+  // TSU's hdi94 hi = +1.12. Asymmetric range places zero slightly
+  // right of center, which honestly reflects that 4 of the 5 drivers
+  // sit on the negative side.
+  const xMin = -1.75;
+  const xMax = 1.25;
+  const xPlot = (v: number) =>
+    pad.left + ((v - xMin) / (xMax - xMin)) * (W - pad.left - pad.right);
+  const zeroX = xPlot(0);
+  const trackX = pad.left;
+  const trackW = W - pad.left - pad.right;
 
   return (
     <svg
@@ -228,68 +246,101 @@ export function F1Visual() {
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="none"
       className="h-full w-full"
+      aria-label="Mini forest plot of five F1 driver-effect posteriors against a zero line. Hamilton has the most negative effect; Kubica the most positive."
     >
+      {/* Row tracks — faint full-width backgrounds, one per driver, so
+          even short intervals feel anchored in their row */}
       {F1_DRIVERS.map((d, i) => {
-        const y = i * ROW_H + 8;
-        const barX = NAME_W + BAR_PAD;
-        const barW = (W - barX - 4) * d.effect;
-        const ciW = (W - barX - 4) * d.ci;
+        const cy = pad.top + i * ROW_H + ROW_H / 2;
+        return (
+          <rect
+            key={`track-${d.code}`}
+            x={trackX}
+            y={cy - 3}
+            width={trackW}
+            height={6}
+            rx={3}
+            fill="rgba(255, 255, 255, 0.025)"
+          />
+        );
+      })}
+
+      {/* Dashed zero line — extends through all rows */}
+      <line
+        x1={zeroX}
+        x2={zeroX}
+        y1={pad.top + 1}
+        y2={H - pad.bottom - 1}
+        stroke="rgba(235,233,227,0.32)"
+        strokeWidth={1}
+        strokeDasharray="2 3"
+      />
+
+      {F1_DRIVERS.map((d, i) => {
+        const cy = pad.top + i * ROW_H + ROW_H / 2;
+        const x94Lo = xPlot(d.hdi94[0]);
+        const x94Hi = xPlot(d.hdi94[1]);
+        const x50Lo = xPlot(d.hdi50[0]);
+        const x50Hi = xPlot(d.hdi50[1]);
+        const xMed = xPlot(d.median);
 
         return (
-          <g key={d.name}>
+          <g key={d.code}>
+            {/* Driver code */}
             <text
               x={4}
-              y={y + 7}
-              fill="rgba(235,233,227,0.78)"
+              y={cy + 3}
+              fill="rgba(235,233,227,0.85)"
               fontSize="9"
               fontFamily="var(--font-mono), monospace"
-              letterSpacing="0.02em"
+              letterSpacing="0.06em"
             >
-              {d.name}
+              {d.code}
             </text>
 
-            {/* Track */}
-            <rect
-              x={barX}
-              y={y + 4}
-              width={W - barX - 4}
-              height={5}
-              rx={2.5}
-              fill="rgba(255,255,255,0.04)"
-            />
-
-            {/* Credible interval */}
+            {/* 94% HDI — light bar */}
             <motion.rect
-              y={y + 4}
+              y={cy - 2.5}
               height={5}
-              rx={2.5}
-              fill="rgba(34,211,238,0.25)"
-              initial={{ width: 0, x: barX + barW }}
-              animate={
-                inView
-                  ? { width: ciW, x: barX + barW - ciW / 2 }
-                  : {}
-              }
+              rx={2}
+              fill="rgba(125, 232, 248, 0.28)"
+              initial={{ x: xMed, width: 0 }}
+              animate={inView ? { x: x94Lo, width: x94Hi - x94Lo } : {}}
               transition={{
-                duration: 0.7,
-                delay: 0.4 + i * 0.1,
-                ease: "easeOut",
+                duration: 0.8,
+                delay: 0.25 + i * 0.08,
+                ease: [0.21, 0.47, 0.32, 0.98],
               }}
             />
 
-            {/* Effect bar */}
+            {/* 50% HDI — darker bar inside the 94% */}
             <motion.rect
-              x={barX}
-              y={y + 4}
-              height={5}
+              y={cy - 3.5}
+              height={7}
               rx={2.5}
-              fill="#22d3ee"
-              initial={{ width: 0 }}
-              animate={inView ? { width: barW } : {}}
+              fill="rgba(125, 232, 248, 0.62)"
+              initial={{ x: xMed, width: 0 }}
+              animate={inView ? { x: x50Lo, width: x50Hi - x50Lo } : {}}
               transition={{
-                duration: 0.9,
-                delay: 0.2 + i * 0.1,
+                duration: 0.8,
+                delay: 0.4 + i * 0.08,
                 ease: [0.21, 0.47, 0.32, 0.98],
+              }}
+            />
+
+            {/* Median dot */}
+            <motion.circle
+              cy={cy}
+              cx={xMed}
+              r={3}
+              fill="rgb(167, 243, 248)"
+              stroke="rgba(10, 18, 23, 0.5)"
+              strokeWidth={0.6}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{
+                duration: 0.25,
+                delay: 0.85 + i * 0.08,
               }}
             />
           </g>
@@ -419,6 +470,135 @@ export function MLBVisual() {
         letterSpacing="0.18em"
       >
         VELOCITY
+      </text>
+    </svg>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* EdgarRisk — precision evolves 46% → 61% → 69%                       */
+/* ------------------------------------------------------------------ */
+
+const EDGAR_ROWS = [
+  { label: "in-sample", precision: 0.46, color: "rgba(34, 211, 238, 0.55)" },
+  { label: "+ distress", precision: 0.61, color: "rgba(34, 211, 238, 0.8)" },
+  { label: "+ recovered", precision: 0.69, color: "rgba(103, 232, 249, 0.95)" },
+];
+
+export function EdgarRiskVisual() {
+  const ref = useRef<SVGSVGElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+
+  const W = 320;
+  const H = 88;
+  const pad = { top: 8, right: 36, bottom: 18, left: 78 };
+  const BAR_H = 12;
+  const ROW_GAP = (H - pad.top - pad.bottom - BAR_H * 3) / 2;
+  const X_MAX = 0.8;
+  const xPlot = (v: number) =>
+    pad.left + (v / X_MAX) * (W - pad.left - pad.right);
+  const yPlot = (i: number) => pad.top + i * (BAR_H + ROW_GAP);
+
+  return (
+    <svg
+      ref={ref}
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      className="h-full w-full"
+      aria-label="EdgarRisk precision curves rising from 46% in-sample to 69% at extended horizon."
+    >
+      {/* Faint vertical grid at 25/50/75% */}
+      {[0.25, 0.5, 0.75].map((v, i) => (
+        <line
+          key={i}
+          x1={xPlot(v)}
+          x2={xPlot(v)}
+          y1={pad.top - 1}
+          y2={H - pad.bottom + 1}
+          stroke="rgba(255,255,255,0.04)"
+          strokeDasharray="2 4"
+          strokeWidth={1}
+        />
+      ))}
+
+      {EDGAR_ROWS.map((r, i) => {
+        const y = yPlot(i);
+        return (
+          <g key={i}>
+            {/* Row label (left) */}
+            <text
+              x={pad.left - 6}
+              y={y + BAR_H / 2 + 3}
+              textAnchor="end"
+              fill="rgba(139,138,131,0.75)"
+              fontSize="8"
+              fontFamily="var(--font-mono), monospace"
+              letterSpacing="0.06em"
+            >
+              {r.label}
+            </text>
+
+            {/* Track */}
+            <rect
+              x={pad.left}
+              y={y}
+              width={W - pad.left - pad.right}
+              height={BAR_H}
+              rx={2.5}
+              fill="rgba(255,255,255,0.035)"
+            />
+
+            {/* Bar */}
+            <motion.rect
+              x={pad.left}
+              y={y}
+              height={BAR_H}
+              rx={2.5}
+              fill={r.color}
+              initial={{ width: 0 }}
+              animate={
+                inView ? { width: xPlot(r.precision) - pad.left } : {}
+              }
+              transition={{
+                duration: 0.95,
+                delay: 0.25 + i * 0.18,
+                ease: [0.21, 0.47, 0.32, 0.98],
+              }}
+            />
+
+            {/* Percentage label */}
+            <motion.text
+              x={xPlot(r.precision) + 6}
+              y={y + BAR_H / 2 + 3}
+              fontSize="9"
+              fill={
+                i === 2
+                  ? "rgba(134, 239, 172, 0.95)"
+                  : "rgba(103, 232, 249, 0.9)"
+              }
+              fontFamily="var(--font-mono), monospace"
+              fontWeight={500}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.3, delay: 0.85 + i * 0.18 }}
+            >
+              {Math.round(r.precision * 100)}%
+            </motion.text>
+          </g>
+        );
+      })}
+
+      {/* X-axis title */}
+      <text
+        x={pad.left + (W - pad.left - pad.right) / 2}
+        y={H - 4}
+        textAnchor="middle"
+        fill="rgba(139,138,131,0.65)"
+        fontSize="8"
+        fontFamily="var(--font-mono), monospace"
+        letterSpacing="0.18em"
+      >
+        PRECISION → HORIZON
       </text>
     </svg>
   );

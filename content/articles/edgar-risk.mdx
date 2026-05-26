@@ -1,0 +1,130 @@
+---
+title: "Failing Companies Tell on Themselves in Their Annual Reports"
+date: "2026-05-25"
+dek: "I built a model that reads SEC filings to spot failing companies. It caught Bed Bath & Beyond two years before bankruptcy. And Nordstrom, Walgreens, and Macy's."
+category: "SEC · NLP · CORPORATE DISTRESS"
+tags: ["SEC", "NLP", "Python", "Scikit-learn", "Finance"]
+repo: "https://github.com/shanethakkar/EdgarRisk"
+---
+
+## When the False Positives Weren't False
+
+My bankruptcy detector caught Bed Bath & Beyond two years before its Chapter 11. It also flagged six companies that never filed. That turned out to be the interesting part.
+
+I built EdgarRisk, a Python pipeline that pulls 10-K filings from SEC EDGAR. 10-Ks are the annual reports public companies file every year. The pipeline parses the Risk Factors section, where a company lists everything that could go wrong, scores each year's text against the prior year's, and flags anomalies against a sector-matched peer group.
+
+I tested it on 24 historical Chapter 11 bankruptcies paired with 42 sector-matched healthy peers across 15 sectors.
+
+The first run looked respectable. The model caught **79%** of the bankruptcies in the test. That's its recall: the fraction of actual failures it spotted. But only **46%** of the companies it flagged actually filed for bankruptcy inside the test window. That's its precision: the fraction of its flags that turned out to be real bankruptcies. Half its flags looked wrong. Here is what the precision curve looks like once you extend the time horizon:
+
+<EdgarRiskPrecisionCurves />
+
+Including the six survivors that subsequently went through serious trouble lifts precision to **61%**. Adding four more that survived a material stress event pushes it to **69%**. The stress-recovered four: Western Alliance (2023 banking crisis), Clorox (multi-quarter cyberattack disruption), Alaska Airlines (Hawaiian merger plus the door-plug incident), and Williams-Sonoma (post-COVID home goods slowdown).
+
+Here are the six "false positives" that ultimately ran into trouble. The cyan bar shows the years the model flagged them. The red marker is when the trouble crystallized:
+
+<EdgarRiskReceipts />
+
+The model was not predicting Chapter 11. It was predicting **distress**, which can end in more ways than just bankruptcy. When the time horizon extends 2 to 3 years past the test window, precision climbs from 46% to 69%.
+
+## How the Model Works
+
+The model has three signals, all scored peer-relative against a 3 to 5 company group of sector peers. Peer-relative scoring is not optional. It is the single most important methodological choice in the project, and I learned that the hard way.
+
+The first thing I tried was absolute Loughran-McDonald Negative-word ratio, the canonical text-based finance signal. Loughran and McDonald at Notre Dame published a dictionary in 2011 of about 2,400 words that have negative connotations in a financial context. Computing the ratio of those words to total tokens in a 10-K is a one-line measurement the academic literature has used for fifteen years.
+
+It does not work for failure detection. JPMorgan Chase, a healthy and consistently profitable bank, has a higher negative-word ratio than every failure in my dataset. Banking regulation requires extensive disclosure of credit risk, market risk, regulatory risk, and those disclosures use words like "loss," "decline," and "adverse." JPM's score is not a sign of weakness. It is a sign of being a regulated bank.
+
+In retail, the sector where the model had the most cases, every single failure had *less* negative language than its healthy peers. Bed Bath & Beyond, which filed Chapter 11 in April 2023, is one of those failures. Here is its risk language against the healthy retail cohort of Best Buy, Macy's, Kohl's, Nordstrom, and Williams-Sonoma. The chart toggles between the absolute negative-word ratio and the peer-rank novelty the model actually uses. Peer-rank novelty measures how much each company's risk language changed year-over-year, ranked within its cohort:
+
+<EdgarRiskCohortComparator />
+
+If I had built the model around absolute sentiment, it would have ranked Bed Bath & Beyond as the *healthiest* name in retail right up to the April 2023 Chapter 11. After scrapping absolute scoring, the whole methodology became peer-relative. The signal is not "how negative is this company's language." It is "how does this company's disclosure pattern compare to peers facing the same operational headwinds."
+
+The final model uses three signals, all peer-ranked against the company's sector cohort. A company fires the model if any of the three fires.
+
+### Novelty spike
+
+The model compares each year's Risk Factors text against the prior year's and measures how much was rewritten. When a company rewrites a lot of its risk language while peers stay boilerplate, that's the signal. Restructuring lawyers preparing for creditor disclosure, post-event responses, and mid-cycle pivots all leave this fingerprint.
+
+*Technical detail:* novelty = `1 − cos_sim(year N, year N-1)` from a TF-IDF vectorization (a standard NLP technique that converts text into vectors weighted by how distinctive each word is). The signal fires when a company's novelty ranks in the top quartile of its cohort (≥0.75) and exceeds 0.10 in absolute terms.
+
+### Declining under-disclosure
+
+The opposite shape: a company that was actively updating its risk language in earlier years goes quiet right before failure. The pattern shows up when management is in pre-bankruptcy negotiations with creditors. The company's lawyers routinely advise minimal disclosure updates during those negotiations, since each new risk factor creates more material that future shareholder lawsuits could quote. Spirit Airlines and J.C. Penney both fit this shape.
+
+*Technical detail:* novelty rank drops from above the cohort median at the start of the lookback to the bottom third (≤0.34) by the event year, while the cohort had at least one peer-year of meaningful activity.
+
+### Chronic under-disclosure
+
+A company that was *always* silent. Never rewrote, never even tried, even while peers were actively updating their language. Express Inc. filed Chapter 11 in April 2024, sat at the bottom of its retail cohort every year of its 4-year lookback, and barely changed its text year over year. They never told the SEC anything was wrong because they never told the SEC anything at all.
+
+*Technical detail:* mean rank stays in the bottom third across the lookback (≤0.34), max rank never breaks the median (≤0.50), own raw novelty stays under 0.10, while the cohort had meaningful activity.
+
+## The Detection Scoreboard
+
+Across 24 failures, the model catches 19. That is 79% recall, distributed across 15 sectors. Here is the full breakdown. Each row is one failure, each column is one of the three signals, and the right column names the failure mode when nothing fires:
+
+<EdgarRiskScoreboard />
+
+The successes are more interesting than the misses. In retail, the novelty-spike signal caught the major slow-burn collapses: Sears, Pier 1, Ascena, and Bed Bath & Beyond. All four had visible mid-cycle rewriting peaks. J.C. Penney was caught by the declining-under-disclosure signal because its lawyers had it on minimum-update mode through the pandemic.
+
+In specialty pharma, two opioid-litigation bankruptcies fired the under-disclosure signal: Endo International (a pain-medication maker, Ch.11 August 2022) and Mallinckrodt (Ch.11 October 2020). The same legal mechanic applies under active litigation, and the model detected the resulting peer-relative suppression in both cases.
+
+In commercial real estate, WeWork's pattern is the cleanest in the dataset. WeWork went public in October 2021 by merging with a SPAC, a shell company used as a back-door route to listing. Its FY2021 10-K was a complete rewrite, and the novelty spike fires. Between FY2021 and FY2022, the language locked into a new boilerplate state, and the declining under-disclosure signal fires. Two signals catching two phases of the same failure.
+
+To check the methodology against data it had never seen, I locked the model after the initial round of testing and ran it against Spirit Airlines, which filed Ch.11 in November 2024. I had not used Spirit to develop or tune anything. The novelty-spike signal missed it. Under-disclosure caught it. Spirit's FY2023 risk language was 98.4% identical to FY2022, even though the DOJ had blocked Spirit's attempt to merge with JetBlue between those two filings.
+
+## The Five Blind Spots
+
+The five failures the model does not catch each belong to a named structural class. None of them are "we don't know why."
+
+**Sudden balance-sheet shocks (SVB, Silvergate).** Both banks failed between annual filings. Their FY2022 10-Ks were filed weeks before the March 2023 collapse and looked unremarkable. The 2023 spike in interest rates that brought them down happened *after* those filings were locked. No textual fingerprint exists for events that happen between annual disclosures.
+
+**Industry shocks where management didn't know (Boeing pre-MAX).** Boeing's FY2017 10-K showed no sign of what was coming with the 737 MAX. The first crash was eight months away. By the time Boeing's risk language reflected the full crisis, the stock had already collapsed. The model cannot detect what the company does not yet know.
+
+**Chronic anomalies (Peloton).** Peloton sat at the cohort extreme on multiple signals from its IPO. Always extreme, no trajectory. Distinguishing "always doomed" from "recently doomed" requires comparing the company against a longer historical baseline than Peloton has as a public company.
+
+**Static peer cohorts (Hertz).** The car-rental sector was uniformly quiet 2016 through 2019. Every peer's risk language barely changed. There was no peer activity to compare Hertz against, so the model correctly held back rather than flag based on a meaningless comparison.
+
+These are not bugs. They are enumerated, mechanistically distinct, and each one is a structural limit of analyzing the text of annual filings.
+
+## What This Is Useful For
+
+The model is not a high-frequency trading signal. The signal fires on annual filings, which makes it cycle-of-the-business slow. Even at the 1 to 3 year horizon, 31% of the flagged companies do not ultimately run into serious trouble.
+
+But it is a useful screen. If you are an investor doing fundamental research, the model narrows a 500-company universe down to a much smaller research set that is meaningfully better than random selection. The right action on a flag is to dig deeper on those names, not to short them automatically.
+
+It is also useful for risk management. A credit analyst extending a line, a landlord underwriting a tenant, a lender reviewing a renewal: running a 10-K through this model is a cheap second opinion. Most flags will be wrong, or right at a long horizon. But the cost of missing a Bed Bath & Beyond a year early is much higher than the cost of an extra credit review.
+
+It might be most useful for research and journalism. The model surfaces a ranked list of companies quietly telling the SEC they are in trouble. That is a starting point for stories that do not yet have stock-price evidence to anchor them.
+
+## Limitations
+
+A few honest disclaimers.
+
+**Cohort selection is hand-picked.** I chose Best Buy, Macy's, Kohl's, Nordstrom, and Williams-Sonoma as the retail cohort, KeyCorp + Fifth Third + Huntington as the mid-cap commercial bank cohort, and so on. Different cohort choices would give different results. A future version should use an objective industry classification and size bracket instead, but for this project the cohorts were defensible by sector intuition.
+
+**The test set is sector-matched, not random.** The 42 survivor companies are all peers of failures, meaning they were exposed to the same operational headwinds. False-positive rates on a truly random sample of public US companies would likely be lower. The survivors here are themselves a stressed selection.
+
+**The signals are tuned.** The 0.75 percentile threshold, the 0.10 raw-novelty floor, and the 0.34 bottom-third cutoff were all chosen partly to make the model work on the original Bed Bath & Beyond case study. I tightened the worst overfit by adding multi-control cohorts and percentile-rank scoring after the methodology was locked. Some residual tuning likely remains.
+
+## Where This Goes Next
+
+Once the model is understood as a distress detector rather than a bankruptcy predictor, three follow-up directions become obvious.
+
+**Layer 8-K material event filings on top of 10-Ks.** 8-Ks are the filings companies submit on specific triggering events (material disruption, change of control, restatement) rather than on an annual schedule. They might catch the SVB-class failures the annual-filing model conceptually cannot. Different cadence, complementary signal.
+
+**Tie the text signal to forward stock returns.** The current project tested against Chapter 11 events. The same dataset could test against 12-month forward total returns. Does the signal predict market underperformance, not just bankruptcy?
+
+**Separate distress-that-crystallizes from distress-that-resolves.** The longitudinal follow-up showed the model flags real distress but does not separate the 6 take-privates and 50% crashes from the 4 that recovered. Forward indicators could tighten that distinction: analyst rating drift, executive turnover, dividend cuts, or credit-default-swap pricing (a market signal for bankruptcy risk). That is where I would point the next project.
+
+## Closing
+
+I started this expecting to build a Chapter 11 predictor. I ended up with a 1 to 3 year leading indicator of corporate distress that resolves in whatever way the company can manage: Chapter 11, private-equity take-private, activist takeover, or a stock that collapses without ever filing. The same signal that flagged Bed Bath & Beyond two years before bankruptcy also flagged Nordstrom three years before it was taken private.
+
+The "false positive" list reads, in retrospect, like a roster of the past five years' most distressed corporate names. The corporate language in SEC 10-K Risk Factors changes slowly. When it changes, something happened. Most of the time, what happened was a lawyer preparing for a fight that takes 1 to 3 years to play out.
+
+---
+
+*Built with Python, scikit-learn (TF-IDF + cosine similarity), pandas, beautifulsoup4, and matplotlib. Data: SEC EDGAR (public API) and the Loughran-McDonald Master Dictionary 1993–2024 (Notre Dame SRAF, non-commercial research license). 24 failure case studies, 42 sector-matched survivors, 15 sectors. Methodology developed iteratively across 12 phases.*

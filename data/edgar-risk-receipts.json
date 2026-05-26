@@ -1,0 +1,56 @@
+[
+  {
+    "ticker": "JWN",
+    "company": "Nordstrom",
+    "event": "Taken private May 2025 (Nordstrom family + El Puerto de Liverpool)",
+    "flagStart": 2019,
+    "flagEnd": 2022,
+    "eventYear": 2025,
+    "eventMonth": "May"
+  },
+  {
+    "ticker": "WBA",
+    "company": "Walgreens Boots Alliance",
+    "event": "Take-private deal with Sycamore Partners announced 2025; multi-year operational decline",
+    "flagStart": 2019,
+    "flagEnd": 2022,
+    "eventYear": 2025,
+    "eventMonth": "Mar"
+  },
+  {
+    "ticker": "CVS",
+    "company": "CVS Health",
+    "event": "Major 2023-2025 operational issues, stock down ~50% from 2022 peak, CEO replaced",
+    "flagStart": 2019,
+    "flagEnd": 2022,
+    "eventYear": 2024,
+    "eventMonth": "Oct"
+  },
+  {
+    "ticker": "LCID",
+    "company": "Lucid Motors",
+    "event": "Stock crash >90% from peak; ongoing severe cash burn / going-concern adjacent",
+    "flagStart": 2020,
+    "flagEnd": 2022,
+    "eventYear": 2024,
+    "eventMonth": "Q3"
+  },
+  {
+    "ticker": "KSS",
+    "company": "Kohl's",
+    "event": "Multiple activist takeover bids, CEO turnover, stock crash, considered take-private",
+    "flagStart": 2019,
+    "flagEnd": 2022,
+    "eventYear": 2024,
+    "eventMonth": "Q2"
+  },
+  {
+    "ticker": "M",
+    "company": "Macy's",
+    "event": "Arkhouse takeover bids 2024, activist pressure for real estate spinoff",
+    "flagStart": 2019,
+    "flagEnd": 2022,
+    "eventYear": 2024,
+    "eventMonth": "Q1"
+  }
+]
