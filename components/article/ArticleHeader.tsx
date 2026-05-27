@@ -13,6 +13,7 @@ export function ArticleHeader({
   date,
   readingMinutes,
   repo,
+  tags,
 }: ArticleMeta) {
   return (
     <header className="mx-auto w-full max-w-3xl px-6 pt-14 sm:px-8 sm:pt-20">
@@ -43,6 +44,19 @@ export function ArticleHeader({
 
         <ArticleActions title={title} text={dek} repo={repo} />
       </div>
+
+      {tags.length > 0 ? (
+        <div className="mt-5 flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-md border border-border-subtle bg-white/[0.04] px-2.5 py-1 font-mono text-[11.5px] text-fg"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      ) : null}
 
       <div className="mt-8 border-t border-border-subtle" />
     </header>

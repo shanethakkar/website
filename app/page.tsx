@@ -125,7 +125,7 @@ export default function Home() {
               dateLabel="MAY 25 '26"
               category="SEC · NLP · Distress"
               description="A model that reads what companies say about themselves in SEC filings catches 79% of bankruptcies across 24 cases. The 'false positives' include Nordstrom, Walgreens, Macy's, Kohl's, CVS, and Lucid Motors, all of whose decline didn't end in court."
-              tags={["python", "sklearn", "edgar"]}
+              tags={["python", "sklearn", "pandas", "nlp", "edgar"]}
               visual={<EdgarRiskVisual />}
             />
             <ArticleCard
@@ -135,7 +135,7 @@ export default function Home() {
               dateLabel="APR 22 '26"
               category="NFL · WPA · XGBoost"
               description="107k decisions from 1999–2025, scored against historically optimal calls. Coaches still leave ~one free win on the table every year — and the conservative ones make most of their mistakes in the red zone."
-              tags={["python", "nflfastR", "xgboost"]}
+              tags={["python", "pandas", "numpy", "xgboost", "nflfastR"]}
               visual={<FourthDownVisual />}
             />
             <ArticleCard
@@ -146,7 +146,7 @@ export default function Home() {
               dateLabel="APR 18 '26"
               category="F1 · Bayesian"
               description="A hierarchical model on 2014–2025 race data decomposes finishing position into driver effect, car effect, and DNF risk. The result reveals the Verstappen Paradox — and Hamilton at the top with 85% confidence."
-              tags={["pymc", "fastf1", "python"]}
+              tags={["python", "pymc", "bayesian", "arviz", "fastf1"]}
               visual={<F1Visual />}
             />
             <ArticleCard
