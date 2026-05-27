@@ -123,7 +123,7 @@ export default function Home() {
               slug="edgar-risk"
               title="Failing Companies Tell on Themselves in Their Annual Reports"
               dateLabel="MAY 25 '26"
-              category="SEC · NLP · Distress"
+              category="SEC · NLP · 10-K Analysis"
               description="A model that reads what companies say about themselves in SEC filings catches 79% of bankruptcies across 24 cases. The 'false positives' include Nordstrom, Walgreens, Macy's, Kohl's, CVS, and Lucid Motors, all of whose decline didn't end in court."
               tags={["python", "sklearn", "pandas", "nlp", "edgar"]}
               visual={<EdgarRiskVisual />}
@@ -156,7 +156,7 @@ export default function Home() {
               dateLabel="MAY 13 '25"
               category="MLB · Regression"
               description="Physics says taller pitchers should throw harder. The data says they don't. The story is selection bias: by the time you reach MLB, the relationship that dominates youth ball has been compressed away by survival."
-              tags={["python", "sklearn", "statcast"]}
+              tags={["python", "sklearn", "pandas", "numpy", "statcast"]}
               visual={<MLBVisual />}
             />
           </div>
