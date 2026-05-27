@@ -1,15 +1,15 @@
 [
   {
-    "label": "In-sample precision (Ch.11 only)",
-    "horizon": "In-sample (Ch.11 only)",
+    "label": "Filed Chapter 11",
+    "horizon": "Filed Chapter 11 (inside test window)",
     "precision": 0.46,
     "tp": 19,
     "fp": 22,
     "addedTickers": []
   },
   {
-    "label": "Extended-horizon precision (Ch.11 + distress)",
-    "horizon": "Extended horizon (+ distress to May 2026)",
+    "label": "Plus later distress event",
+    "horizon": "+ Later distress event (within 2-3 years)",
     "precision": 0.61,
     "tp": 25,
     "fp": 16,
@@ -23,8 +23,8 @@
     ]
   },
   {
-    "label": "Including stress-recovered as TP-for-stress",
-    "horizon": "Including stress-recovered",
+    "label": "Plus material stress event",
+    "horizon": "+ Material stress event (survived intact)",
     "precision": 0.69,
     "tp": 29,
     "fp": 13,

@@ -60,11 +60,11 @@ const VIEWS: Record<
   }
 > = {
   absolute: {
-    label: "LM-Negative ratio (absolute)",
+    label: "Negative-word ratio (absolute)",
     yMax: 0.055,
     yTicks: [0, 0.01, 0.02, 0.03, 0.04, 0.05],
-    format: (v) => v.toFixed(3),
-    axisTitle: "LM-NEGATIVE WORDS / TOTAL TOKENS",
+    format: (v) => `${(v * 100).toFixed(1)}%`,
+    axisTitle: "% NEGATIVE WORDS IN 10-K",
     subtitle: "BBBY sits at the bottom — the canonical absolute sentiment signal would have ranked it the healthiest name in the cohort.",
   },
   peerRank: {
@@ -122,7 +122,7 @@ export function EdgarRiskCohortComparator() {
               ⇄
             </div>
             <div className="truncate font-mono text-[11px] uppercase tracking-[0.18em] text-fg-bright">
-              BBBY vs. retail cohort — the methodology pivot
+              BBBY vs. its retail peers — same data, opposite stories
             </div>
           </div>
           <div className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.2em] text-fg-muted">
@@ -388,7 +388,7 @@ export function EdgarRiskCohortComparator() {
                       }
                     >
                       {view === "absolute"
-                        ? `LM-Neg ratio: ${cfg.format(v)}`
+                        ? `negative-word ratio: ${cfg.format(v)}`
                         : `peer rank: ${cfg.format(v)}`}
                     </text>
                     {view === "peerRank" && raw != null ? (

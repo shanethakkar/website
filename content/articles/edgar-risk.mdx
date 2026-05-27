@@ -15,11 +15,13 @@ I built EdgarRisk, a Python pipeline that pulls 10-K filings from SEC EDGAR. 10-
 
 I tested it on 24 historical Chapter 11 bankruptcies paired with 42 sector-matched healthy peers across 15 sectors.
 
-The first run looked respectable. The model caught **79%** of the bankruptcies in the test. That's its recall: the fraction of actual failures it spotted. But only **46%** of the companies it flagged actually filed for bankruptcy inside the test window. That's its precision: the fraction of its flags that turned out to be real bankruptcies. Half its flags looked wrong. Here is what the precision curve looks like once you extend the time horizon:
+The first run looked respectable. The model caught **79%** of the bankruptcies in the test. That's its recall: the fraction of actual failures it spotted. But only **46%** of the companies it flagged actually filed for bankruptcy inside the test window. That's its precision: the fraction of its flags that turned out to be real bankruptcies. Half its flags looked wrong.
+
+Precision depends on what you count as a hit. The chart below shows three definitions, each broader than the last:
 
 <EdgarRiskPrecisionCurves />
 
-Including the six survivors that subsequently went through serious trouble lifts precision to **61%**. Adding four more that survived a material stress event pushes it to **69%**. The stress-recovered four: Western Alliance (2023 banking crisis), Clorox (multi-quarter cyberattack disruption), Alaska Airlines (Hawaiian merger plus the door-plug incident), and Williams-Sonoma (post-COVID home goods slowdown).
+The third tier adds four companies that hit major operational shocks but survived: Western Alliance (2023 banking crisis), Clorox (multi-quarter cyberattack disruption), Alaska Airlines (Hawaiian merger plus the door-plug incident), and Williams-Sonoma (post-COVID home goods slowdown).
 
 Here are the six "false positives" that ultimately ran into trouble. The cyan bar shows the years the model flagged them. The red marker is when the trouble crystallized:
 
@@ -63,7 +65,7 @@ A company that was *always* silent. Never rewrote, never even tried, even while 
 
 ## The Detection Scoreboard
 
-Across 24 failures, the model catches 19. That is 79% recall, distributed across 15 sectors. Here is the full breakdown. Each row is one failure, each column is one of the three signals, and the right column names the failure mode when nothing fires:
+Across 24 failures, the model catches 19. That is 79% recall, distributed across 15 sectors. Here is the full breakdown. Each row is one failure, each column shows whether one of the three signals fired. The right column gives context — the disclosure pattern that caught the company, or the structural reason it slipped through:
 
 <EdgarRiskScoreboard />
 
@@ -99,6 +101,14 @@ It is also useful for risk management. A credit analyst extending a line, a land
 
 It might be most useful for research and journalism. The model surfaces a ranked list of companies quietly telling the SEC they are in trouble. That is a starting point for stories that do not yet have stock-price evidence to anchor them.
 
+## Not a Trading Signal
+
+After the longitudinal follow-up, I tested whether the model could predict forward stock returns, not just bankruptcies. I built a 0-100 distress score from the three signals and regressed it against 12, 24, and 36-month forward total returns.
+
+It doesn't work. No correlation reaches statistical significance at any horizon. The correlation at 24 months is -0.16 (p=0.18), which is the right direction but indistinguishable from noise.
+
+The reason is mechanical: by the time a 10-K is publicly filed, the operational deterioration the text reflects has usually already shown up in earnings calls, analyst notes, and the stock price. The market is faster than the annual disclosure cycle. This is a useful screen, not a tradable signal.
+
 ## Limitations
 
 A few honest disclaimers.
@@ -111,11 +121,9 @@ A few honest disclaimers.
 
 ## Where This Goes Next
 
-Once the model is understood as a distress detector rather than a bankruptcy predictor, three follow-up directions become obvious.
+Once the model is understood as a distress detector rather than a bankruptcy predictor, two follow-up directions become obvious.
 
 **Layer 8-K material event filings on top of 10-Ks.** 8-Ks are the filings companies submit on specific triggering events (material disruption, change of control, restatement) rather than on an annual schedule. They might catch the SVB-class failures the annual-filing model conceptually cannot. Different cadence, complementary signal.
-
-**Tie the text signal to forward stock returns.** The current project tested against Chapter 11 events. The same dataset could test against 12-month forward total returns. Does the signal predict market underperformance, not just bankruptcy?
 
 **Separate distress-that-crystallizes from distress-that-resolves.** The longitudinal follow-up showed the model flags real distress but does not separate the 6 take-privates and 50% crashes from the 4 that recovered. Forward indicators could tighten that distinction: analyst rating drift, executive turnover, dividend cuts, or credit-default-swap pricing (a market signal for bankruptcy risk). That is where I would point the next project.
 

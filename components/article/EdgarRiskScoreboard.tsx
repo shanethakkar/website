@@ -126,22 +126,34 @@ export function EdgarRiskScoreboard() {
               SECTOR
             </text>
             {([
-              ["NOVELTY SPIKE", COL_SIG1, SIG_COLORS.novelty_spike.active],
-              ["DECLINING UD", COL_SIG2, SIG_COLORS.declining_ud.active],
-              ["CHRONIC UD", COL_SIG3, SIG_COLORS.chronic_ud.active],
-            ] as const).map(([label, x, color]) => (
-              <text
-                key={label}
-                x={x}
-                y={PAD.top + 22}
-                textAnchor="middle"
-                fontFamily="var(--font-mono), ui-monospace, monospace"
-                fontSize={9}
-                letterSpacing="0.16em"
-                fill={color}
-              >
-                {label}
-              </text>
+              [["NOVELTY", "SPIKE"], COL_SIG1, SIG_COLORS.novelty_spike.active],
+              [["DECLINING", "DISCLOSURE"], COL_SIG2, SIG_COLORS.declining_ud.active],
+              [["CHRONIC", "SILENCE"], COL_SIG3, SIG_COLORS.chronic_ud.active],
+            ] as const).map(([lines, x, color]) => (
+              <g key={lines.join("-")}>
+                <text
+                  x={x}
+                  y={PAD.top + 14}
+                  textAnchor="middle"
+                  fontFamily="var(--font-mono), ui-monospace, monospace"
+                  fontSize={9}
+                  letterSpacing="0.16em"
+                  fill={color}
+                >
+                  {lines[0]}
+                </text>
+                <text
+                  x={x}
+                  y={PAD.top + 27}
+                  textAnchor="middle"
+                  fontFamily="var(--font-mono), ui-monospace, monospace"
+                  fontSize={9}
+                  letterSpacing="0.16em"
+                  fill={color}
+                >
+                  {lines[1]}
+                </text>
+              </g>
             ))}
             <text
               x={COL_CLASS}
@@ -287,8 +299,8 @@ export function EdgarRiskScoreboard() {
             ? (() => {
                 const r = rows[hover];
                 const rowY = PAD.top + HEADER_H + hover * ROW_H;
-                const TW = 240;
-                const TH = 84;
+                const TW = 280;
+                const TH = 104;
                 const tx = W - PAD.right - TW;
                 const ty = rowY + ROW_H + 6 > H - PAD.bottom - TH
                   ? rowY - TH - 6
@@ -322,7 +334,7 @@ export function EdgarRiskScoreboard() {
                       fontSize={10.5}
                       fill="rgba(255,255,255,0.7)"
                     >
-                      max rank {r.maxRank.toFixed(2)} · t0 rank {r.t0Rank.toFixed(2)}
+                      peak rank in cohort: {r.maxRank.toFixed(2)}
                     </text>
                     <text
                       x={tx + 12}
@@ -331,11 +343,20 @@ export function EdgarRiskScoreboard() {
                       fontSize={10.5}
                       fill="rgba(255,255,255,0.7)"
                     >
-                      own raw novelty {r.ownMaxRaw.toFixed(3)}
+                      rank at filing year: {r.t0Rank.toFixed(2)}
                     </text>
                     <text
                       x={tx + 12}
                       y={ty + 72}
+                      fontFamily="var(--font-mono), ui-monospace, monospace"
+                      fontSize={10.5}
+                      fill="rgba(255,255,255,0.7)"
+                    >
+                      max yearly text change: {r.ownMaxRaw.toFixed(3)}
+                    </text>
+                    <text
+                      x={tx + 12}
+                      y={ty + 92}
                       fontFamily="var(--font-mono), ui-monospace, monospace"
                       fontSize={10.5}
                       fill={
@@ -352,22 +373,31 @@ export function EdgarRiskScoreboard() {
             : null}
         </svg>
 
-        <div className="flex items-center justify-between gap-4 border-t border-border-subtle px-4 py-2.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-fg-dim sm:px-5">
-          <span className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-border-subtle px-4 py-2.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-fg-dim sm:px-5">
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: SIG_COLORS.novelty_spike.active }} />
-              <span>Spike</span>
+              <span>Novelty spike</span>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: SIG_COLORS.declining_ud.active }} />
-              <span>Declining</span>
+              <span>Declining disclosure</span>
             </span>
             <span className="flex items-center gap-1.5">
               <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: SIG_COLORS.chronic_ud.active }} />
-              <span>Chronic</span>
+              <span>Chronic silence</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="inline-block h-2.5 w-2.5 rounded-full border border-white/40" />
+              <span>Didn&apos;t fire</span>
             </span>
           </span>
-          <span>hover any row for cohort metrics</span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-3 w-1 rounded-sm" style={{ background: "rgba(34, 211, 238, 0.6)" }} />
+            <span>caught</span>
+            <span className="ml-1.5 inline-block h-3 w-1 rounded-sm" style={{ background: "rgba(248, 113, 113, 0.7)" }} />
+            <span>missed</span>
+          </span>
         </div>
       </div>
     </div>

@@ -1,9 +1,12 @@
 "use client";
 
 /**
- * EdgarRisk hero chart — precision evolves as the time horizon extends.
- * Three horizontal bars showing 46% → 61% → 69% precision, with hover
- * tooltips listing which companies are added at each step.
+ * EdgarRisk hero chart — precision under three definitions of a "hit."
+ * Three horizontal bars showing 46% → 61% → 69% precision as the
+ * definition of "correct flag" broadens from Chapter 11 only, to
+ * Chapter 11 + later distress, to Chapter 11 + distress + survived
+ * material stress. Hover tooltips list the tickers newly counted at
+ * each tier.
  *
  * Data: scripts/extract-edgar-risk-data.py reads phase5_adjusted_metrics.csv
  * and writes data/edgar-risk-precision-curves.json.
@@ -65,7 +68,7 @@ export function EdgarRiskPrecisionCurves() {
               ↗
             </div>
             <div className="truncate font-mono text-[11px] uppercase tracking-[0.18em] text-fg-bright">
-              Precision evolves with horizon
+              Precision under three definitions of a hit
             </div>
           </div>
           <div className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.2em] text-fg-muted">
@@ -76,7 +79,7 @@ export function EdgarRiskPrecisionCurves() {
         <svg
           viewBox={`0 0 ${W} ${H}`}
           role="img"
-          aria-label="Three horizontal bars showing the model's precision rising from 46% in-sample to 61% at extended horizon to 69% including stress-recovered companies. Hover any bar to see which companies move precision up at each step."
+          aria-label="Three horizontal bars showing the model's precision under progressively broader definitions of a correct flag: 46% counting only Chapter 11 inside the test window, 61% adding flagged companies that later distressed, 69% adding flagged companies that hit material stress events but survived. Hover any bar to see which companies are newly counted at each tier."
           className="block h-auto w-full"
           preserveAspectRatio="xMidYMid meet"
           onMouseLeave={() => setHover(null)}
@@ -226,7 +229,7 @@ export function EdgarRiskPrecisionCurves() {
                       fontWeight={500}
                       fill="rgba(255,255,255,0.95)"
                     >
-                      +{hovered.addedTickers.length} added at this horizon
+                      +{hovered.addedTickers.length} newly counted as hits
                     </text>
                     <text
                       x={tx + 12}

@@ -30,6 +30,20 @@ interface Row {
 
 const ROWS: Row[] = receipts;
 
+/** Measure rendered text width with the 2D canvas API so the tooltip
+ * box can size to its content instead of using a fixed width. We
+ * reuse a single canvas across calls (created lazily browser-side). */
+function measureTextWidth(text: string, font: string): number {
+  if (typeof document === "undefined") return text.length * 7;
+  const w = window as unknown as { __edgarReceiptsCanvas?: HTMLCanvasElement };
+  const canvas = w.__edgarReceiptsCanvas ?? document.createElement("canvas");
+  w.__edgarReceiptsCanvas = canvas;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return text.length * 7;
+  ctx.font = font;
+  return ctx.measureText(text).width;
+}
+
 const W = 900;
 const H = 380;
 const PAD = { top: 56, right: 28, bottom: 44, left: 200 };
@@ -72,7 +86,7 @@ export function EdgarRiskReceipts() {
               ◉
             </div>
             <div className="truncate font-mono text-[11px] uppercase tracking-[0.18em] text-fg-bright">
-              The receipts — 6 &quot;false positives&quot; that later distressed
+              Six flagged companies: flag window and later distress event
             </div>
           </div>
           <div className="shrink-0 font-mono text-[10.5px] uppercase tracking-[0.2em] text-fg-muted">
@@ -252,7 +266,20 @@ export function EdgarRiskReceipts() {
           {hovered && hover !== null
             ? (() => {
                 const y = PAD.top + hover * ROW_H + ROW_H / 2;
-                const TW = 380;
+                const line1 = `${hovered.company} (${hovered.ticker})`;
+                const line2 = hovered.event;
+                const line1W = measureTextWidth(
+                  line1,
+                  '500 12.5px system-ui, -apple-system, "Segoe UI", sans-serif',
+                );
+                const line2W = measureTextWidth(
+                  line2,
+                  '11.5px system-ui, -apple-system, "Segoe UI", sans-serif',
+                );
+                const TW = Math.max(
+                  220,
+                  Math.min(W - 40, Math.ceil(Math.max(line1W, line2W)) + 28),
+                );
                 const TH = 62;
                 const tx = (W - TW) / 2;
                 const ty = y - TH - 12 < PAD.top ? y + 20 : y - TH - 12;
@@ -285,9 +312,7 @@ export function EdgarRiskReceipts() {
                       fontSize={11.5}
                       fill="rgba(255,255,255,0.7)"
                     >
-                      {hovered.event.length > 70
-                        ? hovered.event.slice(0, 70) + "…"
-                        : hovered.event}
+                      {hovered.event}
                     </text>
                   </g>
                 );
