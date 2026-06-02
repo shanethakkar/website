@@ -50,7 +50,7 @@ export default function Home() {
           </div>
 
           <p className="mt-7 max-w-2xl text-[19px] leading-[1.55] text-fg/85">
-            I build projects that follow my curiosity.
+            Building data solutions and machine learning systems.
           </p>
 
           {/* Hero quick-links: GitHub / LinkedIn / Email / Resume */}

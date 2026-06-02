@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const sections = [
-  { id: "work", number: "01", label: "work" },
+  { id: "work", number: "01", label: "flagship" },
   { id: "projects", number: "02", label: "projects" },
   { id: "tech", number: "03", label: "tech" },
   { id: "about", number: "04", label: "about" },

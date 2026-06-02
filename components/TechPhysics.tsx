@@ -6,6 +6,7 @@ import { IoLogoTableau } from "react-icons/io5";
 import {
   SiAlteryx,
   SiDatabricks,
+  SiDocker,
   SiJupyter,
   SiKeras,
   SiNextdotjs,
@@ -177,6 +178,12 @@ const PUCKS: readonly PuckSpec[] = [
     label: "databricks",
     color: "#FF3621",
     render: (s) => <SiDatabricks size={s} />,
+  },
+  {
+    id: "docker",
+    label: "docker",
+    color: "#2496ED",
+    render: (s) => <SiDocker size={s} />,
   },
   {
     id: "tableau",
