@@ -272,7 +272,9 @@
 │   ├── DotGrid.tsx                       ← reactive canvas dot grid background
 │   ├── MorphingNav.tsx                   ← top header (numbered links + resume CTA) + scroll pill
 │   ├── SectionHeader.tsx                 ← reusable / 0X — Title — META row
-│   ├── FlagshipCard.tsx                  ← NFL Grades depth card (pulsing cyan halo)
+│   ├── Flagships.tsx                     ← stacks the two flagship cards (Selected work)
+│   ├── NflGradesCard.tsx                 ← NFL Grades depth card (pulsing cyan halo, cycling leaderboard)
+│   ├── VenueInsightsCard.tsx             ← Venue Insights depth card (cycling SVG analysis modules)
 │   ├── ArticleCard.tsx                   ← stacked editorial article cards (writing section)
 │   ├── projectVisuals.tsx                ← SVG mini-charts for the 3 article previews.
 │   │                                       Fourth-down: trend line with rotated "GO-FOR-IT %"

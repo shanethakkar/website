@@ -140,11 +140,11 @@ const CYCLE_MS = 10000;
 const CHIPS = ["Python", "next.js", "PostgreSQL", "vercel", "nflverse"];
 
 /**
- * Flagship project card for the homepage. Showcases NFL Position Grades —
- * the active subdomain at nfl-grades.shanethakkar.com.
+ * NFL Position Grades flagship card for the homepage. Showcases the active
+ * subdomain at nfl-grades.shanethakkar.com.
  *
- * The leaderboard panel auto-cycles QB → RB → WR every ~5.5s, pausing on
- * hover so the viewer can read what's there. On every cycle:
+ * The leaderboard panel auto-cycles through positions every CYCLE_MS, pausing
+ * on hover so the viewer can read what's there. On every cycle:
  *   - Position label crossfades old → new
  *   - Each row's name + team crossfades (staggered top-down)
  *   - Bar widths tween smoothly to new grades (framer-motion `animate`)
@@ -153,7 +153,7 @@ const CHIPS = ["Python", "next.js", "PostgreSQL", "vercel", "nflverse"];
  * Initial entrance (on viewport enter): card fades up, rows stagger in,
  * bars grow from 0%, numbers tick from 0.
  */
-export function FlagshipCard() {
+export function NflGradesCard() {
   const ref = useRef<HTMLAnchorElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
 

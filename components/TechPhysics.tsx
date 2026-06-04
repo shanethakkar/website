@@ -4,7 +4,6 @@ import { Database } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { IoLogoTableau } from "react-icons/io5";
 import {
-  SiAlteryx,
   SiDatabricks,
   SiDocker,
   SiJupyter,
@@ -196,12 +195,6 @@ const PUCKS: readonly PuckSpec[] = [
     label: "power bi",
     color: "#F2C811",
     render: (s) => <PowerBILogo size={s} />,
-  },
-  {
-    id: "alteryx",
-    label: "alteryx",
-    color: "#0095BB",
-    render: (s) => <SiAlteryx size={s} />,
   },
   {
     id: "excel",

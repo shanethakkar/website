@@ -2,7 +2,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { ArticleCard } from "@/components/ArticleCard";
 import { ContactSection } from "@/components/ContactSection";
 import { DotGrid } from "@/components/DotGrid";
-import { FlagshipCard } from "@/components/FlagshipCard";
+import { Flagships } from "@/components/Flagships";
 import { GitHubLogo, LinkedInLogo } from "@/components/icons";
 import { MorphingNav } from "@/components/MorphingNav";
 import {
@@ -35,7 +35,7 @@ export default function Home() {
         <MorphingNav />
 
         {/* Hero */}
-        <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:px-8 sm:pb-24 sm:pt-32">
+        <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-24 sm:px-8 sm:pb-24 sm:pt-32">
           <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent-border bg-accent-soft px-3.5 py-1.5 font-mono text-[10.5px] tracking-[0.14em] text-accent-bright">
             <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
             AVAILABLE — ACTIVELY INTERVIEWING
@@ -100,20 +100,20 @@ export default function Home() {
         {/* / 01 — Selected work (shipped products only) */}
         <section
           id="work"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
           <SectionHeader
             number="01"
             title="Selected work"
-            meta="LIVE PRODUCT"
+            meta="02 LIVE PRODUCTS"
           />
-          <FlagshipCard />
+          <Flagships />
         </section>
 
         {/* / 02 — Projects (stacked editorial article cards) */}
         <section
           id="projects"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
           <SectionHeader number="02" title="Projects" meta="04 PROJECTS" />
 
@@ -165,7 +165,7 @@ export default function Home() {
         {/* / 03 — Tech & skills (physics playground) */}
         <section
           id="tech"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
           <SectionHeader number="03" title="Tech I work with" meta="STACK" />
           <TechPhysics />
@@ -174,7 +174,7 @@ export default function Home() {
         {/* / 04 — About */}
         <section
           id="about"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
           <SectionHeader number="04" title="About" meta="WHO" />
           <AboutSection />
@@ -183,7 +183,7 @@ export default function Home() {
         {/* / 05 — Contact */}
         <section
           id="contact"
-          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-10"
+          className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
           <SectionHeader number="05" title="Get in touch" meta="LET'S TALK" />
           <ContactSection />
