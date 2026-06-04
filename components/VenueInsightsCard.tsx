@@ -570,13 +570,14 @@ export function VenueInsightsCard() {
             Venue Insights
           </h3>
           <p className="text-[14.5px] leading-[1.6] text-fg-muted">
-            A privacy-first analytics tool for venue food &amp; beverage
-            operators. Drag in a raw point-of-sale CSV and, entirely in the
-            browser, it infers the schema, cleans the data while documenting
-            every fix, scores its health, and renders ~13 operator-grade
-            analyses as hand-built charts — menu engineering, market-basket
-            lift, staffing curves, price elasticity. No backend, no upload, no
-            AI black box.
+            Every venue exports its point-of-sale data differently and messily;
+            this turns any of it into the same clean, documented, operator-grade
+            analytics. It infers the schema from arbitrary headers, runs a
+            transparent cleaning pipeline with a 0–100 Data Health Score, then
+            produces ~13 analysis modules — category performance, Pareto
+            tail-SKUs, menu engineering, market-basket lift, staffing curves,
+            price elasticity — plus a plain-English executive summary and an
+            exportable methodology report.
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {CHIPS.map((chip) => (
