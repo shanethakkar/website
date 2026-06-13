@@ -1,0 +1,60 @@
+{
+  "rungs": [
+    {
+      "key": "zone_minute",
+      "location": "Pickup + dropoff zone",
+      "time": "Exact minute"
+    },
+    {
+      "key": "zone_15",
+      "location": "Pickup + dropoff zone",
+      "time": "15-min bucket"
+    },
+    {
+      "key": "zone_60",
+      "location": "Pickup + dropoff zone",
+      "time": "60-min bucket"
+    },
+    {
+      "key": "borough_15",
+      "location": "Borough",
+      "time": "15-min bucket"
+    }
+  ],
+  "scopes": [
+    {
+      "key": "month",
+      "label": "Full month \u00b7 Apr 2026",
+      "trips": "15.4M trips",
+      "uniqueness": [
+        0.9008,
+        0.4605,
+        0.216,
+        0.0006
+      ],
+      "suppressionK5": [
+        null,
+        0.8529,
+        null,
+        0.0026
+      ]
+    },
+    {
+      "key": "dev",
+      "label": "Dev slice",
+      "trips": "250K trips",
+      "uniqueness": [
+        0.998,
+        0.9712,
+        0.9042,
+        0.0537
+      ],
+      "suppressionK5": [
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ]
+}

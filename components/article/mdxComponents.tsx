@@ -15,6 +15,9 @@ import { EdgarRiskPrecisionCurves } from "./EdgarRiskPrecisionCurves";
 import { EdgarRiskReceipts } from "./EdgarRiskReceipts";
 import { EdgarRiskScoreboard } from "./EdgarRiskScoreboard";
 import { EdgarRiskCohortComparator } from "./EdgarRiskCohortComparator";
+import { RideCloakUniquenessLadder } from "./RideCloakUniquenessLadder";
+import { RideCloakDetectionScoreboard } from "./RideCloakDetectionScoreboard";
+import { RideCloakComplianceDashboard } from "./RideCloakComplianceDashboard";
 
 /**
  * Component map handed to `<MDXRemote>`.
@@ -48,4 +51,7 @@ export const mdxComponents: MDXRemoteProps["components"] = {
   EdgarRiskReceipts,
   EdgarRiskScoreboard,
   EdgarRiskCohortComparator,
+  RideCloakUniquenessLadder,
+  RideCloakDetectionScoreboard,
+  RideCloakComplianceDashboard,
 };

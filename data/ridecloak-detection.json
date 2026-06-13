@@ -1,0 +1,126 @@
+{
+  "entities": [
+    {
+      "key": "EMAIL_ADDRESS",
+      "label": "Email address",
+      "kind": "learned",
+      "carries": "Presidio built-in",
+      "inDist": {
+        "p": 1.0,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 1.0,
+        "r": 1.0
+      }
+    },
+    {
+      "key": "PERSON",
+      "label": "Person name",
+      "kind": "learned",
+      "carries": "spaCy NER",
+      "inDist": {
+        "p": 0.9992,
+        "r": 0.9936
+      },
+      "heldOut": {
+        "p": 0.906,
+        "r": 0.982
+      }
+    },
+    {
+      "key": "LOCATION",
+      "label": "Location / address",
+      "kind": "mixed",
+      "carries": "NER names + street regex",
+      "inDist": {
+        "p": 0.9863,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 0.935,
+        "r": 0.317
+      }
+    },
+    {
+      "key": "PHONE_NUMBER",
+      "label": "Phone number",
+      "kind": "handwritten",
+      "carries": "custom regex",
+      "inDist": {
+        "p": 0.9994,
+        "r": 0.9988
+      },
+      "heldOut": {
+        "p": 1.0,
+        "r": 0.002
+      }
+    },
+    {
+      "key": "CREDIT_CARD",
+      "label": "Credit card",
+      "kind": "handwritten",
+      "carries": "custom regex",
+      "inDist": {
+        "p": 1.0,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 0.0,
+        "r": 0.0
+      }
+    },
+    {
+      "key": "NY_PLATE",
+      "label": "NY license plate",
+      "kind": "handwritten",
+      "carries": "custom regex",
+      "inDist": {
+        "p": 1.0,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 0.0,
+        "r": 0.0
+      }
+    },
+    {
+      "key": "TLC_LICENSE",
+      "label": "TLC license",
+      "kind": "handwritten",
+      "carries": "context recognizer",
+      "inDist": {
+        "p": 1.0,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 0.0,
+        "r": 0.0
+      }
+    },
+    {
+      "key": "VEHICLE_VIN",
+      "label": "Vehicle VIN",
+      "kind": "handwritten",
+      "carries": "custom regex",
+      "inDist": {
+        "p": 1.0,
+        "r": 1.0
+      },
+      "heldOut": {
+        "p": 0.0,
+        "r": 0.0
+      }
+    }
+  ],
+  "overall": {
+    "inDist": {
+      "p": 0.9974,
+      "r": 0.9977
+    },
+    "heldOut": {
+      "p": 0.948,
+      "r": 0.338
+    }
+  }
+}

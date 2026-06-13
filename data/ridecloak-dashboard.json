@@ -1,0 +1,76 @@
+{
+  "months": [
+    {
+      "month": "2026-01",
+      "health": 99.9487,
+      "rowsIn": 15245631,
+      "rowsOut": 15236553,
+      "suppression": 0.0027,
+      "uniquenessBorough": 0.0006
+    },
+    {
+      "month": "2026-02",
+      "health": 99.9916,
+      "rowsIn": 14166961,
+      "rowsOut": 14159190,
+      "suppression": 0.0026,
+      "uniquenessBorough": 0.0006
+    },
+    {
+      "month": "2026-03",
+      "health": 99.98,
+      "rowsIn": 15956175,
+      "rowsOut": 15947250,
+      "suppression": 0.0026,
+      "uniquenessBorough": 0.0006
+    },
+    {
+      "month": "2026-04",
+      "health": 99.9903,
+      "rowsIn": 15378858,
+      "rowsOut": 15370445,
+      "suppression": 0.0026,
+      "uniquenessBorough": 0.0006
+    }
+  ],
+  "kpis": {
+    "totalTripsIn": 60747625,
+    "avgHealth": 99.9777,
+    "avgSuppression": 0.00262,
+    "ledgerActions": 24
+  },
+  "ledger": {
+    "total": 24,
+    "commands": [
+      {
+        "command": "fetch",
+        "count": 4
+      },
+      {
+        "command": "synth",
+        "count": 1
+      },
+      {
+        "command": "validate",
+        "count": 5
+      },
+      {
+        "command": "classify",
+        "count": 1
+      },
+      {
+        "command": "risk",
+        "count": 5
+      },
+      {
+        "command": "export",
+        "count": 6
+      },
+      {
+        "command": "triage",
+        "count": 2
+      }
+    ],
+    "verified": true
+  }
+}

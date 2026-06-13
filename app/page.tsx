@@ -1,16 +1,10 @@
 import { AboutSection } from "@/components/AboutSection";
-import { ArticleCard } from "@/components/ArticleCard";
 import { ContactSection } from "@/components/ContactSection";
 import { DotGrid } from "@/components/DotGrid";
 import { Flagships } from "@/components/Flagships";
 import { GitHubLogo, LinkedInLogo } from "@/components/icons";
 import { MorphingNav } from "@/components/MorphingNav";
-import {
-  EdgarRiskVisual,
-  F1Visual,
-  FourthDownVisual,
-  MLBVisual,
-} from "@/components/projectVisuals";
+import { ProjectList } from "@/components/ProjectList";
 import { SectionHeader } from "@/components/SectionHeader";
 import { TechPhysics } from "@/components/TechPhysics";
 import { buildHomeSchema, schemaToJsonString } from "@/lib/schema";
@@ -105,7 +99,7 @@ export default function Home() {
           <SectionHeader
             number="01"
             title="Selected work"
-            meta="02 LIVE PRODUCTS"
+            meta="03 LIVE PRODUCTS"
           />
           <Flagships />
         </section>
@@ -115,51 +109,9 @@ export default function Home() {
           id="projects"
           className="mx-auto w-full max-w-6xl scroll-mt-20 px-6 py-8 sm:px-8 sm:py-12"
         >
-          <SectionHeader number="02" title="Projects" meta="04 PROJECTS" />
+          <SectionHeader number="02" title="Projects" meta="05 PROJECTS" />
 
-          <div className="flex flex-col gap-4">
-            <ArticleCard
-              index={0}
-              slug="edgar-risk"
-              title="Failing Companies Tell on Themselves in Their Annual Reports"
-              dateLabel="MAY 25 '26"
-              category="SEC · NLP · 10-K Analysis"
-              description="A model that reads what companies say about themselves in SEC filings catches 79% of bankruptcies across 24 cases. The 'false positives' include Nordstrom, Walgreens, Macy's, Kohl's, CVS, and Lucid Motors, all of whose decline didn't end in court."
-              tags={["python", "sklearn", "pandas", "nlp", "edgar"]}
-              visual={<EdgarRiskVisual />}
-            />
-            <ArticleCard
-              index={1}
-              slug="fourth-down"
-              title="Fourth Down Is Still Football's Biggest Coaching Problem"
-              dateLabel="APR 22 '26"
-              category="NFL · WPA · XGBoost"
-              description="107k decisions from 1999–2025, scored against historically optimal calls. Coaches still leave ~one free win on the table every year — and the conservative ones make most of their mistakes in the red zone."
-              tags={["python", "pandas", "numpy", "xgboost", "nflfastR"]}
-              visual={<FourthDownVisual />}
-            />
-            <ArticleCard
-              index={2}
-              slug="f1"
-              title="Who Is Actually the Best F1 Driver?"
-              subtitle="A Bayesian approach to separating skill from the car"
-              dateLabel="APR 18 '26"
-              category="F1 · Bayesian"
-              description="A hierarchical model on 2014–2025 race data decomposes finishing position into driver effect, car effect, and DNF risk. The result reveals the Verstappen Paradox — and Hamilton at the top with 85% confidence."
-              tags={["python", "pymc", "bayesian", "arviz", "fastf1"]}
-              visual={<F1Visual />}
-            />
-            <ArticleCard
-              index={3}
-              slug="mlb-pitcher-height-velocity"
-              title="Why Height Doesn't Predict Velocity in Major League Baseball"
-              dateLabel="MAY 13 '25"
-              category="MLB · Regression"
-              description="Physics says taller pitchers should throw harder. The data says they don't. The story is selection bias: by the time you reach MLB, the relationship that dominates youth ball has been compressed away by survival."
-              tags={["python", "sklearn", "pandas", "numpy", "statcast"]}
-              visual={<MLBVisual />}
-            />
-          </div>
+          <ProjectList />
         </section>
 
         {/* / 03 — Tech & skills (physics playground) */}

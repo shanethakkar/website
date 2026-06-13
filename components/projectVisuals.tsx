@@ -603,3 +603,127 @@ export function EdgarRiskVisual() {
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* RideCloak — trip uniqueness collapses as location coarsens          */
+/* ------------------------------------------------------------------ */
+
+// The article's headline finding as a descending staircase: ~90% of a
+// month's trips are unique at zone + minute, falling to ~0.06% once the
+// location is rolled up to whole boroughs. Values are the full-month
+// (Apr 2026) figures from the pipeline's uniqueness ladder.
+const RIDECLOAK_BARS = [
+  { label: "ZONE", v: 0.9008 },
+  { label: "×15", v: 0.4605 },
+  { label: "×60", v: 0.216 },
+  { label: "BORO", v: 0.0006 },
+];
+
+export function RideCloakVisual() {
+  const ref = useRef<SVGSVGElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+
+  const W = 320;
+  const H = 88;
+  const pad = { top: 16, right: 12, bottom: 16, left: 30 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+  const baseline = H - pad.bottom;
+  const slot = plotW / RIDECLOAK_BARS.length;
+  const barW = slot * 0.5;
+
+  return (
+    <svg
+      ref={ref}
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      className="h-full w-full"
+      aria-label="Trip uniqueness collapsing from 90% at zone-and-minute granularity to 0.06% at the borough level."
+    >
+      <defs>
+        <linearGradient id="rc-bar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#67e8f9" stopOpacity="0.95" />
+          <stop offset="100%" stopColor="#22d3ee" stopOpacity="0.5" />
+        </linearGradient>
+      </defs>
+
+      {/* Baseline */}
+      <line
+        x1={pad.left}
+        y1={baseline}
+        x2={W - pad.right}
+        y2={baseline}
+        stroke="rgba(255,255,255,0.12)"
+        strokeWidth={1}
+      />
+
+      {RIDECLOAK_BARS.map((b, i) => {
+        const h = Math.max(b.v * plotH, 0.8);
+        const x = pad.left + slot * i + (slot - barW) / 2;
+        const top = baseline - h;
+        const isFirst = i === 0;
+        const isLast = i === RIDECLOAK_BARS.length - 1;
+        return (
+          <g key={b.label}>
+            <motion.rect
+              x={x}
+              width={barW}
+              rx={1.5}
+              fill="url(#rc-bar)"
+              initial={{ y: baseline, height: 0 }}
+              animate={inView ? { y: top, height: h } : {}}
+              transition={{
+                duration: 0.8,
+                delay: 0.2 + i * 0.12,
+                ease: [0.21, 0.47, 0.32, 0.98],
+              }}
+            />
+            {/* Value labels on the endpoints */}
+            {(isFirst || isLast) && (
+              <motion.text
+                x={x + barW / 2}
+                y={top - 4}
+                textAnchor="middle"
+                fill="rgba(103, 232, 249, 0.95)"
+                fontSize="9"
+                fontFamily="var(--font-mono), monospace"
+                letterSpacing="0.04em"
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.9 + i * 0.12 }}
+              >
+                {isFirst ? "90%" : "0.06%"}
+              </motion.text>
+            )}
+            {/* Granularity label under each bar */}
+            <text
+              x={x + barW / 2}
+              y={H - 4}
+              textAnchor="middle"
+              fill="rgba(139,138,131,0.65)"
+              fontSize="7.5"
+              fontFamily="var(--font-mono), monospace"
+              letterSpacing="0.06em"
+            >
+              {b.label}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Y-axis title */}
+      <text
+        x={10}
+        y={pad.top + plotH / 2}
+        textAnchor="middle"
+        transform={`rotate(-90, 10, ${pad.top + plotH / 2})`}
+        fill="rgba(139,138,131,0.65)"
+        fontSize="8"
+        fontFamily="var(--font-mono), monospace"
+        letterSpacing="0.18em"
+      >
+        UNIQUE %
+      </text>
+    </svg>
+  );
+}
