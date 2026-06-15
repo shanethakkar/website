@@ -30,7 +30,7 @@ interface Project {
 const PROJECTS: readonly Project[] = [
   {
     slug: "ridecloak",
-    title: "I Built the Missing Piece of the Uber Surveillance Fight",
+    title: "I Built the Missing Piece of the Ride-Hail Data Fight",
     category: "Privacy · Regulated Data · DuckDB",
     dateLabel: "JUN 12 '26",
     description:

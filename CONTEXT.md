@@ -121,7 +121,7 @@
 
 | Title | Published | Key Topics |
 |---|---|---|
-| I Built the Missing Piece of the Uber Surveillance Fight | Jun 12, 2026 | Privacy, k-anonymity, DuckDB out-of-core, Presidio + spaCy NER PII detection, in-dist vs held-out generalization, guardrailed LLM agent, hash-chained ledger |
+| I Built the Missing Piece of the Ride-Hail Data Fight | Jun 12, 2026 | Privacy, k-anonymity, DuckDB out-of-core, Presidio + spaCy NER PII detection, in-dist vs held-out generalization, guardrailed LLM agent, hash-chained ledger |
 | Failing Companies Tell on Themselves in Their Annual Reports | May 25, 2026 | SEC 10-K NLP, TF-IDF novelty, peer-relative scoring, distress detection |
 | Fourth Down Is Still Football's Biggest Coaching Problem | Apr 22, 2026 | WPA, coach grading, XGBoost, NFL 1999–2025 |
 | Who Is Actually the Best F1 Driver? A Bayesian Approach to Separating Skill from the Car | Apr 18, 2026 | Bayesian hierarchical model, PyMC, FastF1, 2014–2025 |
