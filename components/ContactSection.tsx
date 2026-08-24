@@ -66,7 +66,7 @@ export function ContactSection() {
         </h3>
         <p className="max-w-xl text-[16px] leading-[1.6] text-fg-muted">
           Happy to connect about projects, ideas, or interesting problems in
-          analytics, ML, data science, and BI.
+          analytics, ML, AI, data science, and BI.
         </p>
         <div className="mt-2 flex flex-wrap gap-3">
           <a
