@@ -79,9 +79,8 @@ export function AboutSection() {
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
           My work spans advanced statistical modeling, predictive analytics,
-          and building production-grade tools. Currently seeking full-time
-          opportunities in Data Science, Analytics, and Machine Learning
-          where I can apply technical skills to solve complex problems.
+          and building production-grade tools that turn data into decisions
+          people can act on.
         </p>
       </div>
 

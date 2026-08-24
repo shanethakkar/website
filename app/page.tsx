@@ -30,11 +30,6 @@ export default function Home() {
 
         {/* Hero */}
         <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-24 sm:px-8 sm:pb-24 sm:pt-32">
-          <div className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent-border bg-accent-soft px-3.5 py-1.5 font-mono text-[10.5px] tracking-[0.14em] text-accent-bright">
-            <span className="pulse-dot inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-            AVAILABLE — ACTIVELY INTERVIEWING
-          </div>
-
           <h1 className="text-[clamp(56px,9vw,112px)] font-medium leading-[0.95] tracking-[-0.035em] text-fg-bright">
             Shane Thakkar
           </h1>

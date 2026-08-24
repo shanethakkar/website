@@ -83,23 +83,6 @@ body {
   color: var(--color-fg-muted);
 }
 
-/* Pulsing dot used in status pill */
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(1.4);
-  }
-}
-
-.pulse-dot {
-  animation: pulse-dot 1.8s ease-in-out infinite;
-}
-
 /* Card — neutral.
  * Mostly-solid dark surface with a soft top-to-bottom gradient for richness,
  * an inset top-edge highlight (light catching the top edge), an inset bottom

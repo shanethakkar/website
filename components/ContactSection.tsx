@@ -61,13 +61,12 @@ export function ContactSection() {
         className="flex flex-col gap-6"
       >
         <h3 className="text-[clamp(36px,5vw,52px)] font-medium leading-[1.05] tracking-[-0.025em] text-fg-bright">
-          Open to the next{" "}
+          Always up for the next{" "}
           <span className="text-accent-bright">problem worth solving.</span>
         </h3>
         <p className="max-w-xl text-[16px] leading-[1.6] text-fg-muted">
-          Exploring full-time roles in analytics, ML, data science, and BI.
-          Always happy to connect about projects, ideas, or interesting
-          problems.
+          Happy to connect about projects, ideas, or interesting problems in
+          analytics, ML, data science, and BI.
         </p>
         <div className="mt-2 flex flex-wrap gap-3">
           <a

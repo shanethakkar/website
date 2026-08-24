@@ -23,7 +23,7 @@
 | Graduated | May 2026 |
 | Based | Dallas, Texas (Frisco area) |
 | Phone | 469-989-3585 |
-| Status | Actively interviewing, available immediately |
+| Status | Employed |
 | Email | shane.thakkar@gmail.com |
 | LinkedIn | /in/shanethakkar |
 | GitHub | @shanethakkar |
@@ -239,6 +239,7 @@
 | 2026-05-16 | Twitter handle removed everywhere | Shane has no X account. Removed from `layout.tsx` `twitter.creator`, from JSON-LD Person `sameAs`, and from per-article `twitter.creator`. Twitter Card meta tags (`summary_large_image`) stay — they control unfurls on Slack / Discord / iMessage and don't claim a handle. **CONTEXT.md and HANDOFF.md text references to `@shanethakkar` Twitter are stale; don't re-add.** |
 | 2026-05-18 | Hero role label swapped: `DATA ANALYST · UT DALLAS '26` → `DATA · AI · ML` | Shane: "I want something more powerful than analyst" + drop the school framing now that he's graduated. Updated in 5 places: hero tagline (`app/page.tsx`), nav wordmark tail (`MorphingNav.tsx`), browser/SERP title + OG title (`app/layout.tsx`), OG card subtitle + alt (`app/opengraph-image.tsx`). JSON-LD Person `jobTitle` bumped to `"Data Scientist"` (schema.org requires a real title; literal `"Data · AI · ML"` is malformed there). School credential still lives in About Quick Facts + JSON-LD `alumniOf` for SEO. |
 | 2026-06-12 | Added the **RideCloak** article (`content/articles/ridecloak.mdx`, slug `ridecloak`) — privacy-safe regulated trip-data pipeline. Three native interactive components: `RideCloakUniquenessLadder` (dev/month scope toggle), `RideCloakDetectionScoreboard` (in-distribution vs held-out PII toggle), `RideCloakComplianceDashboard` (4-month KPIs + ledger). Data extracted from the sibling `ride-cloak` repo's `outputs/dashboard/*.csv` via `scripts/extract-ridecloak-data.py` → `data/ridecloak-*.json`. Homepage card + `RideCloakVisual` mini-chart added; Projects section count bumped `04 → 05`. **Doc-staleness corrected:** the §8.1 checklist says edit `app/page.tsx` inline for article cards, but the Projects list now lives in `components/ProjectList.tsx` (the `PROJECTS` array, newest first; `VISIBLE_COUNT = 3`, rest behind "view more"). §4 table was also stale (missing edgar-risk) — both added. Source repo public + `repo:` frontmatter pill deferred until Shane makes the GitHub repo public. |
+| 2026-08-23 | Shane found a job — no longer actively interviewing | §1 Status field updated to "Employed." Live site also updated: hero status pill removed entirely (`app/page.tsx`, plus its now-unused `.pulse-dot` keyframe in `app/globals.css`); About bio's "Currently seeking full-time opportunities..." line reworded (`AboutSection.tsx`); Contact headline/subhead reworded to drop "Exploring full-time roles" framing (`ContactSection.tsx`). |
 
 ---
 
