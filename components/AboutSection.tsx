@@ -72,15 +72,15 @@ export function AboutSection() {
           Hi, I&rsquo;m Shane.
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
-          Recent Business Analytics &amp; AI graduate with a strong
-          foundation in machine learning and data analytics. I build
-          end-to-end data solutions, from data processing and modeling to
-          deploying live applications that deliver real insights.
+          AI and automation builder working with Highgate Hotels&rsquo;
+          acquisitions team, developing tools that support deal evaluation
+          and reduce manual work across the deal pipeline.
         </p>
         <p className="text-[16px] leading-[1.65] text-fg-muted">
-          My work spans advanced statistical modeling, predictive analytics,
-          and building production-grade tools that turn data into decisions
-          people can act on.
+          Full stack across Python, SQL, TypeScript, and Next.js, from data
+          pipelines through production deployment. Outside of Highgate, I
+          build independent projects in sports analytics, prediction
+          markets, and applied machine learning.
         </p>
       </div>
 
