@@ -94,7 +94,7 @@ export default function Home() {
           <SectionHeader
             number="01"
             title="Selected work"
-            meta="03 LIVE PRODUCTS"
+            meta="01 LIVE PRODUCT"
           />
           <Flagships />
         </section>

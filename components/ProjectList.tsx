@@ -25,8 +25,7 @@ interface Project {
 
 /** Source of truth for the Projects section, newest first. The first
  * VISIBLE_COUNT render immediately; the rest sit behind the "view more"
- * toggle so the page doesn't run long now that there are three flagships
- * above it. */
+ * toggle so the page doesn't run long below the flagship above it. */
 const PROJECTS: readonly Project[] = [
   {
     slug: "ridecloak",

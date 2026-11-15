@@ -15,9 +15,8 @@ full MDX-driven article system at `/articles/<slug>`.
 
 Subdomain `nfl-grades.shanethakkar.com` is a **separate repo**
 (not this one) — the portfolio just links to it and re-displays its top
-players per position via hardcoded data in `NflGradesCard.tsx`. A second
-flagship, Venue Insights (`venue-insights.shanethakkar.com`), is shown
-alongside it via `VenueInsightsCard.tsx`; both are stacked by `Flagships.tsx`.
+players per position via hardcoded data in `NflGradesCard.tsx`, rendered
+by `Flagships.tsx`.
 
 Stack: **Next.js 16.2.6 (App Router) + TypeScript + Tailwind v4 + MDX
 + Framer Motion + Vercel Analytics**, deployed on Vercel.
